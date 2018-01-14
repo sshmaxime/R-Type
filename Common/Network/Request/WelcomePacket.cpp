@@ -4,11 +4,6 @@
 
 #include "WelcomePacket.h"
 
-std::string             WelcomePacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     WelcomePacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -27,3 +22,9 @@ void                    WelcomePacket::setUsername(const std::string& newUsernam
     this->_Username = newUsername;
     _JSON.emplace("username", this->_Username);
 }
+
+std::string             WelcomePacket::getUsername() const
+{
+    return (this->_Username);
+}
+

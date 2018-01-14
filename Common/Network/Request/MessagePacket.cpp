@@ -4,11 +4,6 @@
 
 #include "MessagePacket.h"
 
-std::string             MessagePacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     MessagePacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -33,4 +28,14 @@ void                    MessagePacket::setMessage(const std::string& newMessage)
 {
     this->_Message = newMessage;
     _JSON.emplace("message", this->_Message);
+}
+
+std::string             MessagePacket::getUsername() const
+{
+    return (this->_Username);
+}
+
+std::string             MessagePacket::getMessage() const
+{
+    return (this->_Message);
 }

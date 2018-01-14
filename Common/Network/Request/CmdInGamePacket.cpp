@@ -4,11 +4,6 @@
 
 #include "CmdInGamePacket.h"
 
-std::string             CmdInGamePacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     CmdInGamePacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -30,7 +25,7 @@ void                    CmdInGamePacket::setCommand(const std::string& newComman
     _JSON.emplace("command", this->_Command);
 }
 
-void                    CmdInGamePacket::setCmmandContent(const std::string& newCommandContent)
+void                    CmdInGamePacket::setCommandContent(const std::string& newCommandContent)
 {
     this->_CommandContent = newCommandContent;
     _JSON.emplace("commandContent", this->_CommandContent);
@@ -40,4 +35,19 @@ void                    CmdInGamePacket::setUsername(const std::string& newUsern
 {
     this->_Username = newUsername;
     _JSON.emplace("username", this->_Username);
+}
+
+std::string             CmdInGamePacket::getUsername() const
+{
+    return (this->_Username);
+}
+
+std::string             CmdInGamePacket::getCommand() const
+{
+    return (this->_Command);
+}
+
+std::string             CmdInGamePacket::getCommandContent() const
+{
+    return (this->_CommandContent);
 }

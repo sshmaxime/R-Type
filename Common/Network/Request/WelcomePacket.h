@@ -10,17 +10,19 @@
 class WelcomePacket : public JSONObject{
 public:
     WelcomePacket()                 {__HEADER__ = "0x0";};
-    ~WelcomePacket()                {};
+    ~WelcomePacket()                = default;
 
 private:
     std::string                     _Username;
 
 public:
+    int                             buildObjectFromJSON(const std::string&) override;
+
+public:
     void                            setUsername(const std::string&);
 
 public:
-    int                             buildObjectFromJSON(const std::string&);
-    std::string                     getJSON();
+    std::string                     getUsername() const;
 };
 
 

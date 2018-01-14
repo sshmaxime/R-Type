@@ -5,23 +5,24 @@
 #ifndef R_TYPE_CMDSHOTPACKET_H
 #define R_TYPE_CMDSHOTPACKET_H
 
-
 #include "Request.h"
 
 class CmdShotPacket : public JSONObject{
 public:
     CmdShotPacket()                 {__HEADER__ = "1x2";}
-    ~CmdShotPacket()                {}
+    ~CmdShotPacket()                = default;
 
 private:
     std::string                     _Username;
 
 public:
-    int                             buildObjectFromJSON(const std::string&);
-    std::string                     getJSON();
+    int                             buildObjectFromJSON(const std::string&) override;
 
 public:
     void                            setUsername(const std::string&);
+
+public:
+    std::string                     getUsername() const;
 };
 
 

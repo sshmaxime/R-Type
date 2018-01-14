@@ -4,11 +4,6 @@
 
 #include "CmdMovePacket.h"
 
-std::string             CmdMovePacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     CmdMovePacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -33,4 +28,14 @@ void                    CmdMovePacket::setCommand(const std::string& newCommand)
 {
     this->_Command = newCommand;
     _JSON.emplace("command", this->_Command);
+}
+
+std::string             CmdMovePacket::getUsername() const
+{
+    return (this->_Username);
+}
+
+std::string             CmdMovePacket::getCommand() const
+{
+    return (this->_Command);
 }

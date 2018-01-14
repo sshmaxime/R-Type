@@ -4,11 +4,6 @@
 
 #include "CmdLobbyPacket.h"
 
-std::string             CmdLobbyPacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     CmdLobbyPacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -33,4 +28,14 @@ void                    CmdLobbyPacket::setCommand(const std::string& newCommand
 {
     this->_Command = newCommand;
     _JSON.emplace("command", this->_Command);
+}
+
+std::string             CmdLobbyPacket::getUsername() const
+{
+    return (this->_Username);
+}
+
+std::string             CmdLobbyPacket::getCommand() const
+{
+    return (this->_Command);
 }

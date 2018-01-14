@@ -20,7 +20,7 @@ public:
 
 public:
     virtual int                     buildObjectFromJSON(const std::string&) = 0;
-    virtual std::string             getJSON() = 0;
+    std::string                     getJSON();
 
     friend  std::ostream& operator<< (std::ostream &out, const JSONObject&);
 

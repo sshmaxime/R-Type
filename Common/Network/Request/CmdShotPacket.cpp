@@ -4,12 +4,6 @@
 
 #include "CmdShotPacket.h"
 
-
-std::string             CmdShotPacket::getJSON()
-{
-    return (_JSON.dump(-1));
-}
-
 int                     CmdShotPacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
@@ -29,3 +23,7 @@ void                    CmdShotPacket::setUsername(const std::string& newUsernam
     _JSON.emplace("username", this->_Username);
 }
 
+std::string             CmdShotPacket::getUsername() const
+{
+    return (this->_Username);
+}

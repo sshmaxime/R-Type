@@ -10,7 +10,7 @@
 class CmdInGamePacket : public JSONObject{
 public:
     CmdInGamePacket()               {__HEADER__ = "1x0";}
-    ~CmdInGamePacket()              {}
+    ~CmdInGamePacket()              = default;
 
 private:
     std::string                     _Username;
@@ -18,13 +18,17 @@ private:
     std::string                     _CommandContent;
 
 public:
-    int                             buildObjectFromJSON(const std::string&);
-    std::string                     getJSON();
+    int                             buildObjectFromJSON(const std::string&) override;
 
 public:
-    void                            setCommand(const std::string&);
-    void                            setCmmandContent(const std::string&);
     void                            setUsername(const std::string&);
+    void                            setCommand(const std::string&);
+    void                            setCommandContent(const std::string&);
+
+public:
+    std::string                     getUsername() const;
+    std::string                     getCommand() const;
+    std::string                     getCommandContent() const;
 };
 
 

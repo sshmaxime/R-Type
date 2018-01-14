@@ -10,19 +10,22 @@
 class CmdMovePacket : public JSONObject{
 public:
     CmdMovePacket()                 {__HEADER__ = "1x1";}
-    ~CmdMovePacket()                {}
+    ~CmdMovePacket()                = default;
 
 private:
     std::string                     _Username;
     std::string                     _Command;
 
 public:
-    int                             buildObjectFromJSON(const std::string&);
-    std::string                     getJSON();
+    int                             buildObjectFromJSON(const std::string&) override;
 
 public:
     void                            setCommand(const std::string&);
     void                            setUsername(const std::string&);
+
+public:
+    std::string                     getCommand() const;
+    std::string                     getUsername() const;
 };
 
 

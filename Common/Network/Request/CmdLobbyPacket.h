@@ -10,19 +10,22 @@
 class CmdLobbyPacket : public JSONObject{
 public:
     CmdLobbyPacket()                {__HEADER__ = "0x2";}
-    ~CmdLobbyPacket()               {}
+    ~CmdLobbyPacket()               = default;
 
 private:
     std::string                     _Username;
     std::string                     _Command;
 
 public:
-int                                 buildObjectFromJSON(const std::string&);
-std::string                         getJSON();
+int                                 buildObjectFromJSON(const std::string&) override;
 
 public:
-    void                            setCommand(const std::string&);
     void                            setUsername(const std::string&);
+    void                            setCommand(const std::string&);
+
+public:
+    std::string                     getUsername() const;
+    std::string                     getCommand() const;
 };
 
 

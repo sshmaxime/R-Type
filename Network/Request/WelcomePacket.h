@@ -9,7 +9,7 @@
 
 class WelcomePacket : public JSONObject{
 public:
-    WelcomePacket()                 {};
+    WelcomePacket()                 {__HEADER__ = "0x0";};
     ~WelcomePacket()                {};
 
 private:

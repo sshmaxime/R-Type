@@ -13,6 +13,7 @@ using JSON = nlohmann::json;
 class JSONObject {
 protected:
     JSON                            _JSON;
+    std::string                     __HEADER__;
 
 public:
     virtual int                     buildObjectFromJSON(const std::string&) = 0;

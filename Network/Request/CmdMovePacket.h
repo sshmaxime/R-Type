@@ -1,21 +1,20 @@
 //
-// Created by sshsupreme on 10/01/18.
+// Created by sshsupreme on 14/01/18.
 //
 
-#ifndef R_TYPE_CMDINGAME_H
-#define R_TYPE_CMDINGAME_H
+#ifndef R_TYPE_CMDMOVEPACKET_H
+#define R_TYPE_CMDMOVEPACKET_H
 
 #include "Request.h"
 
-class CmdInGamePacket : public JSONObject{
+class CmdMovePacket : public JSONObject{
 public:
-    CmdInGamePacket()               {__HEADER__ = "1x0";}
-    ~CmdInGamePacket()              {}
+    CmdMovePacket()                 {__HEADER__ = "1x1";}
+    ~CmdMovePacket()                {}
 
 private:
     std::string                     _Username;
     std::string                     _Command;
-    std::string                     _CommandContent;
 
 public:
     int                             buildObjectFromJSON(const std::string&);
@@ -23,9 +22,9 @@ public:
 
 public:
     void                            setCommand(const std::string&);
-    void                            setCmmandContent(const std::string&);
     void                            setUsername(const std::string&);
 };
 
 
-#endif //R_TYPE_CMDINGAME_H
+
+#endif //R_TYPE_CMDMOVEPACKET_H

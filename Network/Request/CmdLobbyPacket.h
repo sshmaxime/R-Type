@@ -9,7 +9,7 @@
 
 class CmdLobbyPacket : public JSONObject{
 public:
-    CmdLobbyPacket()                {}
+    CmdLobbyPacket()                {__HEADER__ = "0x2";}
     ~CmdLobbyPacket()               {}
 
 private:

@@ -10,7 +10,7 @@
 
 class MessagePacket : public JSONObject {
 public:
-    MessagePacket()                 {}
+    MessagePacket()                 {__HEADER__ = "0x1";}
     ~MessagePacket()                {}
 
 private:

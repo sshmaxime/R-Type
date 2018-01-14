@@ -9,16 +9,20 @@
 
 class CmdLobbyPacket : public JSONObject{
 public:
-    CmdLobbyPacket();
-    ~CmdLobbyPacket();
+    CmdLobbyPacket()                {}
+    ~CmdLobbyPacket()               {}
 
 private:
-    std::string                     _Username = NULL;
-    std::string                     _Command = NULL;
+    std::string                     _Username;
+    std::string                     _Command;
 
 public:
 int                                 buildObjectFromJSON(const std::string&);
-std::string                         buildJSONFromObject();
+std::string                         getJSON();
+
+public:
+    void                            setCommand(const std::string&);
+    void                            setUsername(const std::string&);
 };
 
 

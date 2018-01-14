@@ -4,26 +4,26 @@
 
 #include "WelcomePacket.h"
 
-std::string             WelcomePacket::buildJSONFromObject()
+std::string             WelcomePacket::getJSON()
 {
-    json                newJSON;
-
-    newJSON.emplace("username", this->_Username);
-    return (newJSON.dump(-1));
+    return (_JSON.dump(-1));
 }
 
 int                     WelcomePacket::buildObjectFromJSON(const std::string& JSONString)
 {
-    std::string         Username;
-
     try {
-        json j = json::parse(JSONString);
+        _JSON = JSON::parse(JSONString);
 
-        Username = j.at("username");
-    } catch (std::exception exception) {
+        this->_Username = _JSON.at("username");
+    } catch (std::exception &exception) {
         std::cout << "Error Parsing WelcomePacket" << std::endl;
         return (-1);
     }
-    this->_Username = Username;
     return (0);
+}
+
+void                    WelcomePacket::setUsername(const std::string& newUsername)
+{
+    this->_Username = newUsername;
+    _JSON.emplace("username", this->_Username);
 }

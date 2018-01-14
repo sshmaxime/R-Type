@@ -13,11 +13,14 @@ public:
     ~WelcomePacket()                {};
 
 private:
-    std::string                     _Username = NULL;
+    std::string                     _Username;
+
+public:
+    void                            setUsername(const std::string&);
 
 public:
     int                             buildObjectFromJSON(const std::string&);
-    std::string                     buildJSONFromObject();
+    std::string                     getJSON();
 };
 
 

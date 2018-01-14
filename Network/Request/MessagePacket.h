@@ -10,17 +10,20 @@
 
 class MessagePacket : public JSONObject {
 public:
-    MessagePacket();
-    ~MessagePacket();
+    MessagePacket()                 {}
+    ~MessagePacket()                {}
 
 private:
-    std::string                     _Message = NULL;
-    std::string                     _Username= NULL;
+    std::string                     _Message;
+    std::string                     _Username;
 
 public:
     int                             buildObjectFromJSON(const std::string&);
-    std::string                     buildJSONFromObject();
+    std::string                     getJSON();
 
+public:
+    void                            setMessage(const std::string&);
+    void                            setUsername(const std::string&);
 };
 
 

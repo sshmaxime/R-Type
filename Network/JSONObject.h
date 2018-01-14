@@ -16,12 +16,15 @@ protected:
     std::string                     __HEADER__;
 
 public:
+    std::string                     getHEADER();
+
+public:
     virtual int                     buildObjectFromJSON(const std::string&) = 0;
     virtual std::string             getJSON() = 0;
 
+    friend  std::ostream& operator<< (std::ostream &out, const JSONObject&);
 
-public:
-    void                            BeautifulPrint();
 };
+
 
 #endif //R_TYPE_JSONOBJECT_H

@@ -4,7 +4,13 @@
 
 #include "JSONObject.h"
 
-void                                JSONObject::BeautifulPrint()
+std::ostream &operator<<(std::ostream &out, const JSONObject &obj)
 {
-    std::cout << _JSON.dump(2) << std::endl;
+    out << obj._JSON.dump(2);
+    return out;
+}
+
+std::string JSONObject::getHEADER()
+{
+    return (this->__HEADER__);
 }

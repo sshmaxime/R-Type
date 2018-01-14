@@ -5,6 +5,6 @@
 #ifndef R_TYPE_REQUEST_H
 #define R_TYPE_REQUEST_H
 
-#include "../JSONObject.h"
+#include "../../JSON/JSONObject.h"
 
 #endif //R_TYPE_REQUEST_H

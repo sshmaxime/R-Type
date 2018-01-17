@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     }
 
     boost::asio::io_service io_service;
-    Server s(io_service, std::atoi(argv[1]));
+    Server s(io_service, 9999);
     io_service.run();
   }
   catch (std::exception& e)

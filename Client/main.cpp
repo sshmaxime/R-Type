@@ -1,31 +1,13 @@
-#include "User.hpp"
+#include "Client.h"
 
 using boost::asio::ip::udp;
 
-int main(int argc, char* argv[])
+int                 main()
 {
-  try
-  {
-    if (argc != 3)
-    {
-      std::cerr << "Usage: blocking_udp_echo_client <host> <port>\n";
-      return 1;
-    }
+    Client          myClient;
 
-    boost::asio::io_service io_service;
-		User	user(io_service, argv[1], argv[2]);
+    myClient.Initialize("127.0.0.1", 9999);
+    myClient.Run();
 
-		user.Send_Message_Login();
-		user.Receive_Message();
-		while (1)
-		{
-			user.Send_Message();
-			user.Receive_Message();
-		}
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "Exception: " << e.what() << "\n";
-  }
-  return 0;
+    return (0);
 }

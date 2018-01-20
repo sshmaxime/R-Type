@@ -1,0 +1,49 @@
+cmake_minimum_required(VERSION 3.9)
+project(GameEngine)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(GameEngine
+        Behaviour/Behaviour.cpp
+        Behaviour/Behaviour.h
+        Component/Component.cpp
+        Component/Component.hpp
+        Entity/Entity.hpp
+        Input/Input.cpp
+        Input/Input.h
+        InputManager/InputManager.h
+        InputManagerSFML/InputManagerSFML.cpp
+        InputManagerSFML/InputManagerSFML.h
+        IRenderer/IRenderer.hpp
+        IWindow/IWindow.hpp
+        PhysicsEngine/PhysicsEngine.cpp
+        PhysicsEngine/PhysicsEngine.h
+        RessourceManager/cmake-build-debug/config.h
+        RessourceManager/IAudio.hpp
+        RessourceManager/IFont.hpp
+        RessourceManager/ITexture.hpp
+        RessourceManager/main.cpp
+        RessourceManager/RessourceManager.cpp
+        RessourceManager/RessourceManager.hpp
+        RessourceManager/sfmlAudio.cpp
+        RessourceManager/sfmlAudio.hpp
+        RessourceManager/sfmlFont.cpp
+        RessourceManager/sfmlFont.hpp
+        RessourceManager/SfmlRenderer.cpp
+        RessourceManager/SfmlRenderer.hpp
+        RessourceManager/sfmlTexture.cpp
+        RessourceManager/sfmlTexture.hpp
+        RessourceManager/SfmlWindow.cpp
+        RessourceManager/SfmlWindow.hpp
+        Scene/Scene.cpp
+        Scene/Scene.hpp
+        Sprite/Sprite.cpp
+        Sprite/Sprite.hpp
+        Transform/Transform.cpp
+        Transform/Transform.h
+        Vector2/Vector2.cpp
+        Vector2/Vector2.hpp
+        r_type.cpp
+        TacosEngine.cpp
+        TacosEngine.h
+        TestInput.h)

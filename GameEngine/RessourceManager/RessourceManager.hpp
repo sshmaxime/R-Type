@@ -25,6 +25,21 @@ namespace TacosEngine
     void init(const std::string &path);
     void destroy();
 
+	IFont	*getFont(const std::string &name)
+	{
+		return _fonts[name];
+	}
+
+	IAudio	*getAudio(const std::string &name)
+	{
+		return _audios[name];
+	}
+
+	ITexture	*getTexture(const std::string &name)
+	{
+		return _textures[name];
+	}
+
    private:
     std::map<std::string, IFont*> _fonts;
     std::map<std::string, IAudio*> _audios;
@@ -37,20 +52,21 @@ namespace TacosEngine
       std::string key(" ");
 
       while (true)
-	{
-	  I elem = new T;
+		{
+		  I elem = new T;
 
-	  std::getline(input, key, ':'); //Read up to the : delimiter into key
-	  std::getline(input, value, '\n'); // Read up to the new line into value
-	  if (value == "/")
-	    break;
-	  if (elem->load(value))
-	    {
-	      std::cout << "load " << key << ":" << value << std::endl;
-	      type.insert(std::make_pair(value, elem));
-	    }
-	}
+		  std::getline(input, key, ':'); //Read up to the : delimiter into key
+		  std::getline(input, value, '\n'); // Read up to the new line into value
+		  if (value == "/")
+			break;
+		  if (elem->load(value))
+			{
+			  std::cout << "load " << key << ":" << value << std::endl;
+			  type.insert(std::make_pair(value, elem));
+			}
+		}
     }
+
   };
 }
 

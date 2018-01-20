@@ -6,7 +6,7 @@
 #define RESSOURCEMANAGER_SFMLAUDIO_HPP
 
 
-#include <SFML/Audio.hpp>
+#include <SFML\Audio.hpp>
 #include <memory>
 #include "IAudio.hpp"
 

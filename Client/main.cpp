@@ -8,7 +8,6 @@ int                 main()
 
     myClient.Initialize("127.0.0.1", 9999);
     myClient.Run();
-    myClient.Delete();
 
     return (0);
 }

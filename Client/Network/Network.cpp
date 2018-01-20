@@ -38,7 +38,6 @@ int                     Network::Send(JSONObject& toSend)
     try {
         _Socket->send_to(boost::asio::buffer(JSONtoString), _Endpoint);
     } catch (std::exception& exception) {
-        //TODO: Est-ce qu'on check le retour vu que c'est de l'UDP ?
         std::cout << exception.what() << std::endl;
     }
 
@@ -47,15 +46,8 @@ int                     Network::Send(JSONObject& toSend)
 
 int                     Network::Run()
 {
-    WelcomePacket       a;
-
-    a.setUsername("maxime");
-
-    while (true)
-    {
-        sleep(1);
-        Send(a);
-    }
+    // Do whatever we want to
+    this->Delete();
     return 0;
 }
 

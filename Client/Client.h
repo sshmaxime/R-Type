@@ -5,7 +5,7 @@
 #ifndef R_TYPE_CLIENT_H
 #define R_TYPE_CLIENT_H
 
-#include "Network/Network.h"
+#include "Network/CNetwork.h"
 
 class Client {
 public:
@@ -13,7 +13,7 @@ public:
     ~Client()               = default;
 
 private:
-    Network                 _Network;
+    CNetwork                 _Network;
 
 public:
     int                     Initialize(const std::string&, int);

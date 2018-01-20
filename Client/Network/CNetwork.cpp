@@ -4,9 +4,9 @@
 
 #include <iostream>
 #include <MessagePacket.h>
-#include "Network.h"
+#include "CNetwork.h"
 
-int                     Network::Initialize(const std::string &ip, int port)
+int                     CNetwork::Initialize(const std::string &ip, int port)
 {
     try {
         _Endpoint = udp::endpoint(boost::asio::ip::address_v4::from_string(ip.c_str()), port);
@@ -15,7 +15,7 @@ int                     Network::Initialize(const std::string &ip, int port)
 
         _Socket->async_receive_from(
                 boost::asio::buffer(_DATA, max_length), _SenderEndpoint,
-                boost::bind(&Network::handleReceive, this,
+                boost::bind(&CNetwork::handleReceive, this,
                             boost::asio::placeholders::error,
                             boost::asio::placeholders::bytes_transferred));
     } catch (std::exception &exception) {
@@ -25,12 +25,12 @@ int                     Network::Initialize(const std::string &ip, int port)
     return 0;
 }
 
-void                    Network::handleReceive(const boost::system::error_code &error, size_t bytes)
+void                    CNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
     std::cout << std::string(_DATA.c_array()) << std::endl;
 }
 
-int                     Network::Send(JSONObject& toSend)
+int                     CNetwork::Send(JSONObject& toSend)
 {
     std::string         JSONtoString = toSend.getHEADER() + toSend.getJSON();
 
@@ -44,7 +44,7 @@ int                     Network::Send(JSONObject& toSend)
     return (0);
 }
 
-Network::~Network()
+CNetwork::~CNetwork()
 {
     delete _Socket;
 }

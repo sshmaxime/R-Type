@@ -13,10 +13,10 @@
 
 using boost::asio::ip::udp;
 
-class Network {
+class CNetwork {
 public:
-    Network()               = default;
-    ~Network();
+    CNetwork()               = default;
+    ~CNetwork();
 
 public:
     int                     Initialize(const std::string&, int);

@@ -27,7 +27,7 @@ add_executable(server
 
 add_executable(client
         ${COMMON}
-        ${CLIENT_FILES})
+        ${CLIENT_FILES} Server/Global/Global.cpp Server/Global/Global.h)
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})

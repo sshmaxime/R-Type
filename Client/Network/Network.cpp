@@ -20,7 +20,6 @@ int                     Network::Initialize(const std::string &ip, int port)
                             boost::asio::placeholders::bytes_transferred));
     } catch (std::exception &exception) {
         std::cout << exception.what() << std::endl;
-        this->Delete();
         return (-1);
     }
     return 0;
@@ -37,6 +36,7 @@ int                     Network::Send(JSONObject& toSend)
 
     try {
         _Socket->send_to(boost::asio::buffer(JSONtoString), _Endpoint);
+        std::cout << "Message sent" << std::endl;
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
     }
@@ -44,15 +44,7 @@ int                     Network::Send(JSONObject& toSend)
     return (0);
 }
 
-int                     Network::Run()
-{
-    // Do whatever we want to
-    this->Delete();
-    return 0;
-}
-
-int                     Network::Delete()
+Network::~Network()
 {
     delete _Socket;
-    return 0;
 }

@@ -1,9 +1,9 @@
 //
-// Created by sshsupreme on 17/01/18.
+// Created by sshsupreme on 20/01/18.
 //
 
-#ifndef R_TYPE_NETWORK_H
-#define R_TYPE_NETWORK_H
+#ifndef R_TYPE_SNETWORK_H
+#define R_TYPE_SNETWORK_H
 
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
@@ -13,21 +13,21 @@
 
 using boost::asio::ip::udp;
 
-class Network {
+class SNetwork {
 public:
-    Network()               = default;
-    ~Network();
+    SNetwork()               = default;
+    ~SNetwork();
 
 public:
-    int                     Initialize(const std::string&, int);
+    int                     Initialize(int);
     int                     Send(JSONObject&);
     void                    handleReceive(const boost::system::error_code& error, size_t bytes);
+    int                     Receive();
 
 private:
     boost::asio::io_service _Service;
     udp::socket             *_Socket;
     udp::endpoint           _Endpoint;
-    udp::endpoint           _SenderEndpoint;
 
 public:
     enum                    { max_length = 1024 };
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //R_TYPE_NETWORK_H
+#endif //R_TYPE_SNETWORK_H

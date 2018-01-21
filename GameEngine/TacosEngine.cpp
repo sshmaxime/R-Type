@@ -58,8 +58,9 @@ namespace TacosEngine
 
         // get the name of the sprites to Add
         try {
-            std::shared_ptr<Scene> SceneToAdd = new Scene(JSON["scene"]["details"]["name"]);
-
+            //std::shared_ptr<Scene> SceneToAdd = new Scene(JSON["scene"]["details"]["name"]);
+	    std::string test = JSON["scene"]["details"]["name"];
+	    std::shared_ptr<Scene> SceneToAdd = std::make_shared<Scene>(test);
             // Dé-commenter après l'ajout du game
             /*std::string difficulty;
             int level;
@@ -69,10 +70,11 @@ namespace TacosEngine
             nbEnemies = std::stoi(std::string(JSON["scene"]["details"]["nbEnemies"]));*/
 
 
-            for (auto it = JSON["scene"]["sprites"].begin(); it != JSON["scene"]["sprites"].end(); it++) {
+            for (auto &it : JSON["scene"]["sprites"])
+	      {
 
-                std::string name = *it;
-                std::shared_ptr<Sprite> spriteToAdd = new Sprite(name, SceneToAdd);
+                std::string name = it;
+                std::shared_ptr<Sprite> spriteToAdd = std::make_shared<Sprite>(name, SceneToAdd);
                 spriteToAdd->addTexture(this->ressources->getTexture(name));
                 SceneToAdd->addSprite(spriteToAdd);
             }

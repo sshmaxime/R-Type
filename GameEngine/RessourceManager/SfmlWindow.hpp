@@ -8,7 +8,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <memory>
 
-#include "IWindow.hpp"
+#include "../IWindow/IWindow.hpp"
 
 namespace TacosEngine {
 

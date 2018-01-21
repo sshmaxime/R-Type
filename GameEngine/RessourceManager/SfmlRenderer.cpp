@@ -11,7 +11,6 @@ TacosEngine::SfmlRenderer::SfmlRenderer(sf::RenderWindow *window)
 
 TacosEngine::SfmlRenderer::~SfmlRenderer() = default;
 
-// Mettre sprite au lieu de int
 void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<Sprite>> sprites) {
 
     //std::sort(sprites.begin(), sprites.end(), sort_prof);

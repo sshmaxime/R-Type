@@ -7,7 +7,9 @@
 
 
 class User {
-
+public:
+    User()                  = default;
+    ~User()                 = default;
 };
 
 

@@ -1,23 +1,30 @@
-#include "Server.hpp"
+#include "Server.h"
+#include "Global/Global.h"
 
-int main(int argc, char* argv[])
+void                exitSignal(int)
 {
-  try
-  {
-    if (argc != 2)
-    {
-      std::cerr << "Usage: async_udp_echo_server <port>\n";
-      return 1;
-    }
+    Global::Instance().quit = true;
+    Global::Instance()._Socket->cancel();
+}
 
-    boost::asio::io_service io_service;
-    Server s(io_service, std::atoi(argv[1]));
-    io_service.run();
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "Exception: " << e.what() << "\n";
-  }
+void                signalsHandler()
+{
+    struct sigaction sa;
+    memset( &sa, 0, sizeof(sa) );
+    sa.sa_handler = exitSignal;
+    sigfillset(&sa.sa_mask);
+    sigaction(SIGINT, &sa, NULL);
+}
 
-  return 0;
+int                 main(int ac, char* av[])
+{
+    Server            myServer;
+
+    signalsHandler();
+
+    if (myServer.Initialize(av, ac) == -1)
+        return (-1);
+    myServer.Run();
+
+    return 0;
 }

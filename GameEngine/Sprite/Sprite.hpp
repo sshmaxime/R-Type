@@ -2,8 +2,8 @@
 
 #include "Component.hpp"
 #include "Scene.hpp"
-#include "ITexture.hpp"
 #include "Transform.h"
+#include "../RessourceManager/ITexture.hpp"
 
 namespace TacosEngine
 {
@@ -40,6 +40,12 @@ namespace TacosEngine
 			{
 				return _transform;
 			}
+
+			void 		addTexture(ITexture *texture)
+			{
+				this->_texture = texture;
+			}
+
 
 		private:
 		    Transform                   _transform;

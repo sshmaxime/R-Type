@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sprite.hpp"
+#include "../Sprite/Sprite.hpp"
 #include "Component.hpp"
 #include "RessourceManager.hpp"
 
@@ -16,6 +16,7 @@ namespace TacosEngine
 	private:
 		std::list<std::shared_ptr<Sprite>> _sprites;
 		std::list<std::shared_ptr<Component>> _components;
+		//std::list<std::shared_ptr<IEvent> _events;
 		std::string _name;
 		std::shared_ptr<RessourceManager>	_ressources;
 

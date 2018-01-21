@@ -2,6 +2,8 @@
 #include <chrono>
 #include <thread>
 
+
+
 namespace TacosEngine
 {
 	Engine::Engine(bool displayMode)
@@ -34,10 +36,60 @@ namespace TacosEngine
 		scenes.push_back(scene);
 	}
 
-	void	Engine::loadScene(std::shared_ptr<Scene> toAdd)
-	{
-		sceneInProcess = toAdd;
-	}
+	void Engine::addScene(const std::string &path){
+		json                            JSON;
+		std::ifstream 					inFile;
+        std::stringstream               scene;
+
+        try {
+            inFile.open(path);
+        }
+        catch (std::exception &exception1) {
+            std::cout << "Failure while opening " << path << " file." << std::endl;
+            throw exception1;
+        }
+
+        // read the file
+        scene << inFile.rdbuf();
+        std::string str = scene.str();
+        JSON = json::parse(scene);
+
+        // get the name of the sprites to Add
+        try {
+            std::shared_ptr<Scene> SceneToAdd = new Scene(JSON["scene"]["details"]["name"]);
+
+            // Dé-commenter après l'ajout du game
+            /*std::string difficulty;
+            int level;
+            int nbEnemies;
+            difficulty = JSON["scene"]["details"]["difficulty"];
+            level = std::stoi(std::string(JSON["scene"]["details"]["level"]));
+            nbEnemies = std::stoi(std::string(JSON["scene"]["details"]["nbEnemies"]));*/
+
+
+            for (auto it = JSON["scene"]["sprites"].begin(); it != JSON["scene"]["sprites"].end(); it++) {
+
+                std::string name = *it;
+                std::shared_ptr<Sprite> spriteToAdd = new Sprite(name, SceneToAdd);
+                spriteToAdd->addTexture(this->ressources->getTexture(name));
+                SceneToAdd->addSprite(spriteToAdd);
+            }
+
+            // Dé-commenter après l'ajout des événements
+            /*for (auto it = JSON["scene"]["events"].begin(); it != JSON["scene"]["events"].end(); it++)
+            {
+                std::string                 name = *it;
+                std::shared_ptr<Event>     spriteToAdd = new Event(name);
+                SceneToAdd->addEvent(spriteToAdd);
+            }*/
+        }
+        catch (std::exception &exception2) {
+            inFile.close();
+            std::cerr << "Error : wrong scene file." << std::endl;
+            throw exception2;
+        }
+        inFile.close();
+    }
 
 	std::shared_ptr<Scene>	Engine::getSceneInProcess()
 	{

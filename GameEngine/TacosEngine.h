@@ -2,17 +2,22 @@
 
 #include <list>
 #include <memory>
-#include "PhysicsEngine.h"
-#include "Input.h"
-#include "InputManagerSFML.h"
+#include "PhysicsEngine/PhysicsEngine.h"
+#include "Input/Input.h"
+#include "InputManagerSFML/InputManagerSFML.h"
 #include "TestInput.h"
-#include "SfmlWindow.hpp"
-#include "SfmlRenderer.hpp"
-#include "Scene.hpp"
-#include "RessourceManager.hpp"
+#include "RessourceManager/SfmlWindow.hpp"
+#include "RessourceManager/SfmlRenderer.hpp"
+#include "Scene/Scene.hpp"
+#include "RessourceManager/RessourceManager.hpp"
+#include "../Common/JSON/json.hpp"
+
 
 namespace TacosEngine
 {
+
+    using json = nlohmann::json;
+
 	class Engine
 	{
 	private:
@@ -41,12 +46,14 @@ namespace TacosEngine
 		std::unique_ptr<TacosEngine::InputManager>			inputManager;
 		TestInput											test;
 
+
 	public:
 		Engine(bool displayMode = true);
 		~Engine();
 
 		void				initRessources(const std::string &path);
 		void				addScene(std::shared_ptr<Scene> toAdd);
+		void				addScene(const std::string &path);
 		void				loadScene(std::shared_ptr<Scene> toLoad);
 		void				run();
 		std::shared_ptr<Scene>			getSceneInProcess();

@@ -5,7 +5,7 @@
 #ifndef R_TYPE_IRENDERER_HPP
 #define R_TYPE_IRENDERER_HPP
 
-#include "Sprite.hpp"
+#include "../Sprite/Sprite.hpp"
 
 namespace TacosEngine {
 

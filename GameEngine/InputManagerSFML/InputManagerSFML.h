@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InputManager.h"
+#include "../InputManager/InputManager.h"
 
 namespace TacosEngine
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Component.hpp"
-#include "Scene.hpp"
-#include "ITexture.hpp"
-#include "Transform.h"
+#include "Entity/Entity.hpp"
+#include "RessourceManager/ITexture.hpp"
+#include "Transform/Transform.h"
+#include "Scene/Scene.hpp"
 
 namespace TacosEngine
 {

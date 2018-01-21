@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Component.hpp"
-#include "Input.h"
+#include "../Component/Component.hpp"
+#include "../Input/Input.h"
 
 namespace TacosEngine
 {

@@ -9,7 +9,6 @@
 
 void TacosEngine::RessourceManager::init(const std::string &path)
 {
-
   std::ifstream input(path); //The input stream
   while(input) //Keep on going as long as the file stream is good
     {

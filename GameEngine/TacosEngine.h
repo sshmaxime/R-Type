@@ -2,14 +2,14 @@
 
 #include <list>
 #include <memory>
-#include "PhysicsEngine.h"
-#include "Input.h"
-#include "InputManagerSFML.h"
 #include "TestInput.h"
-#include "SfmlWindow.hpp"
-#include "SfmlRenderer.hpp"
-#include "Scene.hpp"
-#include "RessourceManager.hpp"
+#include "RessourceManager/RessourceManager.hpp"
+#include "Scene/Scene.hpp"
+#include "PhysicsEngine/PhysicsEngine.h"
+#include "IWindow/IWindow.hpp"
+#include "IRenderer/IRenderer.hpp"
+#include "Input/Input.h"
+#include "InputManager/InputManager.h"
 
 namespace TacosEngine
 {

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Sprite.hpp"
-#include "Component.hpp"
-#include "RessourceManager.hpp"
-
+#include <memory>
+#include <list>
+#include "../RessourceManager/RessourceManager.hpp"
+#include "../Sprite/Sprite.hpp"
+#include "../Component/Component.hpp"
 
 namespace TacosEngine
 {
@@ -39,10 +40,11 @@ namespace TacosEngine
 		template <typename T>
 		std::shared_ptr<T> getComponent(unsigned int id)
 		{
-			for (auto it = this->_components.begin(); it != _components.end(); it++)
+			/*for (auto it = this->_components.begin(); it != _components.end(); it++)
 			{
-				if ((*it)->getSprite()->getInstanceId == id && dynamic_cast<T *>(*it))
-			}
+				if ((*it)->getSprite()->getInstanceId() == id && dynamic_cast<T *>(*it))
+				  return *it;
+			}*/
 			return (NULL);
 		};
 

@@ -7,8 +7,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-
-#include "IRenderer.hpp"
+#include "../IRenderer/IRenderer.hpp"
+#include "../Sprite/Sprite.hpp"
 
 namespace TacosEngine {
 

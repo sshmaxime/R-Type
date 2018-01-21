@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entity.hpp"
-#include "Sprite.hpp"
+#include "../Sprite/Sprite.hpp"
+#include "../Entity/Entity.hpp"
 
 namespace TacosEngine
 {

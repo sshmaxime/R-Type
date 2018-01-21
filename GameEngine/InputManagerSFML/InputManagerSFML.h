@@ -1,14 +1,15 @@
 #pragma once
 
-#include "InputManager.h"
+#include "../InputManager/InputManager.h"
+#include "../Input/Input.h"
 
 namespace TacosEngine
 {
-	class InputManagerSFML : public InputManager
-	{
-	public:
-		InputManagerSFML();
-		virtual ~InputManagerSFML();
-		virtual void setProcessInput(Input &input);
-	};
+  class InputManagerSFML : public InputManager
+  {
+   public:
+    InputManagerSFML();
+    ~InputManagerSFML() override;
+    virtual void setProcessInput(Input &input);
+  };
 }

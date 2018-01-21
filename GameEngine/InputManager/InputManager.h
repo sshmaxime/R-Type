@@ -1,7 +1,7 @@
 #pragma once
 
-#include <SFML\Window\Keyboard.hpp>
-#include "Input.h"
+#include <SFML/Window/Keyboard.hpp>
+#include "../Input/Input.h"
 
 namespace TacosEngine
 {

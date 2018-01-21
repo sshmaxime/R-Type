@@ -5,6 +5,7 @@
 #ifndef R_TYPE_IWINDOW_HPP
 #define R_TYPE_IWINDOW_HPP
 
+#include<iostream>
 
 namespace TacosEngine {
 

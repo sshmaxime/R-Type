@@ -9,6 +9,7 @@ namespace TacosEngine
 {
   bool sfmlFont::load(const std::string &path)
   {
+    this->_font = std::make_shared<sf::Font>();
     if (!this->_font->loadFromFile(path))
       {
 	std::cerr << "Failed to load texture from " << path << std::endl;

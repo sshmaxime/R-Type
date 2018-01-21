@@ -6,6 +6,7 @@
 
 bool sfmlAudio::load(const std::string &path)
 {
+  this->_sound = std::make_shared<sf::SoundBuffer>();
   if (!this->_sound->loadFromFile(path))
     {
       std::cerr << "Failed to load texture from " << path << std::endl;

@@ -3,9 +3,13 @@ project(GameEngine)
 
 set(CMAKE_CXX_STANDARD 11)
 
+include_directories(.)
+
 add_executable(GameEngine
         Behaviour/Behaviour.cpp
         Behaviour/Behaviour.h
+        Collider/Collider.cpp
+        Collider/Collider.hpp
         Component/Component.cpp
         Component/Component.hpp
         Entity/Entity.hpp
@@ -18,11 +22,9 @@ add_executable(GameEngine
         IWindow/IWindow.hpp
         PhysicsEngine/PhysicsEngine.cpp
         PhysicsEngine/PhysicsEngine.h
-        RessourceManager/cmake-build-debug/config.h
         RessourceManager/IAudio.hpp
         RessourceManager/IFont.hpp
         RessourceManager/ITexture.hpp
-        RessourceManager/main.cpp
         RessourceManager/RessourceManager.cpp
         RessourceManager/RessourceManager.hpp
         RessourceManager/sfmlAudio.cpp

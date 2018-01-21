@@ -8,6 +8,7 @@ namespace TacosEngine
 {
   bool sfmlTexture::load(const std::string &path)
   {
+    this->_texture = std::make_shared<sf::Texture>();
     if (!this->_texture->loadFromFile(path))
       {
 	std::cerr << "Failed to load texture from " << path << std::endl;

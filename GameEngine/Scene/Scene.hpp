@@ -35,9 +35,9 @@ namespace TacosEngine
 
 		std::list<std::shared_ptr<Sprite>>	getSprites();
 
-		std::shared_ptr<Sprite> getSprite(unsigned int id);
-		std::list<std::shared_ptr<Component>> &getComponentList(unsigned int id);
-		
+	  	std::shared_ptr<Sprite> getSprite(unsigned int id);
+	  	std::list<std::shared_ptr<Component>> &getComponentList(unsigned int id);
+
 		template <typename T>
 		std::shared_ptr<T> getComponent(unsigned int id)
 		{

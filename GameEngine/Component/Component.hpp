@@ -21,7 +21,7 @@ namespace TacosEngine
 			template <typename T>
 			std::shared_ptr<T> getComponent()
 			{
-				return _sprite->getComponent<T>();
+				//return _sprite->getComponent<T>();
 			}
 
 		protected:

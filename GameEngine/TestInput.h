@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Input.h"
+#include <Input/Input.h>
 
 
 class TestInput

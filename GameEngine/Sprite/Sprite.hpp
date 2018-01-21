@@ -22,7 +22,7 @@ namespace TacosEngine
 			template<typename T>
 			std::shared_ptr<T> getComponent()
 			{
-				return (_scene->getComponent<T>(_id));
+				//return (_scene->getComponent<T>(_id));
 			}
 
 			std::list<std::shared_ptr<Component>> getComponentList();

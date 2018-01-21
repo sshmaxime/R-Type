@@ -1,8 +1,10 @@
-#include "TacosEngine.h"
 #include <chrono>
+#include <memory>
 #include <thread>
-
-
+#include <RessourceManager/SfmlWindow.hpp>
+#include <RessourceManager/SfmlRenderer.hpp>
+#include <InputManagerSFML/InputManagerSFML.h>
+#include "TacosEngine.h"
 
 namespace TacosEngine
 {

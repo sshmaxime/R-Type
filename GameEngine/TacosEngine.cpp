@@ -82,6 +82,7 @@ namespace TacosEngine
                 std::shared_ptr<Event>     eventToAdd = new Event(name);
                 SceneToAdd->addEvent(eventToAdd);
             }*/
+			this->scenes.push_back(SceneToAdd);
         }
         catch (std::exception &exception2) {
             inFile.close();

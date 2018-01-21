@@ -79,8 +79,8 @@ namespace TacosEngine
             /*for (auto it = JSON["scene"]["events"].begin(); it != JSON["scene"]["events"].end(); it++)
             {
                 std::string                 name = *it;
-                std::shared_ptr<Event>     spriteToAdd = new Event(name);
-                SceneToAdd->addEvent(spriteToAdd);
+                std::shared_ptr<Event>     eventToAdd = new Event(name);
+                SceneToAdd->addEvent(eventToAdd);
             }*/
         }
         catch (std::exception &exception2) {

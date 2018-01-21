@@ -5,14 +5,14 @@
 #include "SNetwork.h"
 #include "../Global/Global.h"
 
-int                 SNetwork::Initialize(int port)
+int                 SNetwork::Initialize(int port, std::shared_ptr<std::queue<std::string>> queue)
 {
+    _AllMessagesReceived = queue;
+
     try {
         _Socket = new udp::socket(_Service, udp::endpoint(udp::v4(), port));
         Global::Instance()._Socket = _Socket;
         this->Receive();
-        _Service.run();
-
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
         return (-1);
@@ -40,22 +40,42 @@ int                 SNetwork::Send(JSONObject &toSend)
     return 0;
 }
 
+int                 SNetwork::Run()
+{
+    try {
+        _Service.run();
+    } catch (std::exception &exception) {
+        std::cout << exception.what() << std::endl;
+        return (-1);
+    }
+    return (0);
+}
 
 void                SNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
     _DATA.at(bytes) = '\0';
-    std::cout << std::string(_DATA.c_array()) << std::endl;
-
     if (Global::Instance().quit)
     {
         _Socket->close();
-        return ;
+        return;
     }
     this->Receive();
+    Global::Instance().mutex_AllMessagesReceived.lock();
+    _AllMessagesReceived->push(std::string(_DATA.c_array()));
+    Global::Instance().mutex_AllMessagesReceived.unlock();
+}
+
+int                 SNetwork::Stop()
+{
+    if (!this->_Service.stopped())
+        this->_Service.stop();
+    return (0);
 }
 
 SNetwork::~SNetwork()
 {
-    delete _Socket;
-    this->_Service.stop();
+    if (_Socket != NULL)
+        delete _Socket;
+    if (!this->_Service.stopped())
+        this->_Service.stop();
 }

@@ -6,6 +6,7 @@
 #define R_TYPE_GLOBAL_H
 
 #include <boost/asio/ip/udp.hpp>
+#include <mutex>
 
 using boost::asio::ip::udp;
 
@@ -13,10 +14,11 @@ using boost::asio::ip::udp;
 class Global {
 public:
     static                  Global& Instance();
+    Global&                 operator= (const Global&){}
+
+    Global                  (const Global&){}
 
 private:
-    Global&                 operator= (const Global&){}
-    Global                  (const Global&){}
 
     static Global           m_instance;
     Global()                = default;
@@ -24,8 +26,10 @@ private:
 
 public:
     bool                    quit = false;
-    udp::socket             *_Socket;
+    udp::socket             *_Socket = NULL;
 
+public:
+    std::mutex              mutex_AllMessagesReceived;
 };
 
 

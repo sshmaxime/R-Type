@@ -22,7 +22,7 @@ int                 main()
 
     signalsHandler();
 
-    if (myClient.Initialize("127.0.0.1", 8888) == -1)
+    if (myClient.Initialize("127.0.0.1", 8887) == -1)
         return (-1);
     myClient.Run();
 

@@ -10,6 +10,7 @@
 #include <queue>
 #include "Room/Room.h"
 #include "Network/SNetwork.h"
+#include "Room/RoomManager.h"
 #include <thread>
 
 class Server {
@@ -19,9 +20,7 @@ public:
 
 private:
     SNetwork                _Network;
-
-private:
-    std::vector<Room>       _Rooms;
+    RoomManager             _RoomManager;
 
 private:
     std::shared_ptr<std::queue<std::string>> _AllMessagesReceived;
@@ -35,11 +34,11 @@ public:
 public:
     int                     Initialize(char*[], int);
     int                     Run();
-    int                     TreatMessage(const std::string&, const std::string&);
+    int                     TreatMessage(const std::string&, const std::string&, const std::string&);
 
 public:
-    int                     HelloPacketHandler(const std::string&);
-    int                     MessagePacketHandler(const std::string&);
+    int                     HelloPacketHandler(const std::string&, const std::string&);
+    int                     MessagePacketHandler(const std::string&, const std::string&);
 };
 
 

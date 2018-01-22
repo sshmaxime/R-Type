@@ -1,0 +1,4 @@
+texture:
+back:background-18.jpg
+ship:ship.png
+/:/

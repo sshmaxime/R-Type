@@ -3,13 +3,10 @@
 namespace TacosEngine
 {
 	InputManagerSFML::InputManagerSFML()
-	{
-
-	}
+	= default;
 
 	InputManagerSFML::~InputManagerSFML()
-	{
-	}
+	= default;
 
 
 	void	InputManagerSFML::setProcessInput(Input &input)
@@ -60,6 +57,7 @@ namespace TacosEngine
 		// Touch
 		input.setKey(TacosEngine::Key::KEY_SPACE, sf::Keyboard::isKeyPressed(sf::Keyboard::Space));
 		input.setKey(TacosEngine::Key::KEY_ENTER, sf::Keyboard::isKeyPressed(sf::Keyboard::Return));
+		input.setKey(TacosEngine::Key::KEY_ESCAPE, sf::Keyboard::isKeyPressed(sf::Keyboard::Escape));
 
 		// Dir
 		input.setKey(TacosEngine::Key::KEY_UP, sf::Keyboard::isKeyPressed(sf::Keyboard::Up));

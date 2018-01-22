@@ -8,8 +8,7 @@ namespace TacosEngine
 	}
 
 	Scene::~Scene()
-	{
-	}
+	= default;
 
 	void Scene::addSprite(std::shared_ptr<Sprite> toAdd)
 	{
@@ -18,7 +17,7 @@ namespace TacosEngine
 
 	void	Scene::setRessources(std::shared_ptr<RessourceManager> res)
 	{
-		this->_ressources = res;
+		this->_ressources = std::move(res);
 	}
 
 
@@ -36,7 +35,7 @@ namespace TacosEngine
 			if ((*it)->getInstanceId() == id)
 				return (*it);
 		}
-		return (NULL);
+		return (nullptr);
 	}
 
 	size_t Scene::getNSprite()
@@ -57,7 +56,7 @@ namespace TacosEngine
 					  << (*it)->getInstanceName();
 			try
 			{
-				auto test = dynamic_cast<Component *>(it->get());
+				auto test = it->get();
 
 				if (test->isSprited())
 					std::cout << " which contains:" << test->getSpriteName() << std::endl;
@@ -81,24 +80,18 @@ namespace TacosEngine
 		}
 	}
 
-	std::list<std::shared_ptr<Component>> &Scene::getComponentList(unsigned int id)
-	{
-	/*    std::list<std::shared_ptr<Component>> toRet = std::list<std::shared_ptr<Component>>();
-		for (auto it = this->_components.begin(); it != _components.end(); it++)
-		{
-			if ((*it)->getInstanceId() == id)
-			{
-				auto test = dynamic_cast<std::shared_ptr<Component>>(it->get());
-				toRet.push_back(test);
-	//            toRet.push_back(dynamic_cast<std::shared_ptr<Component*>>((*it));
-	//            toRet.push_back(it->get());
-			}
-		}
-		return toRet;*/
-	}
-
 	std::list<std::shared_ptr<Sprite>>	Scene::getSprites()
 	{
 		return _sprites;
 	}
+
+    std::list<std::shared_ptr<Component>>	Scene::getComponents()
+    {
+        return _components;
+    }
+
+    ITexture *Scene::getTexture(const std::string &name)
+    {
+        return _ressources->getTexture(name);
+    }
 }

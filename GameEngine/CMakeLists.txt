@@ -20,8 +20,7 @@
       Collider/Collider.cpp
       Collider/Collider.hpp
       Component/Component.cpp
-      Component/Component.hpp
-      Entity/Entity.hpp
+            Entity/Entity.hpp
       Input/Input.cpp
       Input/Input.h
       InputManager/InputManager.h
@@ -49,8 +48,7 @@
       Scene/Scene.cpp
       Scene/Scene.hpp
       Sprite/Sprite.cpp
-      Sprite/Sprite.hpp
-      Transform/Transform.cpp
+            Transform/Transform.cpp
       Transform/Transform.h
       Vector2/Vector2.cpp
       Vector2/Vector2.hpp
@@ -60,6 +58,12 @@
       TestInput.h Animation/Animation.cpp Animation/Animation.hpp)
 
     # Detect and add SFML
+    if(NOT DEFINED     SFML_ROOT  AND
+            NOT DEFINED ENV{SFML_ROOT})
+        if(WIN32)
+            set(SFML_ROOT "C:/dev/libs/SFML")
+        endif()
+    endif()
     set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
     #Find any version 2.X of SFML
     #See the FindSFML.cmake file for additional details and instructions

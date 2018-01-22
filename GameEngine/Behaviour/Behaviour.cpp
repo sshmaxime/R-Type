@@ -3,15 +3,13 @@
 namespace TacosEngine
 {
 	Behaviour::Behaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
-		: Component(name, sprite)
+		: Component(name, std::move(sprite))
 	{
 
 	}
 
 	Behaviour::~Behaviour()
-	{
-
-	}
+	= default;
 
 	void	Behaviour::update(const Input &input)
 	{

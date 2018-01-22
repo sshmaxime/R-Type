@@ -48,19 +48,20 @@ namespace TacosEngine
 		KEY_RIGHT,
 		KEY_ENTER,
 		KEY_SPACE,
+		KEY_ESCAPE,
 		END
 	};
 
 	class Input
 	{
-		static const int NB_KEY = 42;
+		static const int NB_KEY = 43;
 		bool								keys[NB_KEY];
 		float								axisVertical;
 		float								axisHorizontal;
 	public:
 		Input();
 		~Input();
-		float		getAxis(const std::string &axis);
+		float		getAxis(const std::string &axis)const;
 		bool		getKey(Key key);
 		void		setKey(Key, bool);
 		void		setAxis(float, const std::string &axis);

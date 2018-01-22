@@ -6,7 +6,7 @@
 #define R_TYPE_IRENDERER_HPP
 
 #include <list>
-#include "Sprite/Sprite.hpp"
+#include <Scene/Scene.hpp>
 
 namespace TacosEngine {
 

@@ -8,14 +8,10 @@ class TestInput
 {
 public:
 	TestInput()
-	{
-
-	}
+	= default;
 
 	~TestInput()
-	{
-
-	}
+	= default;
 
 	void update(TacosEngine::Input &input)
 	{

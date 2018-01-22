@@ -11,9 +11,7 @@ namespace TacosEngine
 	}
 
 	Transform::~Transform()
-	{
-
-	}
+	= default;
 
 	Vector2	Transform::getDirection()
 	{

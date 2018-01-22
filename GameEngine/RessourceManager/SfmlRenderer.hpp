@@ -7,23 +7,25 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <Scene/Scene.hpp>
 #include "IRenderer/IRenderer.hpp"
-#include "Sprite/Sprite.hpp"
 
 namespace TacosEngine {
 
-    class SfmlRenderer : public IRenderer {
+    struct SortByLayout {
+        bool	operator()(const std::shared_ptr<Sprite> &i, const std::shared_ptr<Sprite> &j) const
+        {
+            return *i < *j;
+        }
+    };
 
+    class SfmlRenderer : public IRenderer {
     private:
         sf::RenderWindow *_window;
 
     public:
         explicit SfmlRenderer(sf::RenderWindow *window);
-
         ~SfmlRenderer() override;
-
-        static bool sort_prof (int i,int j) { return (i<j); }
-
         void draw(std::list<std::shared_ptr<Sprite>> _sprites) override;
     };
 }

@@ -5,19 +5,15 @@ namespace TacosEngine
 	Input::Input()
 		: axisHorizontal(0.0), axisVertical(0.0)
 	{
-		for (int i = 0; i < NB_KEY; i++)
-		{
-			keys[i] = false;
+		for (bool &key : keys) {
+			key = false;
 		}
 	}
 
 	Input::~Input()
-	{
+	= default;
 
-	}
-
-	float	Input::getAxis(const std::string &axis)
-	{
+	float	Input::getAxis(const std::string &axis)const {
 		if (axis == "Horizontal")
 			return axisHorizontal;
 		else if (axis == "Vertical")

@@ -6,7 +6,7 @@
 #define GAMEENGINE_ANIMATION_HPP
 
 
-#include <Component/Component.hpp>
+#include <Scene/Scene.hpp>
 
 class Animation : public TacosEngine::Component
 {
@@ -28,7 +28,7 @@ class Animation : public TacosEngine::Component
   bool	_loop;
   int	_frame_speed;
   std::vector<TacosEngine::ITexture*> _frames;
-  int 	_frame;
+  unsigned int 	_frame;
 };
 
 

@@ -32,24 +32,38 @@ TacosEngine::Vector2	&TacosEngine::Vector2::operator=(const TacosEngine::Vector2
 	return *this;
 }
 
-TacosEngine::Vector2	&TacosEngine::Vector2::operator+(const TacosEngine::Vector2 &other)
+TacosEngine::Vector2	TacosEngine::Vector2::operator+(const TacosEngine::Vector2 &other)
 {
-	this->_x += other._x;
-	this->_y += other._y;
-	return *this;
+	return Vector2(this->_x + other._x, this->_y + other._y);
 }
 
-TacosEngine::Vector2	&TacosEngine::Vector2::operator-(const TacosEngine::Vector2 &other)
+TacosEngine::Vector2	TacosEngine::Vector2::operator-(const TacosEngine::Vector2 &other)
 {
-	this->_x -= other._x;
-	this->_y -= other._y;
-	return *this;
+	return Vector2(this->_x - other._x, this->_y - other._y);
 }
 
-TacosEngine::Vector2	&TacosEngine::Vector2::operator*(const TacosEngine::Vector2 &other)
+TacosEngine::Vector2	TacosEngine::Vector2::operator*(const TacosEngine::Vector2 &other)
 {
-	this->_x *= other._x;
-	this->_y *= other._y;
-	return *this;
+	return Vector2(this->_x * other._x, this->_y * other._y);
+}
+
+TacosEngine::Vector2	TacosEngine::Vector2::operator+(float other)
+{
+	return Vector2(this->_x + other, this->_y + other);
+}
+
+TacosEngine::Vector2	TacosEngine::Vector2::operator-(float other)
+{
+	return Vector2(this->_x - other, this->_y - other);
+}
+
+TacosEngine::Vector2	TacosEngine::Vector2::operator*(float other)
+{
+	return Vector2(this->_x * other, this->_y * other);
+}
+
+TacosEngine::Vector2	TacosEngine::Vector2::operator/(float other)
+{
+	return Vector2(this->_x / other, this->_y / other);
 }
 

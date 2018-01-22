@@ -6,9 +6,9 @@
 #define GAMEENGINE_COLLIDER_HPP
 
 
+#include <Scene/Scene.hpp>
 #include "../Entity/Entity.hpp"
 #include "../Vector2/Vector2.hpp"
-#include "../Component/Component.hpp"
 
 namespace TacosEngine
 {

@@ -2,6 +2,7 @@
 
 #include <list>
 #include <memory>
+#include <Behaviour/Behaviour.h>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -57,6 +58,7 @@ namespace TacosEngine
 		void				run();
 		std::shared_ptr<Scene>			getSceneInProcess();
 		std::shared_ptr<RessourceManager>	getRessources();
+		void				behaviourUpdate();
 
 	private:
 		void			processInput();

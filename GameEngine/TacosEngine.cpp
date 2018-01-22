@@ -74,7 +74,7 @@ namespace TacosEngine
 	      {
 
                 std::string name = it;
-                std::shared_ptr<Sprite> spriteToAdd = std::make_shared<Sprite>(name, SceneToAdd);
+                std::shared_ptr<Sprite> spriteToAdd = std::make_shared<Sprite>(name, SceneToAdd, Layout::SCENE);
                 spriteToAdd->addTexture(this->ressources->getTexture(name));
                 SceneToAdd->addSprite(spriteToAdd);
             }
@@ -96,6 +96,11 @@ namespace TacosEngine
         inFile.close();
     }
 
+    void	Engine::loadScene(std::shared_ptr<Scene> toAdd)
+    {
+        sceneInProcess = std::move(toAdd);
+    }
+
 	std::shared_ptr<Scene>	Engine::getSceneInProcess()
 	{
 		return sceneInProcess;
@@ -107,13 +112,13 @@ namespace TacosEngine
 		{
 			processInput();
 			physics.update();
-			test.update(inputs);
+            behaviourUpdate();
 			if (displayMode)
 			{
 				renderer->draw(sceneInProcess->getSprites());
-				std::cout << "Drawing" << std::endl;
 			}
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			if (inputs.getKey(Key::KEY_ESCAPE))
+				inGame = false;
 		}
 	}
 
@@ -125,5 +130,16 @@ namespace TacosEngine
 	void	Engine::processInput()
 	{
 		inputManager->setProcessInput(inputs);
+	}
+
+	void	Engine::behaviourUpdate()
+	{
+		std::list<std::shared_ptr<Component>>	compo(sceneInProcess->getComponents());
+
+		for (auto i : compo)
+		{
+			if (dynamic_cast<Behaviour *>(i.get()))
+				dynamic_cast<Behaviour *>(i.get())->update(inputs);
+		}
 	}
 }

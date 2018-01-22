@@ -25,9 +25,13 @@ namespace TacosEngine {
         void set_y(float _y);
 
 		Vector2	&operator=(const Vector2 &other);
-		Vector2	&operator+(const Vector2 &other);
-		Vector2	&operator-(const Vector2 &other);
-		Vector2	&operator*(const Vector2 &other);
+		Vector2	operator+(const Vector2 &other);
+		Vector2	operator-(const Vector2 &other);
+		Vector2	operator*(const Vector2 &other);
+		Vector2	operator+(float other);
+		Vector2	operator-(float other);
+		Vector2	operator*(float other);
+		Vector2	operator/(float other);
     };
 }
 

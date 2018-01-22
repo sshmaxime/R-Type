@@ -8,7 +8,7 @@ namespace TacosEngine
 	// Fix : inclusion multiple
 	class Sprite;
 
-	class Component : public Entity
+	/*class Component : public Entity
 	{
 		public:
 			Component(const std::string &myname, std::shared_ptr<Sprite> sprite);
@@ -21,10 +21,10 @@ namespace TacosEngine
 			template <typename T>
 			std::shared_ptr<T> getComponent()
 			{
-				//return _sprite->getComponent<T>();
+				return _sprite->getComponent<T>();
 			}
 
 		protected:
 			std::shared_ptr<Sprite> _sprite;
-	};
+	};*/
 }

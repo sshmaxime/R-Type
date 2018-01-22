@@ -1,4 +1,4 @@
-#include "Component.hpp"
+#include <Sprite/Sprite.hpp>
 
 namespace TacosEngine
 {
@@ -22,7 +22,7 @@ namespace TacosEngine
 
 	void Component::addSprite(std::shared_ptr<Sprite> toAdd)
 	{
-		_sprite = toAdd;
+		_sprite = std::move(toAdd);
 	}
 
 	std::shared_ptr<Sprite>	Component::getSprite()

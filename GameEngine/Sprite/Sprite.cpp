@@ -1,4 +1,4 @@
-#include "Sprite.hpp"
+#include <Scene/Scene.hpp>
 
 namespace TacosEngine
 {
@@ -12,7 +12,7 @@ namespace TacosEngine
 
 	void Sprite::setScene(std::shared_ptr<Scene> scene)
 	{
-		_scene = scene;
+		_scene = std::move(scene);
 	}
 
 	std::list<std::shared_ptr<Component>>	Sprite::getComponentList()

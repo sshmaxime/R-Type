@@ -2,28 +2,28 @@
 // Created by sshsupreme on 10/01/18.
 //
 
-#include "WelcomePacket.h"
+#include "HelloPacket.h"
 
-int                     WelcomePacket::buildObjectFromJSON(const std::string& JSONString)
+int                     HelloPacket::buildObjectFromJSON(const std::string& JSONString)
 {
     try {
         _JSON = JSON::parse(JSONString);
 
         this->_Username = _JSON.at("username");
     } catch (std::exception &exception) {
-        std::cout << "Error Parsing WelcomePacket" << std::endl;
+        std::cout << "Error Parsing HelloPacket" << std::endl;
         return (-1);
     }
     return (0);
 }
 
-void                    WelcomePacket::setUsername(const std::string& newUsername)
+void                    HelloPacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
     _JSON.emplace("username", this->_Username);
 }
 
-std::string             WelcomePacket::getUsername() const
+std::string             HelloPacket::getUsername() const
 {
     return (this->_Username);
 }

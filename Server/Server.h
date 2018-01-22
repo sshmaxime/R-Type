@@ -7,8 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 #include "Room/Room.h"
 #include "Network/SNetwork.h"
+#include <thread>
 
 class Server {
 public:
@@ -21,9 +23,23 @@ private:
 private:
     std::vector<Room>       _Rooms;
 
+private:
+    std::shared_ptr<std::queue<std::string>> _AllMessagesReceived;
+
+private:
+    std::thread             _MessageHandler;
+public:
+    int                     MessageHandler();
+
+
 public:
     int                     Initialize(char*[], int);
     int                     Run();
+    int                     TreatMessage(const std::string&, const std::string&);
+
+public:
+    int                     HelloPacketHandler(const std::string&);
+    int                     MessagePacketHandler(const std::string&);
 };
 
 

@@ -2,7 +2,7 @@
 // Created by sshsupreme on 17/01/18.
 //
 
-#include <WelcomePacket.h>
+#include <HelloPacket.h>
 #include "Client.h"
 
 int                 Client::Initialize(const std::string& ip, int port)
@@ -16,7 +16,7 @@ int                 Client::Run()
 {
     // Do whatever we want to
 
-    WelcomePacket   a;
+    HelloPacket   a;
 
     a.setUsername("maxime");
     _Network.Send(a);

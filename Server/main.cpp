@@ -4,7 +4,8 @@
 void                exitSignal(int)
 {
     Global::Instance().quit = true;
-    Global::Instance()._Socket->cancel();
+    if (Global::Instance()._Socket != NULL)
+        Global::Instance()._Socket->cancel();
 }
 
 void                signalsHandler()

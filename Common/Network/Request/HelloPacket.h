@@ -7,10 +7,10 @@
 
 #include "Request.h"
 
-class WelcomePacket : public JSONObject{
+class HelloPacket : public JSONObject{
 public:
-    WelcomePacket()                 {__HEADER__ = "0x0";};
-    ~WelcomePacket()                = default;
+    HelloPacket()                 {__HEADER__ = "0x0";};
+    ~HelloPacket()                = default;
 
 private:
     std::string                     _Username;

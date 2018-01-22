@@ -15,6 +15,15 @@ class Animation : public TacosEngine::Component
 	      int frame_speed, const std::vector<TacosEngine::ITexture*> &frames);
   ~Animation() override = default;
   void update(int tick);
+  bool is_loop() const;
+  void set_loop(bool _loop);
+  int get_frame_speed() const;
+  void set_frame_speed(int _frame_speed);
+  const std::vector<TacosEngine::ITexture *> &get_frames() const;
+  void set_frames(const std::vector<TacosEngine::ITexture *> &_frames);
+  int get_frame() const;
+  void set_frame(int _frame);
+
  private:
   bool	_loop;
   int	_frame_speed;

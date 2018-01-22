@@ -14,9 +14,7 @@ namespace TacosEngine
         {
         }
 
-        ~PlayerBehaviour() override {
-
-        }
+        ~PlayerBehaviour() override = default;
 
         void update(const Input &input) override {
            Vector2 dir(input.getAxis("Horizontal"), input.getAxis("Vertical"));

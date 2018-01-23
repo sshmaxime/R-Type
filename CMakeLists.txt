@@ -23,7 +23,7 @@ endif()
 
 add_executable(server
         ${COMMON}
-        ${SERVER_FILES})
+        ${SERVER_FILES} Server/Room/RoomManager.cpp Server/Room/RoomManager.h)
 
 add_executable(client
         ${COMMON}

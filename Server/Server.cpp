@@ -7,6 +7,12 @@
 #include "Server.h"
 #include "Global/Global.h"
 
+bool                isMessageValid(const std::string& ip, const std::string& header)
+{
+    // TODO
+    return (true);
+}
+
 void                Help()
 {
     std::cout << "./Server <ip> <port>" << std::endl;
@@ -41,9 +47,15 @@ int                 Server::MessageHandler()
         if (!_AllMessagesReceived->empty())
         {
             std::string i = _AllMessagesReceived->front();
-            std::string Header = i.substr(0, 3);
-            std::string packetContent = i.substr(3);
-            this->TreatMessage(Header, packetContent);
+            auto beg = i.find('[');
+            auto end = i.find(']');
+
+            std::string ip = i.substr(beg + 1, end - 1);
+            std::string header = i.substr(end + 1, 3);
+            std::string packetContent = i.substr(end + 4);
+
+            if (isMessageValid(ip, header))
+                this->TreatMessage(header, packetContent, ip);
             _AllMessagesReceived->pop();
         }
         Global::Instance().mutex_AllMessagesReceived.unlock();
@@ -51,25 +63,33 @@ int                 Server::MessageHandler()
     return 0;
 }
 
-int                 Server::TreatMessage(const std::string& header, const std::string& packetContent)
+int                 Server::TreatMessage(const std::string& header, const std::string& packetContent, const std::string& ip)
 {
     if (header == "0x0")
-        this->HelloPacketHandler(packetContent);
+        this->HelloPacketHandler(packetContent, ip);
     else if (header == "0x1")
-        this->MessagePacketHandler(packetContent);
+        this->MessagePacketHandler(packetContent, ip);
     return (0);
 }
 
-int                 Server::HelloPacketHandler(const std::string& packetContent)
+int                 Server::HelloPacketHandler(const std::string& packetContent, const std::string& ip)
 {
     HelloPacket     helloPacket;
-
     helloPacket.buildObjectFromJSON(packetContent);
-    std::cout << helloPacket.getUsername() << std::endl;
+
+    std::shared_ptr<User> newUser = std::make_shared<User>(helloPacket.getUsername(), ip);
+
+    if (_RoomManager.addUser(newUser) == -1)
+    {
+        std::cout << "error addUser" << std::endl;
+        // TODO renvoyer connection REFUSED
+        return (-1);
+    }
+    // TODO renvoyer connection OK
     return (0);
 }
 
-int                 Server::MessagePacketHandler(const std::string& packetContent)
+int                 Server::MessagePacketHandler(const std::string& packetContent, const std::string& ip)
 {
     MessagePacket   messagePacket;
 

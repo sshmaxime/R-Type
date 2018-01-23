@@ -8,14 +8,21 @@
 
 #include <vector>
 #include "../User/User.h"
+#include <iostream>
+#include <boost/asio/detail/shared_ptr.hpp>
 
 class Room {
 public:
-    Room()                  = default;
-    ~Room()                 = default;
+    Room();
+    ~Room();
 
 private:
-    std::vector<User>       _Users;
+    std::vector<std::shared_ptr<User>>  _Users;
+
+public:
+    bool                    isAvailable() const;
+    int                     addUser(const std::shared_ptr<User>);
+    bool                    isDuplicate(const std::shared_ptr<User>) const;
 };
 
 

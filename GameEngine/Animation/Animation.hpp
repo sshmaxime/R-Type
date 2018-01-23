@@ -22,7 +22,8 @@ class Animation : public TacosEngine::Component
   const std::vector<TacosEngine::ITexture *> &get_frames() const;
   void set_frames(const std::vector<TacosEngine::ITexture *> &_frames);
   int get_frame() const;
-  void set_frame(int _frame);
+
+  void set_frame(unsigned int _frame);
 
  private:
   bool	_loop;

@@ -33,7 +33,7 @@ namespace TacosEngine
         template<typename T>
         std::shared_ptr<T> getComponent();
 
-        void setTexture(ITexture *text);
+      bool setTexture(ITexture *text);
         void	*getTexture();
         const Layout      &getLayout() const;
         void        setLayout(Layout layout);

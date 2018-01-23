@@ -29,7 +29,12 @@ namespace TacosEngine
 
 	void	Engine::initRessources(const std::string &path)
 	{
-		ressources->init(path);
+	  std::ifstream file(path);
+
+	  if (file.fail())
+	    throw std::invalid_argument("Can't open file in path:" + path);
+	  else
+	    ressources->init(path);
 	}
 
 	void	Engine::addScene(std::shared_ptr<Scene> scene)
@@ -136,7 +141,7 @@ namespace TacosEngine
 	{
 		std::list<std::shared_ptr<Component>>	compo(sceneInProcess->getComponents());
 
-		for (auto i : compo)
+	  for (const auto &i : compo)
 		{
 			if (dynamic_cast<Behaviour *>(i.get()))
 				dynamic_cast<Behaviour *>(i.get())->update(inputs);

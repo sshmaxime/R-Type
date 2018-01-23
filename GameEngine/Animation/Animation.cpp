@@ -62,7 +62,7 @@ int Animation::get_frame() const
   return _frame;
 }
 
-void Animation::set_frame(int _frame)
+void Animation::set_frame(unsigned int _frame)
 {
   Animation::_frame = _frame;
 }

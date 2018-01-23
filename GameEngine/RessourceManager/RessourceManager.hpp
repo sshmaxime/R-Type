@@ -27,17 +27,35 @@ namespace TacosEngine
 
     IFont	*getFont(const std::string &name)
     {
-      return _fonts[name];
+      if (_fonts.find(name) != _fonts.end())
+	return _fonts[name];
+      else
+	{
+	  throw std::invalid_argument("Can't find Font:" + name);
+	  return nullptr;
+	}
     }
 
     IAudio	*getAudio(const std::string &name)
     {
-      return _audios[name];
+      if (_audios.find(name) != _audios.end())
+	return _audios[name];
+      else
+	{
+	  throw std::invalid_argument("Can't find Audio:" + name);
+	  return nullptr;
+	}
     }
 
     ITexture	*getTexture(const std::string &name)
     {
-      return _textures[name];
+      if (_textures.find(name) != _textures.end())
+	return _textures[name];
+      else
+	{
+	  throw std::invalid_argument("Can't find Texture:" + name);
+	  return nullptr;
+	}
     }
 
    private:

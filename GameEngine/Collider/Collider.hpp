@@ -12,7 +12,7 @@
 
 namespace TacosEngine
 {
-  class Collider : TacosEngine::Component
+  class Collider : public TacosEngine::Component
   {
 
    public:

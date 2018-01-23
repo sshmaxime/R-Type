@@ -55,7 +55,7 @@
       r_type.cpp
       TacosEngine.cpp
       TacosEngine.h
-      TestInput.h Animation/Animation.cpp Animation/Animation.hpp)
+            TestInput.h Animation/Animation.cpp Animation/Animation.hpp AudioComponent/AudioComponent.cpp AudioComponent/AudioComponent.hpp)
 
     # Detect and add SFML
     if(NOT DEFINED     SFML_ROOT  AND

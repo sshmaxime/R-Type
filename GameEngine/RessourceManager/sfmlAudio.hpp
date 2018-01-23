@@ -12,13 +12,20 @@
 
 class sfmlAudio : public TacosEngine::IAudio
 {
-  std::shared_ptr<sf::SoundBuffer> _sound;
+  std::shared_ptr<sf::SoundBuffer> _soundBuffer;
+  std::shared_ptr<sf::Sound> _sound;
 
  public:
   sfmlAudio();
+
+  sfmlAudio(sfmlAudio &) = default;
   ~sfmlAudio();
   bool load(const std::string &path) override;
   void *getAudio() override;
+
+  void playSound(bool loop, int frame) override;
+
+  void stop() override;
 };
 
 

@@ -18,8 +18,10 @@ namespace TacosEngine
 			static unsigned int id = 0;
 
 			_id = id;
+			_name = name;
 			id++;
 		}
+		Entity(const Entity &) = default;
 		virtual unsigned int        getInstanceId() { return _id; }
 		virtual const std::string   &getInstanceName() { return _name; }
 		virtual ~Entity() = default;

@@ -116,7 +116,7 @@ namespace TacosEngine
 		while (inGame)
 		{
 			processInput();
-			physics.update();
+			physics.update(sceneInProcess->getComponents());
             behaviourUpdate();
 			if (displayMode)
 			{

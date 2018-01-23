@@ -23,7 +23,7 @@ namespace TacosEngine
       if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
 	dir = dir / 2;
       _sprite->getTransform().setDirection(dir);
-      _sprite->getTransform().setSpeed(0.5f);
+      _sprite->getTransform().setSpeed(1.0f);
       Vector2 newPos(_sprite->getTransform().getPosition() + dir * _sprite->getTransform().getSpeed());
       _sprite->getTransform().setPosition(newPos);
     }

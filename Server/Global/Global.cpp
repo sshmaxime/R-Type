@@ -6,7 +6,9 @@
 
 Global Global::m_instance = Global();
 
-Global& Global::Instance()
+Global* Global::Instance()
 {
-    return m_instance;
+    static Global instance;
+
+    return &instance;
 }

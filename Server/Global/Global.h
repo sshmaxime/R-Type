@@ -10,10 +10,11 @@
 
 using boost::asio::ip::udp;
 
+extern std::mutex              mutex_AllMessagesReceived;
 
 class Global {
 public:
-    static                  Global& Instance();
+    static                  Global* Instance();
     Global&                 operator= (const Global&){}
 
     Global                  (const Global&){}
@@ -27,9 +28,6 @@ private:
 public:
     bool                    quit = false;
     udp::socket             *_Socket = NULL;
-
-public:
-    std::mutex              mutex_AllMessagesReceived;
 };
 
 

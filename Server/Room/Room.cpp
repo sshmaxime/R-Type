@@ -20,7 +20,7 @@ bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) c
             std::cout << "Name already used" << std::endl;
             return (true);
         }
-        if (user->getIp() == newUser->getIp())
+        if (user->getFullIp() == newUser->getFullIp())
         {
             std::cout << "Already connected" << std::endl;
             return (true);
@@ -41,6 +41,38 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
     return 0;
 }
 
+bool                    Room::isUserIn(const std::string &ip) const
+{
+    for (const auto &user : _Users)
+    {
+        if (user->getFullIp() == ip)
+            return (true);
+    }
+    return false;
+}
+
+bool                    Room::deleteUser(const std::string& ip)
+{
+    for (auto it = _Users.begin(); it != _Users.end();)
+    {
+        if(it->get()->getFullIp() == ip)
+        {
+            it = _Users.erase(it);
+            return (true);
+        }
+        else
+            ++it;
+    }
+    return false;
+}
+
+bool                    Room::isEmpty() const
+{
+    if (_Users.size() == 0)
+        return (true);
+    return (false);
+}
+
 Room::Room()
 {
     std::cout << "Room created" << std::endl;
@@ -50,4 +82,3 @@ Room::~Room()
 {
     std::cout << "Room deleted" << std::endl;
 }
-

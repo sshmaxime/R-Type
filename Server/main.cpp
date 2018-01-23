@@ -3,9 +3,9 @@
 
 void                exitSignal(int)
 {
-    Global::Instance().quit = true;
-    if (Global::Instance()._Socket != NULL)
-        Global::Instance()._Socket->cancel();
+    Global::Instance()->quit = true;
+    if (Global::Instance()->_Socket != NULL)
+        Global::Instance()->_Socket->cancel();
 }
 
 void                signalsHandler()

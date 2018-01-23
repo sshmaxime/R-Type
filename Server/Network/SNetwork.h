@@ -9,7 +9,7 @@
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio/error.hpp>
-#include <queue>
+#include <list>
 #include "../../Common/JSON/JSONObject.h"
 
 using boost::asio::ip::udp;
@@ -20,7 +20,7 @@ public:
     ~SNetwork();
 
 public:
-    int                     Initialize(int, std::shared_ptr<std::queue<std::string>>);
+    int                     Initialize(int, std::shared_ptr<std::list<std::string>>&);
     int                     Send(JSONObject&);
     void                    handleReceive(const boost::system::error_code& error, size_t bytes);
     int                     Receive();
@@ -33,7 +33,7 @@ private:
     udp::endpoint           _Endpoint;
 
 private:
-    std::shared_ptr<std::queue<std::string>> _AllMessagesReceived;
+    std::shared_ptr<std::list<std::string>> _AllMessagesReceived;
 
 public:
     enum                    { max_length = 1024 };

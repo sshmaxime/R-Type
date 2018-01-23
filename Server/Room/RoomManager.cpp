@@ -21,9 +21,32 @@ int                 RoomManager::addUser(const std::shared_ptr<User> newUser)
     return (-1);
 }
 
-int                 RoomManager::removeUser(const User& user)
+int                 RoomManager::checkEmptyRoom()
 {
-    // TODO
+    for (auto it = _Rooms.begin(); it != _Rooms.end();)
+    {
+        if (it->get()->isEmpty())
+        {
+            it = _Rooms.erase(it);
+            return (0);
+        }
+        else
+            ++it;
+    }
+    return (-1);
+}
+
+int                 RoomManager::deleteUser(const std::string& ip)
+{
+    for (const auto &room : _Rooms)
+    {
+        if (room->isUserIn(ip))
+        {
+            room->deleteUser(ip);
+            checkEmptyRoom();
+            return (0);
+        }
+    }
     return 0;
 }
 

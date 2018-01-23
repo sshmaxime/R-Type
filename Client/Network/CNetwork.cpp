@@ -40,9 +40,20 @@ int                     CNetwork::Send(JSONObject& toSend)
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
     }
-
     return (0);
 }
+
+int                     CNetwork::Bye()
+{
+    try {
+        _Socket->send_to(boost::asio::buffer("bye"), _Endpoint);
+        std::cout << "Message sent" << std::endl;
+    } catch (std::exception& exception) {
+        std::cout << exception.what() << std::endl;
+    }
+    return (0);
+}
+
 
 CNetwork::~CNetwork()
 {

@@ -6,6 +6,7 @@
 #include <MessagePacket.h>
 #include "Server.h"
 #include "Global/Global.h"
+#include "Global/Global.h"
 
 bool                isMessageValid(const std::string& ip, const std::string& header)
 {
@@ -25,7 +26,7 @@ bool                isCommandLineValid(char *av[], int ac)
 
 int                 Server::Initialize(char *av[], int ac)
 {
-    _AllMessagesReceived = std::make_shared<std::queue<std::string>>();
+    _AllMessagesReceived = std::make_shared<std::list<std::string>>();
     if (!isCommandLineValid(av, ac))
     {
         Help();
@@ -40,11 +41,11 @@ int                 Server::Initialize(char *av[], int ac)
 
 int                 Server::MessageHandler()
 {
-    while(!Global::Instance().quit)
+    while(!Global::Instance()->quit)
     {
-        Global::Instance().mutex_AllMessagesReceived.lock();
+        mutex_AllMessagesReceived.lock();
 
-        if (!_AllMessagesReceived->empty())
+        while (!_AllMessagesReceived->empty())
         {
             std::string i = _AllMessagesReceived->front();
             auto beg = i.find('[');
@@ -56,16 +57,19 @@ int                 Server::MessageHandler()
 
             if (isMessageValid(ip, header))
                 this->TreatMessage(header, packetContent, ip);
-            _AllMessagesReceived->pop();
+            _AllMessagesReceived->pop_front();
+            mutex_AllMessagesReceived.unlock();
         }
-        Global::Instance().mutex_AllMessagesReceived.unlock();
+        mutex_AllMessagesReceived.unlock();
     }
     return 0;
 }
 
 int                 Server::TreatMessage(const std::string& header, const std::string& packetContent, const std::string& ip)
 {
-    if (header == "0x0")
+    if (header == "bye")
+        this->deleteUser(ip);
+    else if (header == "0x0")
         this->HelloPacketHandler(packetContent, ip);
     else if (header == "0x1")
         this->MessagePacketHandler(packetContent, ip);
@@ -95,6 +99,12 @@ int                 Server::MessagePacketHandler(const std::string& packetConten
 
     messagePacket.buildObjectFromJSON(packetContent);
     return (0);
+}
+
+int                 Server::deleteUser(const std::string& ip)
+{
+    _RoomManager.deleteUser(ip);
+    return 0;
 }
 
 int                 Server::Run()

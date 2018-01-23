@@ -18,8 +18,10 @@ int                 Client::Run()
 
     HelloPacket   a;
 
-    a.setUsername("maxime");
+    a.setUsername("rozita");
     _Network.Send(a);
+
+    _Network.Bye();
     return 0;
 }
 

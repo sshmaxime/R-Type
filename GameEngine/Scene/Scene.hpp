@@ -55,8 +55,9 @@ namespace TacosEngine
     class Component : public Entity
     {
     public:
-        Component(const std::string &myname, std::shared_ptr<Sprite> sprite);
+        Component(const std::string &name, std::shared_ptr<Sprite> sprite);
         ~Component() override = default;
+        Component(const Component &) = default;
         std::shared_ptr<Sprite> getSprite();
         void addSprite(std::shared_ptr<Sprite> toAdd);
         const std::string &getSpriteName();
@@ -104,8 +105,10 @@ std::shared_ptr<T> TacosEngine::Scene::getComponent(unsigned int id)
 {
     for (auto it : _components)
     {
-        if ((it)->getSprite()->getInstanceId() == id && dynamic_cast<T *>(it))
-            return it;
+        if ((it)->getSprite()->getInstanceId() == id && dynamic_cast<T *>(it.get()))
+        {
+            return std::dynamic_pointer_cast<T>(it);
+        }
     }
     return (NULL);
 };

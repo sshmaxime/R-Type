@@ -13,22 +13,22 @@ namespace TacosEngine
 	Transform::~Transform()
 	= default;
 
-	Vector2	Transform::getDirection()
+	const Vector2	&Transform::getDirection() const
 	{
 		return direction;
 	}
 
-	Vector2	Transform::getPosition()
+    const Vector2	&Transform::getPosition() const
 	{
 		return position;
 	}
 
-	Vector2	Transform::getRotation()
+    const Vector2	&Transform::getRotation() const
 	{
 		return rotation;
 	}
 
-	float	Transform::getSpeed()
+	float	Transform::getSpeed() const
 	{
 		return speed;
 	}

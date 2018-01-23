@@ -3,8 +3,8 @@
 namespace TacosEngine
 {
 	Sprite::Sprite(const std::string &name, std::shared_ptr<Scene> scene, Layout layout)
-		: Entity(name)
-	{
+		: Entity(name), _transform()
+    {
         _layout = layout;
 		if (scene)
 			_scene = scene;

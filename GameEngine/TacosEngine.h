@@ -14,6 +14,8 @@
 #include "../Common/JSON/json.hpp"
 #include <EventManager/EventManager.hpp>
 
+#define _TICK 0.01
+
 namespace TacosEngine
 {
 

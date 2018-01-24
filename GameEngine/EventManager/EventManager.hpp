@@ -20,7 +20,7 @@ namespace TacosEngine {
         ~EventManager() = default;
 
         void addEvent(std::shared_ptr<IEvent> event, std::string &name);
-        void eventUpdate(Scene currentScene);
+        void eventUpdate(std::shared_ptr<Scene> currentScene);
 
     private:
         std::map<std::shared_ptr<IEvent>, std::string> _events;

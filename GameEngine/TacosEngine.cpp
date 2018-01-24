@@ -8,41 +8,41 @@
 
 namespace TacosEngine
 {
-	Engine::Engine(bool displayMode)
-		: inGame(true), displayMode(displayMode)
-	{
-		if (displayMode)
-		{
-			window = std::make_unique<SfmlWindow>();
-			window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
-			renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
-		}
-		inputManager = std::make_unique<InputManagerSFML>();
+    Engine::Engine(bool displayMode)
+            : inGame(true), displayMode(displayMode)
+    {
+        if (displayMode)
+        {
+            window = std::make_unique<SfmlWindow>();
+            window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
+            renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
+        }
+        inputManager = std::make_unique<InputManagerSFML>();
         eventManager = std::make_unique<EventManager>();
-		ressources = std::make_shared<RessourceManager>();
-	}
+        ressources = std::make_shared<RessourceManager>();
+    }
 
-	Engine::~Engine()
-	{
-		if (displayMode)
-			window->DeleteWindow();
-	}
+    Engine::~Engine()
+    {
+        if (displayMode)
+            window->DeleteWindow();
+    }
 
-	void	Engine::initRessources(const std::string &path)
-	{
-	  std::ifstream file(path);
+    void	Engine::initRessources(const std::string &path)
+    {
+        std::ifstream file(path);
 
-	  if (file.fail())
-	    throw std::invalid_argument("Can't open file in path:" + path);
-	  else
-	    ressources->init(path);
-	}
+        if (file.fail())
+            throw std::invalid_argument("Can't open file in path:" + path);
+        else
+            ressources->init(path);
+    }
 
-	void	Engine::addScene(std::shared_ptr<Scene> scene)
-	{
-		scene->setRessources(ressources);
-		scenes.push_back(scene);
-	}
+    void	Engine::addScene(std::shared_ptr<Scene> scene)
+    {
+        scene->setRessources(ressources);
+        scenes.push_back(scene);
+    }
 
     /*
 	void Engine::addScene(const std::string &path){
@@ -109,50 +109,63 @@ namespace TacosEngine
         sceneInProcess = std::move(toAdd);
     }
 
-	std::shared_ptr<Scene>	Engine::getSceneInProcess()
-	{
-		return sceneInProcess;
-	}
+    std::shared_ptr<Scene>	Engine::getSceneInProcess()
+    {
+        return sceneInProcess;
+    }
 
-	void	Engine::run()
-	{
-		while (inGame)
-		{
-            eventManager->eventUpdate();
-            startObjects();
-			processInput();
-            physics.update(sceneInProcess->getGameObjects());
-            behaviourUpdate();
-			if (displayMode)
-			{
-				renderer->draw(sceneInProcess->getGameObjects());
-			}
-            destroyObjects();
-			if (inputs.getKey(Key::KEY_ESCAPE))
-				inGame = false;
-		}
-	}
+    void	Engine::run()
+    {
+        std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+        std::chrono::high_resolution_clock::time_point t2;
+        int          curent_tick = 0;
 
-	std::shared_ptr<RessourceManager>	Engine::getRessources()
-	{
-		return ressources;
-	}
+        while (inGame)
+        {
+            t2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(
+                    t2 - t1);
+            if (time_span.count() > _TICK)
+            {
+                if (curent_tick >= _TICK * 100)
+                    curent_tick = 0;
+                curent_tick = curent_tick + 1;
+                eventManager->eventUpdate(this->sceneInProcess);
+                startObjects();
+                processInput();
+                physics.update(sceneInProcess->getGameObjects());
+                behaviourUpdate();
+                if (displayMode) {
+                    renderer->draw(sceneInProcess->getGameObjects());
+                }
+                destroyObjects();
+                if (inputs.getKey(Key::KEY_ESCAPE))
+                    inGame = false;
+                t1 = std::chrono::high_resolution_clock::now();
+            }
+        }
+    }
 
-	void	Engine::processInput()
-	{
-		inputManager->setProcessInput(inputs);
-	}
+    std::shared_ptr<RessourceManager>	Engine::getRessources()
+    {
+        return ressources;
+    }
 
-	void	Engine::behaviourUpdate()
-	{
-		std::list<std::shared_ptr<Component>>	compo(sceneInProcess->getComponents());
+    void	Engine::processInput()
+    {
+        inputManager->setProcessInput(inputs);
+    }
 
-	  for (const auto &i : compo)
-		{
-			if (dynamic_cast<Behaviour *>(i.get()))
-				dynamic_cast<Behaviour *>(i.get())->update(inputs);
-		}
-	}
+    void	Engine::behaviourUpdate()
+    {
+        std::list<std::shared_ptr<Component>>	compo(sceneInProcess->getComponents());
+
+        for (const auto &i : compo)
+        {
+            if (dynamic_cast<Behaviour *>(i.get()))
+                dynamic_cast<Behaviour *>(i.get())->update(inputs);
+        }
+    }
 
     void    Engine::startObjects()
     {

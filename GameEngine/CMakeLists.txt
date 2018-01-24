@@ -49,7 +49,8 @@
             Scene/Scene.hpp
             Sprite/Sprite.cpp
             Transform/Transform.cpp
-            EventManager/EventManager.cpp EventManager/EventManager.hpp
+            EventManager/EventManager.cpp
+            EventManager/EventManager.hpp
             Transform/Transform.h
             Vector2/Vector2.cpp
             Vector2/Vector2.hpp

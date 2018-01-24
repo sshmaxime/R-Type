@@ -13,12 +13,11 @@ namespace TacosEngine {
         this->_events.insert(std::pair<std::shared_ptr<IEvent>, std::string>(event, name));
     }
 
-    void EventManager::eventUpdate(Scene currentScene) {
+    void EventManager::eventUpdate(std::shared_ptr<Scene> currentScene) {
 
-
-        /*for (auto &_event : _events) {
-            _event.first->onEvent(currentScene->getEntityByName(_event.second));
+        for (auto &_event : _events) {
+            _event.first->onEvent(currentScene->findByName(_event.second));
         }
-        _events.clear();*/
+        _events.clear();
     }
 }

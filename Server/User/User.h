@@ -6,6 +6,10 @@
 #define R_TYPE_USER_H
 
 #include <string>
+#include <boost/asio/ip/udp.hpp>
+#include <Request.h>
+
+using boost::asio::ip::udp;
 
 class User {
 public:
@@ -17,12 +21,19 @@ private:
     std::string             _Username;
     std::string             _Port;
     std::string             _IP;
+    udp::endpoint           _Endpoint;
 
 public:
     std::string             getFullIp() const;
     std::string             getUsername() const;
     std::string             getPort() const;
     std::string             getIp() const;
+
+public:
+    void                    send(const JSONObject&) const;
+    void                    send(const std::string&) const;
+    void                    handleSend(const boost::system::error_code&, std::size_t) {}
+
 };
 
 

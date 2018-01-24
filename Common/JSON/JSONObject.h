@@ -16,11 +16,11 @@ protected:
     std::string                     __HEADER__;
 
 public:
-    std::string                     getHEADER();
+    std::string                     getHEADER() const;
 
 public:
     virtual int                     buildObjectFromJSON(const std::string&) = 0;
-    std::string                     getJSON();
+    std::string                     getJSON() const;
 
     friend  std::ostream& operator<< (std::ostream &out, const JSONObject&);
 

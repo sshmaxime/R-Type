@@ -33,7 +33,7 @@ namespace TacosEngine
             rb->addForce(dir * _object->getTransform().getSpeed());
         }
 
-        void PlayerBehaviour::onCollide(GameObject &other) override {
+        void onCollide(GameObject &other) override {
             std::cout << "OnCollide() => " << other.getInstanceName() << std::endl;
             if (other.getInstanceName() == "Obs")
             {

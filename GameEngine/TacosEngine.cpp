@@ -115,19 +115,31 @@ namespace TacosEngine
 
 	void	Engine::run()
 	{
+        std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+        std::chrono::high_resolution_clock::time_point t2;
+        int          curent_tick = 0;
+
 		while (inGame)
 		{
-            startObjects();
-			processInput();
-            physics.update(sceneInProcess->getGameObjects());
-            behaviourUpdate();
-			if (displayMode)
+            t2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+            if (time_span.count() > _TICK)
 			{
-				renderer->draw(sceneInProcess->getGameObjects());
-			}
-            destroyObjects();
-			if (inputs.getKey(Key::KEY_ESCAPE))
-				inGame = false;
+                if (curent_tick >= 100)
+					curent_tick = 0;
+                curent_tick = curent_tick + 1;
+                startObjects();
+                processInput();
+                physics.update(sceneInProcess->getGameObjects());
+                behaviourUpdate();
+                if (displayMode) {
+                    renderer->draw(sceneInProcess->getGameObjects());
+                }
+                destroyObjects();
+                if (inputs.getKey(Key::KEY_ESCAPE))
+                    inGame = false;
+                t1 = std::chrono::high_resolution_clock::now();
+            }
 		}
 	}
 

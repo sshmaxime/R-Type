@@ -19,5 +19,6 @@ namespace TacosEngine {
             _event.first->onEvent(currentScene->findByName(_event.second));
         }
         _events.clear();
+        
     }
 }

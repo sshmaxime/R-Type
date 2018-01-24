@@ -10,12 +10,12 @@ std::ostream            &operator<<(std::ostream &out, const JSONObject &obj)
     return out;
 }
 
-std::string             JSONObject::getHEADER()
+std::string             JSONObject::getHEADER() const
 {
     return (this->__HEADER__);
 }
 
-std::string             JSONObject::getJSON()
+std::string             JSONObject::getJSON() const
 {
     return (_JSON.dump(-1));
 

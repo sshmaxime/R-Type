@@ -20,8 +20,7 @@ int                 Client::Run()
 
     a.setUsername("rozita");
     _Network.Send(a);
-
-    _Network.Bye();
+    _Network.Run();
     return 0;
 }
 

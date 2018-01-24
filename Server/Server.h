@@ -23,7 +23,7 @@ private:
     RoomManager             _RoomManager;
 
 private:
-    std::shared_ptr<std::queue<std::string>> _AllMessagesReceived;
+    std::shared_ptr<std::list<std::string>> _AllMessagesReceived;
 
 private:
     std::thread             _MessageHandler;
@@ -39,6 +39,9 @@ public:
 public:
     int                     HelloPacketHandler(const std::string&, const std::string&);
     int                     MessagePacketHandler(const std::string&, const std::string&);
+
+public:
+    int                     deleteUser(const std::string&);
 };
 
 

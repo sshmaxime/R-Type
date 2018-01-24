@@ -22,6 +22,7 @@ public:
     int                     Initialize(const std::string&, int);
     int                     Send(JSONObject&);
     void                    handleReceive(const boost::system::error_code& error, size_t bytes);
+    int                     Bye();
 
 private:
     boost::asio::io_service _Service;

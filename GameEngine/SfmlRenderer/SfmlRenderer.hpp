@@ -13,7 +13,7 @@
 namespace TacosEngine {
 
     struct SortByLayout {
-        bool	operator()(const std::shared_ptr<Sprite> &i, const std::shared_ptr<Sprite> &j) const
+        bool	operator()(const std::shared_ptr<GameObject> &i, const std::shared_ptr<GameObject> &j) const
         {
             return *i < *j;
         }
@@ -26,7 +26,7 @@ namespace TacosEngine {
     public:
         explicit SfmlRenderer(sf::RenderWindow *window);
         ~SfmlRenderer() override;
-        void draw(std::list<std::shared_ptr<Sprite>> _sprites) override;
+        void draw(std::list<std::shared_ptr<GameObject>> _sprites) override;
     };
 }
 

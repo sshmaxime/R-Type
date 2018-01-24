@@ -12,6 +12,10 @@ namespace TacosEngine
     class Behaviour;
 
     class PlayerBehaviour : public Behaviour {
+    private:
+        float sizeX;
+        float sizeY;
+
     public:
         PlayerBehaviour(const std::string &name, std::shared_ptr<GameObject> object)
                 : Behaviour(name, std::move(object)) {
@@ -21,6 +25,10 @@ namespace TacosEngine
 
         void Start() override {
             std::cout << "In Start()" << std::endl;
+            auto sp = std::dynamic_pointer_cast<Sprite>(_object);
+            sizeX = sp->getSize().get_x();
+            sizeY = sp->getSize().get_y();
+            _object->getTransform().setSpeed(4.0f);
         }
 
         void update(const Input &input) override {
@@ -29,8 +37,8 @@ namespace TacosEngine
 
             if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
                 dir = dir / 2;
+            CheckWindowCollide(dir);
             _object->getTransform().setDirection(dir);
-            _object->getTransform().setSpeed(4.0f);
             rb->addForce(dir * _object->getTransform().getSpeed());
         }
 
@@ -41,6 +49,17 @@ namespace TacosEngine
                     obs2->getTransform().setPosition(Vector2(10, 10));
                 setDestroy(true);
             }
+        }
+
+        Vector2    &CheckWindowCollide(Vector2 &dir)
+        {
+            if (dir.get_x() < 0 && _object->getTransform().getPosition().get_x() <= 0.5 ||
+                dir.get_x() > 0 && _object->getTransform().getPosition().get_x() >= (799.5 - sizeX))
+                dir.set_x(0);
+            if (dir.get_y() > 0 && _object->getTransform().getPosition().get_y() >= (399.5 - sizeY) ||
+                dir.get_y() < 0 && _object->getTransform().getPosition().get_y() <= 0.5)
+                dir.set_y(0);
+            return dir;
         }
     };
 
@@ -60,7 +79,7 @@ namespace TacosEngine
         }
 
         void update(const Input &input) override {
-            if (_object->getTransform().getPosition().get_y() < -30)
+            if (_object->getTransform().getPosition().get_y() < -80)
             {
                 std::cout << "New Scene !" << std::endl;
                 _object->getScene()->loadNewScene("Scene1");
@@ -85,7 +104,7 @@ int main()
 
     // SplashScreen
     std::shared_ptr<Text> rtypeText = std::make_shared<Text>("RtypeText", splashScreen, Layout::UI, Tag::UNKNOWN, "R-Type");
-    rtypeText->setColor(Color::RED);
+    rtypeText->setColor(Color::YELLOW);
     rtypeText->setFont(scene->getFont("rtypefont"));
     rtypeText->setSize(Vector2(30, 0));
     rtypeText->getTransform().setPosition(Vector2(350, 400));
@@ -94,13 +113,6 @@ int main()
     splashScreen->addGameObject(rtypeText);
     splashScreen->addComponent(textBeha);
     splashScreen->addComponent(rigText);
-
-    // SplashScreen background
-    /* std::shared_ptr<Sprite> backSplash = std::make_shared<Sprite>("BackgroundSplash", scene, Layout::BACKGROUND);
-    backSplash->setTexture(scene->getTexture("back"));
-    backSplash->setSize(Vector2(800, 400));
-    splashScreen->addGameObject(backSplash); */
-
 
     // Sprite background
     std::shared_ptr<Sprite> back = std::make_shared<Sprite>("Background", scene, Layout::BACKGROUND);

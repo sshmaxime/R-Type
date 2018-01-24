@@ -45,6 +45,8 @@ namespace TacosEngine
         std::shared_ptr<GameObject> findByTag(Tag tag);
         std::list<std::shared_ptr<GameObject>>  findGameObjetcsByTag(Tag tag);
         bool		operator<(const GameObject &);
+        /*void    setActive();
+        bool    isActive() const;*/
 
     protected:
         Transform                   _transform;
@@ -64,12 +66,15 @@ namespace TacosEngine
         void addGameObject(std::shared_ptr<GameObject> toAdd);
         const std::string &getGameObjectName();
         bool  isObjected() const;
+        /* void    setActive();
+        bool    isActive() const; */
 
         template <typename T>
         std::shared_ptr<T> getComponent();
 
     protected:
         std::shared_ptr<GameObject> _object;
+        bool                        _isActive;
     };
 
     class Scene

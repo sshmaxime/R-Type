@@ -13,7 +13,7 @@ namespace TacosEngine
 	{
 		if (displayMode)
 		{
-			window = std::make_unique<SfmlWindow>();
+			window = std::make_shared<SfmlWindow>();
 			window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
 			renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
 		}
@@ -130,8 +130,10 @@ namespace TacosEngine
                 if (curent_tick >= _TICK * 100)
                     curent_tick = 0;
                 curent_tick = curent_tick + 1;
-                eventManager->eventUpdate(this->sceneInProcess);
                 startObjects();
+                eventManager->eventUpdate(this->sceneInProcess);
+				if (displayMode)
+					windowEvents();
                 processInput();
                 physics.update(sceneInProcess->getGameObjects());
                 behaviourUpdate();
@@ -144,6 +146,18 @@ namespace TacosEngine
                 t1 = std::chrono::high_resolution_clock::now();
             }
         }
+	}
+
+	void	Engine::windowEvents()
+	{
+		sf::RenderWindow *window = std::dynamic_pointer_cast<SfmlWindow>(this->window)->get_window();
+		sf::Event	event;
+
+		window->pollEvent(event);
+		if (event.type == sf::Event::EventType::Closed)
+		{
+			this->inGame = false;
+		}
 	}
 
 	std::shared_ptr<RessourceManager>	Engine::getRessources()

@@ -39,7 +39,7 @@ namespace TacosEngine
 
 		// Window
 		bool								displayMode;
-		std::unique_ptr<IWindow>			window;
+		std::shared_ptr<IWindow>			window;
 
 		// Renderer
 		std::unique_ptr<IRenderer>			renderer;
@@ -67,6 +67,7 @@ namespace TacosEngine
 		void				behaviourUpdate();
 		void				startObjects();
 		void				destroyObjects();
+		void 				windowEvents();
 
 	private:
 		void			processInput();

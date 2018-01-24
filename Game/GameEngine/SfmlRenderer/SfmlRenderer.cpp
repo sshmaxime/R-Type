@@ -12,7 +12,8 @@ TacosEngine::SfmlRenderer::SfmlRenderer(sf::RenderWindow *window)
 
 TacosEngine::SfmlRenderer::~SfmlRenderer() = default;
 
-void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> gameObjects) {
+void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> gameObjects)
+{
     gameObjects.sort(SortByLayout());
     for (auto it=gameObjects.begin(); it!=gameObjects.end(); it++)
     {

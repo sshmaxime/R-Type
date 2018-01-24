@@ -102,6 +102,8 @@ namespace TacosEngine
     void setRessources(std::shared_ptr<RessourceManager> ress);
 
     ITexture *getTexture(const std::string &name);
+    IFont *getFont(const std::string &name);
+    IAudio *getAudio(const std::string &name);
 
     std::list<std::shared_ptr<Sprite>> getSprites();
 
@@ -119,6 +121,7 @@ namespace TacosEngine
     void displaySprites();
 
     void displayComponents();
+
   };
 }
 
@@ -127,8 +130,8 @@ std::shared_ptr<T> TacosEngine::Scene::getComponent(unsigned int id)
 {
   for (auto it : _components)
     {
-      if ((it)->getSprite()->getInstanceId() == id && dynamic_cast<T *>(it))
-	return it;
+      if ((it)->getSprite()->getInstanceId() == id && dynamic_cast<T *>(it.get()))
+	return std::dynamic_pointer_cast<T>(it);
     }
   return (NULL);
 };

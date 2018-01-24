@@ -23,6 +23,7 @@ namespace TacosEngine
 
    private:
     IAudio *_audio;
+    bool _playing;
   };
 }
 

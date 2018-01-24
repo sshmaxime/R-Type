@@ -10,14 +10,23 @@ TacosEngine::AudioComponent::AudioComponent(const std::string &myname, const std
 		    sprite)
 {
   this->_audio = sound;
+  _playing = false;
 }
 
 void TacosEngine::AudioComponent::play(bool loop, int frame)
 {
-  this->_audio->playSound(loop, frame);
+  if (!_playing)
+    {
+      _playing = true;
+      this->_audio->playSound(loop, frame);
+    }
 }
 
 void TacosEngine::AudioComponent::stop()
 {
-  this->_audio->stop();
+  if (_playing)
+    {
+      this->_audio->stop();
+      _playing = false;
+    }
 }

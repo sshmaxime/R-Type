@@ -20,7 +20,7 @@ namespace TacosEngine
    public:
     RessourceManager() = default;
 
-    ~RessourceManager() = default;
+    ~RessourceManager();
 
     void init(const std::string &path);
     void destroy();

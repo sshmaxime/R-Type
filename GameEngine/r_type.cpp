@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <AudioComponent/AudioComponent.hpp>
 #include "TacosEngine.h"
 
 namespace TacosEngine
@@ -28,6 +29,26 @@ namespace TacosEngine
       _sprite->getTransform().setPosition(newPos);
     }
   };
+
+  class BackgroundBehaviour : public Behaviour
+  {
+   public:
+    BackgroundBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
+	    : Behaviour(name, std::move(sprite))
+    {
+    }
+
+    ~BackgroundBehaviour() override = default;
+
+    void update(const Input &input) override
+    {
+      auto a = getComponent<AudioComponent>();
+      a->play(false, 0);
+      _sprite->getTransform().setSpeed(0.01f);
+      Vector2 newPos(_sprite->getTransform().getPosition() + Vector2(-1, 0) * _sprite->getTransform().getSpeed());
+      _sprite->getTransform().setPosition(newPos);
+    }
+  };
 }
 
 using namespace TacosEngine;
@@ -44,9 +65,13 @@ int main()
 
   // Sprite background
   std::shared_ptr<Sprite> back = std::make_shared<Sprite>("Background", scene, Layout::BACKGROUND);
+  std::shared_ptr<AudioComponent> Audioback = std::make_shared<AudioComponent>("Audioback", back, scene->getAudio("Audioback"));
+  std::shared_ptr<BackgroundBehaviour> backBeha = std::make_shared<BackgroundBehaviour>("backBeh", back);
   back->setTexture(scene->getTexture("back"));
   back->setSize(Vector2(800, 400));
   scene->addSprite(back);
+  scene->addComponent(Audioback);
+  scene->addComponent(backBeha);
 
   // Sprite ship
   std::shared_ptr<Sprite> player = std::make_shared<Sprite>("Player", scene, Layout::SCENE);

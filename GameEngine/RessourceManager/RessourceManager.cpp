@@ -42,3 +42,10 @@ void TacosEngine::RessourceManager::destroy()
   _audios.clear();
   _textures.clear();
 }
+
+TacosEngine::RessourceManager::~RessourceManager()
+{
+  _fonts.clear();
+  _audios.clear();
+  _textures.clear();
+}

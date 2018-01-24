@@ -4,14 +4,17 @@
 
 #include "SNetwork.h"
 #include "../Global/Global.h"
+#include "../Global/Global.h"
 
-int                 SNetwork::Initialize(int port, std::shared_ptr<std::queue<std::string>> queue)
+std::mutex              mutex_AllMessagesReceived;
+
+int                 SNetwork::Initialize(int port, std::shared_ptr<std::list<std::string>>& queue)
 {
     _AllMessagesReceived = queue;
 
     try {
         _Socket = new udp::socket(_Service, udp::endpoint(udp::v4(), port));
-        Global::Instance()._Socket = _Socket;
+        Global::Instance()->_Socket = _Socket;
         this->Receive();
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
@@ -51,20 +54,31 @@ int                 SNetwork::Run()
     return (0);
 }
 
+void                printQueue(std::shared_ptr<std::list<std::string>> lol)
+{
+    int x = 0;
+    std::cout << "print" << std::endl;
+    for (const auto item : *lol)
+    {
+        std::cout << item + "->tst" << std::endl;
+    }
+
+}
+
 void                SNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
     std::string     msgSender = "[" + _Endpoint.address().to_string() + ":" + std::to_string(_Endpoint.port()) + "]";
 
     _DATA.at(bytes) = '\0';
-    if (Global::Instance().quit)
+    if (Global::Instance()->quit)
     {
         _Socket->close();
         return;
     }
+    mutex_AllMessagesReceived.lock();
+    _AllMessagesReceived->push_back(msgSender + std::string(_DATA.c_array()));
+    mutex_AllMessagesReceived.unlock();
     this->Receive();
-    Global::Instance().mutex_AllMessagesReceived.lock();
-    _AllMessagesReceived->push(msgSender + std::string(_DATA.c_array()));
-    Global::Instance().mutex_AllMessagesReceived.unlock();
 }
 
 int                 SNetwork::Stop()
@@ -76,7 +90,7 @@ int                 SNetwork::Stop()
 
 SNetwork::~SNetwork()
 {
-    if (_Socket != NULL)
+    if (_Socket != nullptr)
         delete _Socket;
     if (!this->_Service.stopped())
         this->_Service.stop();

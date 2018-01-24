@@ -13,15 +13,15 @@ namespace TacosEngine
 		float	speed;
 
 	public:
-		Transform(Vector2 position = Vector2(), Vector2 direction = Vector2(), Vector2 rotation = Vector2(), float speed = 0);
+		explicit Transform(Vector2 position = Vector2(0, 0), Vector2 direction = Vector2(0, 0), Vector2 rotation = Vector2(0, 0), float speed = 0);
 		~Transform();
-		Vector2	getPosition();
+		const Vector2	&getPosition() const;
 		void	setPosition(const Vector2 &pos);
-		Vector2	getDirection();
+		const Vector2	&getDirection() const;
 		void	setDirection(const Vector2 &dir);
-		Vector2	getRotation();
+		const Vector2	&getRotation() const;
 		void	setRotation(const Vector2 &rot);
-		float	getSpeed();
+		float	getSpeed() const;
 		void	setSpeed(float speed);
 	};
 }

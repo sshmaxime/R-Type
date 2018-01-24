@@ -4,10 +4,10 @@
 
 #include "AudioComponent.hpp"
 
-TacosEngine::AudioComponent::AudioComponent(const std::string &myname, const std::shared_ptr<Sprite> &sprite,
+TacosEngine::AudioComponent::AudioComponent(const std::string &myname, const std::shared_ptr<GameObject> &object,
 					    IAudio *sound)
 	: Component(myname,
-		    sprite)
+		    object)
 {
   this->_audio = sound;
   _playing = false;

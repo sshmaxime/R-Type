@@ -4,7 +4,7 @@
 namespace TacosEngine
 {
 	Scene::Scene(const std::string &myname)
-		: _name(myname)
+		: _name(myname), _newScene(false), _newSceneName("")
 	{
 	}
 
@@ -52,6 +52,16 @@ namespace TacosEngine
     ITexture *Scene::getTexture(const std::string &name)
     {
         return _ressources->getTexture(name);
+    }
+
+    IFont *Scene::getFont(const std::string &name)
+    {
+        return _ressources->getFont(name);
+    }
+
+    IAudio *Scene::getAudio(const std::string &name)
+    {
+        return _ressources->getAudio(name);
     }
 
     void    Scene::startObjects()
@@ -127,5 +137,26 @@ namespace TacosEngine
                 gameObjects.push_back(gameObject);
         }
         return gameObjects;
+    }
+
+    bool        Scene::isNewScene() const
+    {
+        return _newScene;
+    }
+
+    void        Scene::loadNewScene(const std::string &name)
+    {
+        _newScene = true;
+        _newSceneName = name;
+    }
+
+    const std::string   &Scene::getName() const
+    {
+        return _name;
+    }
+
+    const std::string   &Scene::getNewSceneName() const
+    {
+        return _newSceneName;
     }
 }

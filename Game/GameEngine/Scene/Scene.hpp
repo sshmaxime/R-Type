@@ -80,6 +80,8 @@ namespace TacosEngine
         //std::list<std::shared_ptr<IEvent> _events;
         std::string _name;
         std::shared_ptr<RessourceManager>	_ressources;
+        bool    _newScene;
+        std::string _newSceneName;
 
     public:
         explicit Scene(const std::string &myname);
@@ -88,6 +90,8 @@ namespace TacosEngine
         void addComponent(std::shared_ptr<Component> toAdd);
         void setRessources(std::shared_ptr<RessourceManager> ress);
         ITexture *getTexture(const std::string &name);
+        IFont *getFont(const std::string &name);
+        IAudio *getAudio(const std::string &name);
         std::list<std::shared_ptr<GameObject>>	getGameObjects();
         std::list<std::shared_ptr<Component>>	getComponents();
         std::shared_ptr<GameObject> getGameObject(unsigned int id);
@@ -96,6 +100,11 @@ namespace TacosEngine
         std::shared_ptr<GameObject> findByName(const std::string &);
         std::shared_ptr<GameObject> findByTag(Tag tag);
         std::list<std::shared_ptr<GameObject>>  findGameObjetcsByTag(Tag tag);
+        bool        isNewScene() const;
+        void        loadNewScene(const std::string &name);
+        const std::string   &getName() const;
+        const std::string   &getNewSceneName() const;
+
 
         template <typename T>
         std::shared_ptr<T> getComponent(unsigned int id);

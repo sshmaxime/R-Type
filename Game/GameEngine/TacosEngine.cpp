@@ -146,6 +146,7 @@ namespace TacosEngine
                 destroyObjects();
                 if (inputs.getKey(Key::KEY_ESCAPE))
                     inGame = false;
+                checkNewScene();
                 t1 = std::chrono::high_resolution_clock::now();
             }
         }
@@ -192,5 +193,18 @@ namespace TacosEngine
     void Engine::destroyObjects()
     {
         sceneInProcess->destroyObjects();
+    }
+
+    void Engine::checkNewScene()
+    {
+        if (sceneInProcess->isNewScene())
+        {
+            std::string newScene = sceneInProcess->getNewSceneName();
+            for (auto &scene : scenes)
+            {
+                if (scene->getName() == newScene)
+                    loadScene(scene);
+            }
+        }
     }
 }

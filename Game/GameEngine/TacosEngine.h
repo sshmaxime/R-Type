@@ -68,6 +68,7 @@ namespace TacosEngine
 		void				startObjects();
 		void				destroyObjects();
 		void 				windowEvents();
+		void				checkNewScene();
 
 	private:
 		void			processInput();

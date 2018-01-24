@@ -2,6 +2,6 @@ texture:
 back:background-18.jpg
 ship:ship.png
 /:/
-audio:
-Audioback:music.wav
+font:
+rtypefont:Starjedi.ttf
 /:/

@@ -7,8 +7,9 @@
 
 #include <vector>
 #include <Entity/Entity.hpp>
+#include <GameEngine/Scene/Scene.hpp>
 
-namespace TLevel
+namespace RType
 {
   class Level
   {
@@ -18,7 +19,7 @@ namespace TLevel
     void	Init();
    private:
     std::vector<TEntity::Entity>	_entities;
-    std::vector<TacosEngine::IEvent>	_events;
+    //std::vector<TacosEngine::>	_events;
     TacosEngine::Scene			_scene;
     std::string				_ressourceFile;
   };

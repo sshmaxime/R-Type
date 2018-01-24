@@ -8,6 +8,8 @@
 
 #include <queue>
 #include <iostream>
+#include <GameEngine/TacosEngine.h>
+#include <Level/Level.hpp>
 
 namespace Rtype
 {
@@ -20,16 +22,16 @@ namespace Rtype
   class	Core
   {
    public:
-    Core(std::queue<JSONObject>	&cmdServer_in, std::queue<JSONObject> &cmdServer_out);
+    Core();
     ~Core() = default;
     void	InitGame();
     void	StartGame();
 
    private:
-    Engine	_engine;
-    std::queue<JSONObject>	*_cmdServer_in;
-    std::queue<JSONObject>	*_cmdServer_out;
-    std::vector<Rtype::Level>	_levels;
+    TacosEngine::Engine	_engine;
+    /*std::queue<JSONObject>	*_cmdServer_in;
+    std::queue<JSONObject>	*_cmdServer_out;*/
+    std::vector<::>	_levels;
   };
 }
 

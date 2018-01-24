@@ -35,7 +35,10 @@ namespace TacosEngine
 	  if (file.fail())
 	    throw std::invalid_argument("Can't open file in path:" + path);
 	  else
-	    ressources->init(path);
+	  {
+          file.close();
+          ressources->init(path);
+	  }
 	}
 
 	void	Engine::addScene(std::shared_ptr<Scene> scene)

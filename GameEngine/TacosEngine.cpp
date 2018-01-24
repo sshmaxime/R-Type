@@ -18,6 +18,7 @@ namespace TacosEngine
 			renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
 		}
 		inputManager = std::make_unique<InputManagerSFML>();
+        eventManager = std::make_unique<EventManager>();
 		ressources = std::make_shared<RessourceManager>();
 	}
 
@@ -115,6 +116,7 @@ namespace TacosEngine
 	{
 		while (inGame)
 		{
+            eventManager->eventUpdate();
 			processInput();
 			physics.update();
             behaviourUpdate();

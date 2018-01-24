@@ -12,6 +12,7 @@
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
 #include "../Common/JSON/json.hpp"
+#include <EventManager/EventManager.hpp>
 
 namespace TacosEngine
 {
@@ -45,6 +46,9 @@ namespace TacosEngine
 		TacosEngine::Input									inputs;
 		std::unique_ptr<TacosEngine::InputManager>			inputManager;
 		TestInput											test;
+
+        // Event
+        std::shared_ptr<EventManager>       eventManager;
 
 
 	public:

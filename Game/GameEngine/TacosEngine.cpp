@@ -19,6 +19,7 @@ namespace TacosEngine
 		}
 		inputManager = std::make_unique<InputManagerSFML>();
 		ressources = std::make_shared<RessourceManager>();
+		eventManager = std::make_shared<EventManager>();
 	}
 
 	Engine::~Engine()
@@ -115,20 +116,34 @@ namespace TacosEngine
 
 	void	Engine::run()
 	{
-		while (inGame)
-		{
-            startObjects();
-			processInput();
-            physics.update(sceneInProcess->getGameObjects());
-            behaviourUpdate();
-			if (displayMode)
-			{
-				renderer->draw(sceneInProcess->getGameObjects());
-			}
-            destroyObjects();
-			if (inputs.getKey(Key::KEY_ESCAPE))
-				inGame = false;
-		}
+		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+        std::chrono::high_resolution_clock::time_point t2;
+        int          curent_tick = 0;
+
+        while (inGame)
+        {
+            t2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(
+                    t2 - t1);
+            if (time_span.count() > _TICK)
+            {
+                if (curent_tick >= _TICK * 100)
+                    curent_tick = 0;
+                curent_tick = curent_tick + 1;
+                eventManager->eventUpdate(this->sceneInProcess);
+                startObjects();
+                processInput();
+                physics.update(sceneInProcess->getGameObjects());
+                behaviourUpdate();
+                if (displayMode) {
+                    renderer->draw(sceneInProcess->getGameObjects());
+                }
+                destroyObjects();
+                if (inputs.getKey(Key::KEY_ESCAPE))
+                    inGame = false;
+                t1 = std::chrono::high_resolution_clock::now();
+            }
+        }
 	}
 
 	std::shared_ptr<RessourceManager>	Engine::getRessources()

@@ -3,6 +3,7 @@
 #include <list>
 #include <memory>
 #include <GameEngine/Behaviour/Behaviour.h>
+#include <GameEngine/EventManager/EventManager.hpp>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -12,6 +13,8 @@
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
 #include "../Common/JSON/json.hpp"
+
+#define _TICK 0.01
 
 namespace TacosEngine
 {
@@ -45,6 +48,9 @@ namespace TacosEngine
 		TacosEngine::Input									inputs;
 		std::unique_ptr<TacosEngine::InputManager>			inputManager;
 		TestInput											test;
+
+		// Event
+		std::shared_ptr<EventManager>       eventManager;
 
 
 	public:

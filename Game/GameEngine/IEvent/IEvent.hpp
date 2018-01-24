@@ -5,12 +5,17 @@
 #ifndef R_TYPE_IEVENT_HPP
 #define R_TYPE_IEVENT_HPP
 
-class IEvent {
+#include <GameEngine/Scene/Scene.hpp>
 
-public:
-    virtual ~IEvent() = default;
+namespace TacosEngine {
 
-    virtual void onEvent() = 0;
-};
+    class IEvent {
+
+    public:
+        virtual ~IEvent() = default;
+
+        virtual void onEvent(std::shared_ptr<GameObject> obj) = 0;
+    };
+}
 
 #endif //R_TYPE_IEVENT_HPP

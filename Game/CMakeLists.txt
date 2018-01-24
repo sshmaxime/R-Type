@@ -67,7 +67,9 @@ add_executable(Game
         GameEngine/TacosEngine.cpp
         GameEngine/TacosEngine.h
         GameEngine/TestInput.h
-        GameEngine/r_type.cpp)
+        GameEngine/r_type.cpp
+        GameEngine/EventManager/EventManager.cpp
+        GameEngine/EventManager/EventManager.hpp)
 
 #        Level/Level.cpp
 #        Level/Level.hpp

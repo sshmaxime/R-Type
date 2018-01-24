@@ -17,20 +17,6 @@ configure_file(
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_executable(Game
-        Core/Core.cpp
-        Core/Core.hpp
-        Entity/Andromede.cpp
-        Entity/Andromede.hpp
-        Entity/BasicMonster.cpp
-        Entity/BasicMonster.hpp
-        Entity/EnnemyEntity.cpp
-        Entity/EnnemyEntity.hpp
-        Entity/Entity.cpp
-        Entity/Entity.hpp
-        Entity/Pegasus.cpp
-        Entity/Pegasus.hpp
-        Entity/PlayableEntity.cpp
-        Entity/PlayableEntity.hpp
         GameEngine/Animation/Animation.cpp
         GameEngine/Animation/Animation.hpp
         GameEngine/AudioComponent/AudioComponent.cpp
@@ -81,9 +67,24 @@ add_executable(Game
         GameEngine/TacosEngine.cpp
         GameEngine/TacosEngine.h
         GameEngine/TestInput.h
-        Level/Level.cpp
-        Level/Level.hpp
-        main.c)
+        GameEngine/r_type.cpp)
+
+#        Level/Level.cpp
+#        Level/Level.hpp
+#        Core/Core.cpp
+#        Core/Core.hpp
+#        Entity/Andromede.cpp
+#        Entity/Andromede.hpp
+#        Entity/BasicMonster.cpp
+#        Entity/BasicMonster.hpp
+#        Entity/EnnemyEntity.cpp
+#        Entity/EnnemyEntity.hpp
+#        Entity/Entity.cpp
+#        Entity/Entity.hpp
+#        Entity/Pegasus.cpp
+#        Entity/Pegasus.hpp
+#        Entity/PlayableEntity.cpp
+#        Entity/PlayableEntity.hpp
 
 # Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND

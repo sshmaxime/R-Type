@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <Input/Input.h>
+#include <GameEngine/Input/Input.h>
 
 
 class TestInput

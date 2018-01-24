@@ -1,7 +1,10 @@
 #include <iostream>
 #include <utility>
-#include <TacosEngine.h>
-#include <Sprite/Sprite.hpp>
+#include <GameEngine/Sprite/Sprite.hpp>
+#include <GameEngine/Input/Input.h>
+#include <GameEngine/Rigidbody/Rigidbody.hpp>
+#include <GameEngine/Collider/Collider.hpp>
+#include "TacosEngine.h"
 
 namespace TacosEngine
 {
@@ -33,7 +36,7 @@ namespace TacosEngine
             rb->addForce(dir * _object->getTransform().getSpeed());
         }
 
-        void PlayerBehaviour::onCollide(GameObject &other) override {
+        void onCollide(GameObject &other) override {
             std::cout << "OnCollide() => " << other.getInstanceName() << std::endl;
             if (other.getInstanceName() == "Obs")
             {

@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <list>
-#include <Entity/Entity.hpp>
 #include <GameEngine/Entity/Entity.hpp>
 #include <GameEngine/Transform/Transform.h>
 #include "../RessourceManager/RessourceManager.hpp"

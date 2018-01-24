@@ -2,7 +2,7 @@
 
 #include <list>
 #include <memory>
-#include <Behaviour/Behaviour.h>
+#include <GameEngine/Behaviour/Behaviour.h>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"

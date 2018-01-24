@@ -8,44 +8,44 @@ namespace TacosEngine
     PhysicsEngine::~PhysicsEngine()
     = default;
 
-    void PhysicsEngine::update(std::list<std::shared_ptr<Component>> components)
+    void PhysicsEngine::update(std::list<std::shared_ptr<GameObject>> objects)
     {
         bool collide;
 
-        for (auto &it : components)
+        for (auto &it : objects)
         {
-            auto *body = dynamic_cast<Rigidbody *>(it.get());
+            auto body = it->getComponent<Rigidbody>();
             if (body)
             {
-                Vector2 newPos = body->getSprite()->getTransform().getPosition() + body->getForce();
-                for (auto &compo : components)
+                Vector2 newPos = body->getGameObject()->getTransform().getPosition() + body->getForce();
+                for (auto &compo : objects)
                 {
-                    if (compo->getSprite()->getInstanceId() != it->getSprite()->getInstanceId())
+                    if (compo->getInstanceId() != it->getInstanceId())
                     {
                         if (it->getComponent<Collider>() && compo->getComponent<Collider>())
                         {
-                            if (newPos.get_x() != it->getSprite()->getTransform().getPosition().get_x() ||
-                                    newPos.get_y() != it->getSprite()->getTransform().getPosition().get_y())
+                            if (newPos.get_x() != it->getTransform().getPosition().get_x() ||
+                                    newPos.get_y() != it->getTransform().getPosition().get_y())
                             {
-                                collide = checkCollision(it->getSprite(), body->getForce(), compo->getSprite(), components);
+                                collide = checkCollision(it, body->getForce(), compo, objects);
                             }
                             else
-                                collide = checkCollision(it->getSprite(), Vector2(0, 0), compo->getSprite(), components);
+                                collide = checkCollision(it, Vector2(0, 0), compo, objects);
                             if (collide)
                             {
                                 if (!compo->getComponent<Collider>()->is_isTrigger())
-                                    newPos = it->getSprite()->getTransform().getPosition();
+                                    newPos = it->getTransform().getPosition();
                             }
                         }
-                        makeMove(it->getSprite(), newPos);
+                        makeMove(it, newPos);
                     }
                 }
             }
         }
     }
 
-    bool	PhysicsEngine::checkCollision(std::shared_ptr<Sprite> s1, const Vector2 &force,
-                                          std::shared_ptr<Sprite> s2, std::list<std::shared_ptr<Component>> components)
+    bool	PhysicsEngine::checkCollision(std::shared_ptr<GameObject> s1, const Vector2 &force,
+                                          std::shared_ptr<GameObject> s2, std::list<std::shared_ptr<GameObject>> objects)
     {
         Vector2 posS1 = s1->getComponent<Collider>()->get_position() + force;
         Vector2	posS2 = s2->getComponent<Collider>()->get_position();
@@ -57,25 +57,24 @@ namespace TacosEngine
             posS1.get_y() < posS2.get_y() + sizeS2.get_y() &&
             posS1.get_y() + sizeS1.get_y() > posS2.get_y())
         {
-            callOnCollide(components, s1, s2);
-            callOnCollide(components, s2, s1);
+            callOnCollide(objects, s1, s2);
             return true;
         }
         return false;
     }
 
-    void PhysicsEngine::callOnCollide(std::list<std::shared_ptr<Component>> components, std::shared_ptr<Sprite> s, std::shared_ptr<Sprite> other)
+    void PhysicsEngine::callOnCollide(std::list<std::shared_ptr<GameObject>> objects, std::shared_ptr<GameObject> s, std::shared_ptr<GameObject> other)
     {
-        for (auto &component : components)
+        for (auto &object : objects)
         {
-            if (component->getSprite()->getInstanceId() == s->getInstanceId() && dynamic_cast<Behaviour *>(component.get()))
+            if (object->getInstanceId() == s->getInstanceId() && object->getComponent<Behaviour>())
             {
-                dynamic_cast<Behaviour *>(component.get())->onCollide(*(other.get()));
+                object->getComponent<Behaviour>()->onCollide(*(other.get()));
             }
         }
     }
 
-    void PhysicsEngine::makeMove(std::shared_ptr<Sprite> s, const Vector2 &pos)
+    void PhysicsEngine::makeMove(std::shared_ptr<GameObject> s, const Vector2 &pos)
     {
         Vector2 diff = pos - s->getTransform().getPosition();
 

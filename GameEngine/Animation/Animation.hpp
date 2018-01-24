@@ -13,7 +13,7 @@ namespace TacosEngine
 	class Animation : public TacosEngine::Component
 	{
 	 public:
-	  Animation(const std::string &myname, const std::shared_ptr<TacosEngine::Sprite> &sprite, bool loop,
+	  Animation(const std::string &myname, const std::shared_ptr<GameObject> &gameObject, bool loop,
 			  int frame_speed, const std::vector<TacosEngine::ITexture*> &frames);
 	  ~Animation() override = default;
 	  void update(int tick);

@@ -12,7 +12,7 @@ namespace TacosEngine
     class Rigidbody : public Component
     {
     public:
-        Rigidbody(const std::string &name, std::shared_ptr<Sprite> sprite);
+        Rigidbody(const std::string &name, std::shared_ptr<GameObject> object);
         ~Rigidbody();
         const Vector2 &getForce() const;
         void addForce(const Vector2 &_force);

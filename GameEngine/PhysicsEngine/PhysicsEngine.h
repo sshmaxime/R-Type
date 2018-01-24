@@ -12,11 +12,11 @@ namespace TacosEngine
 	public:
 		PhysicsEngine();
 		~PhysicsEngine();
-		void	update(std::list<std::shared_ptr<Component>> components);
+		void	update(std::list<std::shared_ptr<GameObject>> components);
 
 	private:
-		bool	checkCollision(std::shared_ptr<Sprite> s1, const Vector2 &posS1, std::shared_ptr<Sprite> s2, std::list<std::shared_ptr<Component>> components);
-		void	callOnCollide(std::list<std::shared_ptr<Component>> components, std::shared_ptr<Sprite> s, std::shared_ptr<Sprite> other);
-	    void    makeMove(std::shared_ptr<Sprite> s, const Vector2 &pos);
+		bool	checkCollision(std::shared_ptr<GameObject> s1, const Vector2 &posS1, std::shared_ptr<GameObject> s2, std::list<std::shared_ptr<GameObject>> components);
+		void	callOnCollide(std::list<std::shared_ptr<GameObject>> components, std::shared_ptr<GameObject> s, std::shared_ptr<GameObject> other);
+	    void    makeMove(std::shared_ptr<GameObject> s, const Vector2 &pos);
     };
 }

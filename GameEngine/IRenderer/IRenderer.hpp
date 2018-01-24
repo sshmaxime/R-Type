@@ -15,7 +15,7 @@ namespace TacosEngine {
     public:
         virtual ~IRenderer() = default;;
 
-        virtual void draw(std::list<std::shared_ptr<Sprite>> _sprites) = 0;
+        virtual void draw(std::list<std::shared_ptr<GameObject>> _sprites) = 0;
 
     };
 

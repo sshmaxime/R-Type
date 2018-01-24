@@ -15,7 +15,7 @@ namespace TacosEngine
   class Collider : public Component
   {
    public:
-    Collider(const std::string &name, std::shared_ptr<Sprite> sprite, const Vector2 &size, const Vector2 &position, bool isTrigger);
+    Collider(const std::string &name, std::shared_ptr<GameObject> gameObject, const Vector2 &size, const Vector2 &position, bool isTrigger);
     ~Collider() override = default;
     bool is_isTrigger() const;
     void set_isTrigger(bool _isTrigger);

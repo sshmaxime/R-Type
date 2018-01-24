@@ -39,8 +39,8 @@
             RessourceManager/sfmlAudio.hpp
             RessourceManager/sfmlFont.cpp
             RessourceManager/sfmlFont.hpp
-            RessourceManager/SfmlRenderer.cpp
-            RessourceManager/SfmlRenderer.hpp
+            SfmlRenderer/SfmlRenderer.cpp
+            SfmlRenderer/SfmlRenderer.hpp
             RessourceManager/sfmlTexture.cpp
             RessourceManager/sfmlTexture.hpp
             RessourceManager/SfmlWindow.cpp
@@ -55,7 +55,15 @@
             r_type.cpp
             TacosEngine.cpp
             TacosEngine.h
-            TestInput.h Animation/Animation.cpp Animation/Animation.hpp AudioComponent/AudioComponent.cpp AudioComponent/AudioComponent.hpp Rigidbody/Rigidbody.cpp Rigidbody/Rigidbody.hpp)
+            TestInput.h
+            Animation/Animation.cpp
+            Animation/Animation.hpp
+            AudioComponent/AudioComponent.cpp
+            AudioComponent/AudioComponent.hpp
+            Rigidbody/Rigidbody.cpp
+            Rigidbody/Rigidbody.hpp
+            Sprite/Sprite.hpp
+            GameObject/GameObject.cpp)
 
 
     # Detect and add SFML

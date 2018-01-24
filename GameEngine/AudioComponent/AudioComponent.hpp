@@ -13,7 +13,7 @@ namespace TacosEngine
   class AudioComponent : public Component
   {
    public:
-    AudioComponent(const std::string &myname, const std::shared_ptr<Sprite> &sprite, IAudio *sound);
+    AudioComponent(const std::string &myname, const std::shared_ptr<GameObject> &object, IAudio *sound);
 
     ~AudioComponent() override = default;
 

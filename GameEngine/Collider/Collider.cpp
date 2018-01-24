@@ -4,9 +4,9 @@
 
 #include "Collider.hpp"
 
-TacosEngine::Collider::Collider(const std::string &name, std::shared_ptr<Sprite> sprite,
+TacosEngine::Collider::Collider(const std::string &name, std::shared_ptr<GameObject> gameObject,
                                 const Vector2 &size, const Vector2 &position, bool isTrigger)
-        : Component(name, std::move(sprite))
+        : Component(name, std::move(gameObject))
 {
     _size = size;
     _position = position;

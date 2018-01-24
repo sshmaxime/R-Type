@@ -1,4 +1,5 @@
-#include "Scene.hpp"
+#include <Scene/Scene.hpp>
+#include <Behaviour/Behaviour.h>
 
 namespace TacosEngine
 {
@@ -10,9 +11,9 @@ namespace TacosEngine
 	Scene::~Scene()
 	= default;
 
-	void Scene::addSprite(std::shared_ptr<Sprite> toAdd)
+	void Scene::addGameObject(std::shared_ptr<GameObject> toAdd)
 	{
-		_sprites.push_back(toAdd);
+		_objects.push_back(toAdd);
 	}
 
 	void	Scene::setRessources(std::shared_ptr<RessourceManager> res)
@@ -27,10 +28,10 @@ namespace TacosEngine
 		_components.push_back(toAdd);
 	}
 
-	std::shared_ptr<Sprite> Scene::getSprite(unsigned int id)
+	std::shared_ptr<GameObject> Scene::getGameObject(unsigned int id)
 	{
-		std::list<std::shared_ptr<Sprite>>::iterator it;
-		for (it = _sprites.begin(); it != _sprites.end(); it++)
+		std::list<std::shared_ptr<GameObject>>::iterator it;
+		for (it = _objects.begin(); it != _objects.end(); it++)
 		{
 			if ((*it)->getInstanceId() == id)
 				return (*it);
@@ -38,51 +39,9 @@ namespace TacosEngine
 		return (nullptr);
 	}
 
-	size_t Scene::getNSprite()
+	std::list<std::shared_ptr<GameObject>>	Scene::getGameObjects()
 	{
-		return (this->_sprites.size());
-	}
-
-	size_t Scene::getNComponent()
-	{
-		return (this->_components.size());
-	}
-
-	void Scene::displayComponents()
-	{
-		for (auto it = _components.begin(); it != _components.end(); it++)
-		{
-			std::cout << "Component n°" << (*it)->getInstanceId() << " with the name:"
-					  << (*it)->getInstanceName();
-			try
-			{
-				auto test = it->get();
-
-				if (test->isSprited())
-					std::cout << " which contains:" << test->getSpriteName() << std::endl;
-				else
-					std::cout << std::endl;
-			}
-			catch (std::exception &e)
-			{
-				std::cout << "who is not comp: " << e.what() << std::endl;
-			}
-		}
-	}
-
-	void Scene::displaySprites()
-	{
-		std::list<std::shared_ptr<Sprite>>::iterator it;
-		for (it = _sprites.begin(); it != _sprites.end(); it++)
-		{
-			std::cout << "Sprite n°" << (*it)->getInstanceId() << " with the name:"
-					  << (*it)->getInstanceName() << std::endl;
-		}
-	}
-
-	std::list<std::shared_ptr<Sprite>>	Scene::getSprites()
-	{
-		return _sprites;
+		return _objects;
 	}
 
     std::list<std::shared_ptr<Component>>	Scene::getComponents()
@@ -93,5 +52,80 @@ namespace TacosEngine
     ITexture *Scene::getTexture(const std::string &name)
     {
         return _ressources->getTexture(name);
+    }
+
+    void    Scene::startObjects()
+    {
+        for (auto &compo : _components)
+        {
+            std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(compo);
+            if (b && !b->isStarted())
+            {
+                b->Start();
+                b->setStart(true);
+            }
+        }
+    }
+
+    void    Scene::destroyObjects()
+    {
+        auto compo = _components.begin();
+        while (compo != _components.end())
+        {
+            std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(*compo);
+            if (b && b->toDestroy())
+            {
+               std::shared_ptr<GameObject>  obj = b->getGameObject();
+
+                auto it = _components.begin();
+                while (it != _components.end())
+                {
+                    if ((*it)->getGameObject() == obj)
+                    {
+                        it = _components.erase(it);
+                    }
+                    else
+                        it++;
+                }
+                _objects.remove(obj);
+                compo = _components.begin();
+            }
+            else
+            {
+                compo++;
+            }
+        }
+    }
+
+    std::shared_ptr<GameObject> Scene::findByName(const std::string &name)
+    {
+        for (auto &gameObject : _objects)
+        {
+            if (gameObject->getInstanceName() == name)
+                return gameObject;
+        }
+        return nullptr;
+    }
+
+    std::shared_ptr<GameObject> Scene::findByTag(Tag tag)
+    {
+        for (auto &gameObject : _objects)
+        {
+            if (gameObject->getTag() == tag)
+                return gameObject;
+        }
+        return nullptr;
+    }
+
+    std::list<std::shared_ptr<GameObject>>  Scene::findGameObjetcsByTag(Tag tag)
+    {
+        std::list<std::shared_ptr<GameObject>>  gameObjects;
+
+        for (auto &gameObject : _objects)
+        {
+            if (gameObject->getTag() == tag)
+                gameObjects.push_back(gameObject);
+        }
+        return gameObjects;
     }
 }

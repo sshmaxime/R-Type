@@ -1,13 +1,14 @@
 #include <iostream>
 #include <utility>
-#include "TacosEngine.h"
+#include <TacosEngine.h>
+#include <Sprite/Sprite.hpp>
 
 namespace TacosEngine
 {
-  class Behaviour;
+    class Behaviour;
 
-  class PlayerBehaviour : public Behaviour
-  {
+    class PlayerBehaviour : public Behaviour
+    {
     public:
         PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
                 : Behaviour(name, std::move(sprite))
@@ -16,19 +17,30 @@ namespace TacosEngine
 
         ~PlayerBehaviour() override = default;
 
+        void    Start()
+        {
+            std::cout << "In Start()" << std::endl;
+        }
+
         void update(const Input &input) override {
-           Vector2 dir(input.getAxis("Horizontal"), input.getAxis("Vertical"));
+            Vector2 dir(input.getAxis("Horizontal"), input.getAxis("Vertical"));
             auto rb = getComponent<Rigidbody>();
 
             if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
                 dir = dir / 2;
-            _sprite->getTransform().setDirection(dir);
-            _sprite->getTransform().setSpeed(0.5f);
-            rb->addForce(dir * _sprite->getTransform().getSpeed());
+            _object->getTransform().setDirection(dir);
+            _object->getTransform().setSpeed(0.5f);
+            rb->addForce(dir * _object->getTransform().getSpeed());
         }
 
-        void PlayerBehaviour::onCollide(Sprite &other) override {
+        void PlayerBehaviour::onCollide(GameObject &other) override {
             std::cout << "OnCollide() => " << other.getInstanceName() << std::endl;
+            if (other.getInstanceName() == "Obs")
+            {
+                if (auto obs2 = _object->findByName("Obs2"))
+                    obs2->getTransform().setPosition(Vector2(10, 10));
+                setDestroy(true);
+            }
         }
     };
 }
@@ -49,7 +61,7 @@ int main()
     std::shared_ptr<Sprite> back = std::make_shared<Sprite>("Background", scene, Layout::BACKGROUND);
     back->setTexture(scene->getTexture("back"));
     back->setSize(Vector2(800, 400));
-    scene->addSprite(back);
+    scene->addGameObject(back);
 
     // Sprite ship
     std::shared_ptr <Sprite> player = std::make_shared<Sprite>("Player", scene, Layout::SCENE);
@@ -58,10 +70,10 @@ int main()
     std::shared_ptr<PlayerBehaviour> playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player);
     std::shared_ptr<Collider> coll = std::make_shared<Collider>("ok", player, Vector2(20, 20), player->getTransform().getPosition(), true);
     std::shared_ptr<Rigidbody> rig = std::make_shared<Rigidbody>("Rb", player);
+    scene->addGameObject(player);
     scene->addComponent(playerBeha);
     scene->addComponent(coll);
     scene->addComponent(rig);
-    scene->addSprite(player);
 
     // Sprite obstacle
     std::shared_ptr <Sprite> obs = std::make_shared<Sprite>("Obs", scene, Layout::SCENE);
@@ -70,9 +82,9 @@ int main()
     obs->getTransform().setPosition(Vector2(400, 200));
     std::shared_ptr<Collider> collObs = std::make_shared<Collider>("Collider", obs, obs->getSize(), obs->getTransform().getPosition(), false);
     std::shared_ptr<Rigidbody> rigObs = std::make_shared<Rigidbody>("Rigidbody", obs);
+    scene->addGameObject(obs);
     scene->addComponent(collObs);
     scene->addComponent(rigObs);
-    scene->addSprite(obs);
 
     // Sprite obstacle 2
     std::shared_ptr <Sprite> obs2 = std::make_shared<Sprite>("Obs2", scene, Layout::SCENE);
@@ -81,9 +93,9 @@ int main()
     obs2->getTransform().setPosition(Vector2(400, 100));
     std::shared_ptr<Collider> collObs2 = std::make_shared<Collider>("Collider", obs2, obs2->getSize(), obs2->getTransform().getPosition(), true);
     std::shared_ptr<Rigidbody> rigObs2 = std::make_shared<Rigidbody>("Rigidbody", obs2);
+    scene->addGameObject(obs2);
     scene->addComponent(collObs2);
     scene->addComponent(rigObs2);
-    scene->addSprite(obs2);
 
     // Load and run scene
     engine.loadScene(scene);

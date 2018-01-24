@@ -2,12 +2,13 @@
 // Created by chauvin on 22/01/18.
 //
 
+#include <Sprite/Sprite.hpp>
 #include "Animation.hpp"
 
 namespace TacosEngine {
-    Animation::Animation(const std::string &myname, const std::shared_ptr<TacosEngine::Sprite> &sprite, bool loop,
+    Animation::Animation(const std::string &myname, const std::shared_ptr<GameObject> &gameObject, bool loop,
                          int frame_speed, const std::vector<TacosEngine::ITexture *> &frames) : Component(myname,
-                                                                                                          sprite),
+                                                                                                          gameObject),
                                                                                                 _loop(loop),
                                                                                                 _frame_speed(
                                                                                                         frame_speed),
@@ -16,8 +17,8 @@ namespace TacosEngine {
     }
 
     void Animation::update(int tick) {
-      static int check_speed = 0;
-
+        static int check_speed = 0;
+        std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(_object);
 
       if (this->_frame <= this->_frames.size() && (tick - check_speed) >= _frame_speed) {
         _frame++;
@@ -25,8 +26,8 @@ namespace TacosEngine {
       }
       if (_frame > this->_frames.size() && this->_loop)
         _frame = 0;
-      if (this->_sprite->getTexture() != this->_frames[_frame])
-        this->_sprite->setTexture(this->_frames[_frame]);
+      if (sp->getTexture() != this->_frames[_frame])
+        sp->setTexture(this->_frames[_frame]);
     }
 
     bool Animation::is_loop() const {

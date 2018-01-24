@@ -6,8 +6,8 @@
 
 namespace TacosEngine
 {
-    Rigidbody::Rigidbody(const std::string &name, std::shared_ptr<Sprite> sprite)
-        : Component(name, std::move(sprite))
+    Rigidbody::Rigidbody(const std::string &name, std::shared_ptr<GameObject> object)
+        : Component(name, std::move(object))
     {
         _force = Vector2(0, 0);
     }

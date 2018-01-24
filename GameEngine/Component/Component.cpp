@@ -1,32 +1,34 @@
 #include <Scene/Scene.hpp>
+#include <utility>
 
 namespace TacosEngine
 {
-	Component::Component(const std::string &myname, std::shared_ptr<Sprite> sprite) : Entity(myname)
+	Component::Component(const std::string &name, std::shared_ptr<GameObject> object) : Entity(name)
 	{
-		if (sprite)
-			_sprite = sprite;
+		/*if (!object)
+            throw std::exception; */
+        _object = std::move(object);
 	}
 
-	const std::string &Component::getSpriteName()
+	const std::string &Component::getGameObjectName()
 	{
-		return _sprite->getInstanceName();
+		return _object->getInstanceName();
 	}
 
-	bool Component::isSprited()
+	bool Component::isObjected() const
 	{
-		if (_sprite)
+		if (_object)
 			return (true);
 		return (false);
 	}
 
-	void Component::addSprite(std::shared_ptr<Sprite> toAdd)
+	void Component::addGameObject(std::shared_ptr<GameObject> toAdd)
 	{
-		_sprite = std::move(toAdd);
+		_object = std::move(toAdd);
 	}
 
-	std::shared_ptr<Sprite>	Component::getSprite()
+	std::shared_ptr<GameObject>	Component::getGameObject()
 	{
-		return _sprite;
+		return _object;
 	}
 }

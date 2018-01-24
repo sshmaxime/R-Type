@@ -1,68 +1,35 @@
-#include <Scene/Scene.hpp>
+#include <Sprite/Sprite.hpp>
 
 namespace TacosEngine
 {
-  Sprite::Sprite(const std::string &name, std::shared_ptr<Scene> scene, Layout layout)
-	  : Entity(name)
-  {
-    _layout = layout;
-    if (scene)
-      _scene = scene;
-  }
+	Sprite::Sprite(const std::string &name, std::shared_ptr<Scene> scene, Layout layout, Tag tag)
+		: GameObject(name, std::move(scene), layout, tag)
+    {
+	}
 
 
-  void Sprite::setScene(std::shared_ptr<Scene> scene)
-  {
-    _scene = std::move(scene);
-  }
+    void Sprite::setTexture(ITexture *text)
+    {
+        _texture = text;
+    }
 
-  bool Sprite::setTexture(ITexture *text)
-  {
-    if (text)
-      {
-	_texture = text;
-	return true;
-      }
-    return false;
-  }
+    void	*Sprite::getTexture()
+    {
+        return _texture->getTexture();
+    }
 
-  void *Sprite::getTexture()
-  {
-    return _texture->getTexture();
-  }
+    void 		Sprite::addTexture(ITexture *texture)
+    {
+        this->_texture = texture;
+    }
 
-  Transform &Sprite::getTransform()
-  {
-    return _transform;
-  }
+    void Sprite::setSize(const Vector2 &size)
+    {
+        _size = size;
+    }
 
-  void Sprite::addTexture(ITexture *texture)
-  {
-    this->_texture = texture;
-  }
-
-  void Sprite::setLayout(Layout layout)
-  {
-    _layout = layout;
-  }
-
-  const Layout &Sprite::getLayout() const
-  {
-    return _layout;
-  }
-
-  void Sprite::setSize(const Vector2 &size)
-  {
-    _size = size;
-  }
-
-  Vector2 &Sprite::getSize()
-  {
-    return _size;
-  }
-
-  bool Sprite::operator<(const Sprite &j)
-  {
-    return (static_cast<int>(this->getLayout()) < static_cast<int>(j.getLayout()));
-  }
+    Vector2 &Sprite::getSize()
+    {
+        return _size;
+    }
 }

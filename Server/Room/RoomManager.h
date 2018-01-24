@@ -22,11 +22,12 @@ public:
 
 public:
     int                             addUser(std::shared_ptr<User>);
-    int                             removeUser(const User&);
+    int                             deleteUser(const std::string&);
     int                             stop();
 
 private:
     int                             createRoom(std::shared_ptr<User>);
+    int                             checkEmptyRoom();
 };
 
 

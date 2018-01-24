@@ -14,6 +14,10 @@ namespace TacosEngine
    public:
     virtual bool load(const std::string &path) = 0;
     virtual void *getAudio() = 0;
+
+    virtual void playSound(bool loop, int frame) = 0;
+
+    virtual void stop() = 0;
   };
 }
 

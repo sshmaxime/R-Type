@@ -63,6 +63,8 @@ namespace TacosEngine
 		std::shared_ptr<Scene>			getSceneInProcess();
 		std::shared_ptr<RessourceManager>	getRessources();
 		void				behaviourUpdate();
+		void				startObjects();
+		void				destroyObjects();
 
 	private:
 		void			processInput();

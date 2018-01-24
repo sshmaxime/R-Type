@@ -23,6 +23,9 @@ public:
     bool                    isAvailable() const;
     int                     addUser(const std::shared_ptr<User>);
     bool                    isDuplicate(const std::shared_ptr<User>) const;
+    bool                    isUserIn(const std::string&) const;
+    bool                    deleteUser(const std::string&);
+    bool                    isEmpty() const;
 };
 
 

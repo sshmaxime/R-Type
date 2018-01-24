@@ -2,7 +2,7 @@
 #include <memory>
 #include <thread>
 #include <RessourceManager/SfmlWindow.hpp>
-#include <RessourceManager/SfmlRenderer.hpp>
+#include <SfmlRenderer/SfmlRenderer.hpp>
 #include <InputManagerSFML/InputManagerSFML.h>
 #include "TacosEngine.h"
 
@@ -44,6 +44,7 @@ namespace TacosEngine
 		scenes.push_back(scene);
 	}
 
+    /*
 	void Engine::addScene(const std::string &path){
 		json                            JSON;
 		std::ifstream 					inFile;
@@ -75,7 +76,7 @@ namespace TacosEngine
             level = std::stoi(std::string(JSON["scene"]["details"]["level"]));
             nbEnemies = std::stoi(std::string(JSON["scene"]["details"]["nbEnemies"]));*/
 
-
+    /*
             for (auto &it : JSON["scene"]["sprites"])
 	      {
 
@@ -92,6 +93,7 @@ namespace TacosEngine
                 std::shared_ptr<Event>     eventToAdd = new Event(name);
                 SceneToAdd->addEvent(eventToAdd);
             }*/
+    /*
 			this->scenes.push_back(SceneToAdd);
         }
         catch (std::exception &exception2) {
@@ -100,7 +102,7 @@ namespace TacosEngine
             throw exception2;
         }
         inFile.close();
-    }
+    }*/
 
     void	Engine::loadScene(std::shared_ptr<Scene> toAdd)
     {
@@ -117,13 +119,15 @@ namespace TacosEngine
 		while (inGame)
 		{
             eventManager->eventUpdate();
+            startObjects();
 			processInput();
-			physics.update();
+            physics.update(sceneInProcess->getGameObjects());
             behaviourUpdate();
 			if (displayMode)
 			{
-				renderer->draw(sceneInProcess->getSprites());
+				renderer->draw(sceneInProcess->getGameObjects());
 			}
+            destroyObjects();
 			if (inputs.getKey(Key::KEY_ESCAPE))
 				inGame = false;
 		}
@@ -149,4 +153,14 @@ namespace TacosEngine
 				dynamic_cast<Behaviour *>(i.get())->update(inputs);
 		}
 	}
+
+    void    Engine::startObjects()
+    {
+        sceneInProcess->startObjects();
+    }
+
+    void Engine::destroyObjects()
+    {
+        sceneInProcess->destroyObjects();
+    }
 }

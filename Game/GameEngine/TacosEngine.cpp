@@ -1,9 +1,6 @@
 #include <chrono>
 #include <memory>
 #include <thread>
-#include <RessourceManager/SfmlWindow.hpp>
-#include <SfmlRenderer/SfmlRenderer.hpp>
-#include <InputManagerSFML/InputManagerSFML.h>
 #include <GameEngine/RessourceManager/SfmlWindow.hpp>
 #include <GameEngine/SfmlRenderer/SfmlRenderer.hpp>
 #include <GameEngine/InputManagerSFML/InputManagerSFML.h>

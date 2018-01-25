@@ -5,7 +5,8 @@
 #ifndef GAMEENGINE_RIGIDBODY_HPP
 #define GAMEENGINE_RIGIDBODY_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine
 {
@@ -13,7 +14,8 @@ namespace TacosEngine
     {
     public:
         Rigidbody(const std::string &name, std::shared_ptr<GameObject> object);
-        ~Rigidbody();
+
+      ~Rigidbody() override;
         const Vector2 &getForce() const;
         void addForce(const Vector2 &_force);
 

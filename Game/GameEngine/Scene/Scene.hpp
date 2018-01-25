@@ -4,7 +4,7 @@
 #include <list>
 #include <GameEngine/Entity/Entity.hpp>
 #include <GameEngine/Transform/Transform.h>
-#include "../RessourceManager/RessourceManager.hpp"
+#include <GameEngine/RessourceManager/RessourceManager.hpp>
 
 namespace TacosEngine
 {

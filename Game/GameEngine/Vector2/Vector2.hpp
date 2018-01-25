@@ -13,7 +13,7 @@ namespace TacosEngine {
         float   _y;
 
     public:
-        Vector2(float x = 0, float y = 0);
+      explicit Vector2(float x = 0, float y = 0);
         ~Vector2() = default;
 
         float get_x() const;

@@ -5,27 +5,33 @@
 #ifndef GAMEENGINE_SPRITE_HPP
 #define GAMEENGINE_SPRITE_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+#include "../Scene/Scene.hpp"
+#include "../Vector2/Vector2.hpp"
 
 namespace TacosEngine
 {
-    class Sprite : public GameObject
-    {
-    public:
-        Sprite(const std::string &name, std::shared_ptr<Scene> scene, Layout layout, Tag tag = Tag::UNKNOWN);
-        ~Sprite() override
-        = default;
+  class Sprite : public GameObject
+  {
+   public:
+    Sprite(const std::string &name, std::shared_ptr<Scene> scene, Layout layout, Tag tag = Tag::UNKNOWN);
 
-        void setTexture(ITexture *text);
-        void	*getTexture();
-        Vector2     &getSize();
-        void        setSize(const Vector2 &);
-        void 		addTexture(ITexture *texture);
+    ~Sprite() override
+    = default;
 
-    private:
-        Vector2                     _size;
-        ITexture					*_texture;
-    };
+    void setTexture(ITexture *text);
+
+    void *getTexture();
+
+    Vector2 &getSize();
+
+    void setSize(const Vector2 &);
+
+    void addTexture(ITexture *texture);
+
+   private:
+    Vector2 _size;
+    ITexture *_texture;
+  };
 }
 
 #endif //GAMEENGINE_SPRITE_HPP

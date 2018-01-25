@@ -9,22 +9,23 @@
 #include <map>
 #include <memory>
 #include <GameEngine/IEvent/IEvent.hpp>
-#include <GameEngine/Scene/Scene.hpp>
 
-namespace TacosEngine {
+namespace TacosEngine
+{
+  class EventManager
+  {
+   public:
+    EventManager() = default;
 
-    class EventManager {
+    ~EventManager() = default;
 
-    public:
-        EventManager();
-        ~EventManager() = default;
+    void addEvent(std::shared_ptr<IEvent> event, std::string &name);
 
-        void addEvent(std::shared_ptr<IEvent> event, std::string &name);
-        void eventUpdate(std::shared_ptr<Scene> currentScene);
+    void eventUpdate(std::shared_ptr<Scene> currentScene);
 
-    private:
-        std::map<std::shared_ptr<IEvent>, std::string> _events;
-    };
+   private:
+    std::map<std::shared_ptr<IEvent>, std::string> _events;
+  };
 }
 
 

@@ -3,7 +3,8 @@
 //
 
 #include <utility>
-#include <GameEngine/Scene/Scene.hpp>
+#include "../Scene/Scene.hpp"
+
 
 namespace TacosEngine
 {

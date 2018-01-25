@@ -67,26 +67,17 @@ add_executable(Game
         GameEngine/TacosEngine.cpp
         GameEngine/TacosEngine.h
         GameEngine/TestInput.h
-        GameEngine/r_type.cpp
         GameEngine/EventManager/EventManager.cpp
-        GameEngine/EventManager/EventManager.hpp GameEngine/Text/Text.cpp GameEngine/Text/Text.hpp)
-
-#        Level/Level.cpp
-#        Level/Level.hpp
-#        Core/Core.cpp
-#        Core/Core.hpp
-#        Entity/Andromede.cpp
-#        Entity/Andromede.hpp
-#        Entity/BasicMonster.cpp
-#        Entity/BasicMonster.hpp
-#        Entity/EnnemyEntity.cpp
-#        Entity/EnnemyEntity.hpp
-#        Entity/Entity.cpp
-#        Entity/Entity.hpp
-#        Entity/Pegasus.cpp
-#        Entity/Pegasus.hpp
-#        Entity/PlayableEntity.cpp
-#        Entity/PlayableEntity.hpp
+        GameEngine/EventManager/EventManager.hpp
+        GameEngine/Text/Text.cpp
+        GameEngine/Text/Text.hpp
+        Level/Level.cpp
+        Level/Level.hpp
+        Core/Core.cpp
+        Core/Core.hpp
+        Entity/Entity.cpp
+        Entity/Entity.hpp
+        main.cpp)
 
 # Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GameEngine/Scene/Scene.hpp>
 #include "../Input/Input.h"
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine
 {

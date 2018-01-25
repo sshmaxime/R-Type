@@ -1,8 +1,5 @@
 #pragma once
 
-#include <list>
-#include <memory>
-#include <GameEngine/Behaviour/Behaviour.h>
 #include <GameEngine/EventManager/EventManager.hpp>
 #include <GameEngine/Animation/Animation.hpp>
 #include "TestInput.h"
@@ -13,13 +10,12 @@
 #include "IRenderer/IRenderer.hpp"
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
-#include "../Common/JSON/json.hpp"
+#include "../../Common/JSON/json.hpp"
 
 #define _TICK 0.01
 
 namespace TacosEngine
 {
-
     using json = nlohmann::json;
 
 	class Engine

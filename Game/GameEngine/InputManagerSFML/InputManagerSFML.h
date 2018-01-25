@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GameEngine/InputManager/InputManager.h>
-#include <GameEngine/Input/Input.h>
+#include "../InputManager/InputManager.h"
+#include "../Input/Input.h"
 
 namespace TacosEngine
 {
@@ -10,6 +10,7 @@ namespace TacosEngine
    public:
     InputManagerSFML();
     ~InputManagerSFML() override;
-    virtual void setProcessInput(Input &input);
+
+    void setProcessInput(Input &input) override;
   };
 }

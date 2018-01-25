@@ -2,9 +2,8 @@
 // Created by chauvin on 22/01/18.
 //
 
-#include <GameEngine/Scene/Scene.hpp>
-#include <GameEngine/Sprite/Sprite.hpp>
 #include "Animation.hpp"
+#include "../Sprite/Sprite.hpp"
 
 namespace TacosEngine {
     Animation::Animation(const std::string &myname, const std::shared_ptr<GameObject> &gameObject, bool loop,

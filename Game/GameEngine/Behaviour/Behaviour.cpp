@@ -1,4 +1,3 @@
-#include <GameEngine/Scene/Scene.hpp>
 #include "Behaviour.h"
 
 namespace TacosEngine

@@ -41,7 +41,8 @@ void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> game
             text.setFont(*(static_cast<sf::Font *>(t->getFont()->getFont())));
             text.setString(t->getText());
             text.setCharacterSize(static_cast<unsigned int>(t->getSize().get_x()));
-            text.setFillColor(getColor(t->getColor()));
+	      //TODO CHECK SETFILL COLOR
+	      //text.setFillColor(getColor(t->getColor()));
             text.setPosition(
                     (*t).getTransform().getPosition().get_x(),
                     (*t).getTransform().getPosition().get_y()

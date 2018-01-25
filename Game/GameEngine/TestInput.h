@@ -3,7 +3,6 @@
 #include <iostream>
 #include <GameEngine/Input/Input.h>
 
-
 class TestInput
 {
 public:

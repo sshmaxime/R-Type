@@ -5,7 +5,7 @@
 #ifndef GAMEENGINE_AUDIOCOMPONENT_HPP
 #define GAMEENGINE_AUDIOCOMPONENT_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine
 {

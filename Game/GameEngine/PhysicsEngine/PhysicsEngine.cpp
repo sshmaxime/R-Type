@@ -1,4 +1,9 @@
+
 #include "PhysicsEngine.h"
+
+#include "../Rigidbody/Rigidbody.hpp"
+#include "../Collider/Collider.hpp"
+#include "../Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {
@@ -57,7 +62,7 @@ namespace TacosEngine
             posS1.get_y() < posS2.get_y() + sizeS2.get_y() &&
             posS1.get_y() + sizeS1.get_y() > posS2.get_y())
         {
-            callOnCollide(objects, s1, s2);
+	    callOnCollide(std::move(objects), s1, s2);
             return true;
         }
         return false;

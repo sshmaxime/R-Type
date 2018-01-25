@@ -1,10 +1,11 @@
 #include <chrono>
 #include <memory>
 #include <thread>
-#include <GameEngine/RessourceManager/SfmlWindow.hpp>
-#include <GameEngine/SfmlRenderer/SfmlRenderer.hpp>
-#include <GameEngine/InputManagerSFML/InputManagerSFML.h>
 #include "TacosEngine.h"
+#include "RessourceManager/SfmlWindow.hpp"
+#include "SfmlRenderer/SfmlRenderer.hpp"
+#include "InputManagerSFML/InputManagerSFML.h"
+#include "Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {
@@ -37,7 +38,7 @@ namespace TacosEngine
 	    ressources->init(path);
 	}
 
-	void	Engine::addScene(std::shared_ptr<Scene> scene)
+  void Engine::addScene(const std::shared_ptr<Scene> &scene)
 	{
 		scene->setRessources(ressources);
 		scenes.push_back(scene);

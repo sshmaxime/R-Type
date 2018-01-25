@@ -5,7 +5,8 @@
 #ifndef GAMEENGINE_ANIMATION_HPP
 #define GAMEENGINE_ANIMATION_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine
 {

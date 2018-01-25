@@ -8,6 +8,7 @@ namespace TacosEngine
 	{
 		/*if (!object)
             throw std::exception; */
+		_isActive = true;
         _object = std::move(object);
 	}
 
@@ -31,5 +32,15 @@ namespace TacosEngine
 	std::shared_ptr<GameObject>	Component::getGameObject()
 	{
 		return _object;
+	}
+
+	void	Component::setActive(bool act)
+	{
+		_isActive = act;
+	}
+
+	bool	Component::isActive() const
+	{
+		return _isActive;
 	}
 }

@@ -43,7 +43,7 @@ namespace TacosEngine
 	  }
 	}
 
-  void Engine::addScene(const std::shared_ptr<Scene> &scene)
+  void Engine::addScene(std::shared_ptr<Scene> scene)
 	{
 		scene->setRessources(ressources);
 		scenes.push_back(scene);
@@ -142,6 +142,7 @@ namespace TacosEngine
                 processInput();
                 physics.update(sceneInProcess->getGameObjects());
                 behaviourUpdate();
+                animationUpdate(curent_tick);
                 if (displayMode) {
                     renderer->draw(sceneInProcess->getGameObjects());
                 }
@@ -182,10 +183,23 @@ namespace TacosEngine
 
 	  for (const auto &i : compo)
 		{
-			if (dynamic_cast<Behaviour *>(i.get()))
-				dynamic_cast<Behaviour *>(i.get())->update(inputs);
+            auto behaviour = std::dynamic_pointer_cast<Behaviour>(i);
+			if (behaviour && behaviour->isActive())
+				behaviour->update(inputs);
 		}
 	}
+
+    void    Engine::animationUpdate(int tick)
+    {
+        std::list<std::shared_ptr<Component>>	compo(sceneInProcess->getComponents());
+
+        for (const auto &i : compo)
+        {
+            auto animation = std::dynamic_pointer_cast<Animation>(i);
+            if (animation && animation->isActive())
+                animation->update(tick);
+        }
+    }
 
     void    Engine::startObjects()
     {

@@ -16,27 +16,27 @@ void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> game
 {
     gameObjects.sort(SortByLayout());
     this->_window->clear();
-    for (auto it=gameObjects.begin(); it!=gameObjects.end(); it++)
+  for (auto &gameObject : gameObjects)
     {
-        if (dynamic_cast<Sprite *>(it->get()))
+      if (dynamic_cast<Sprite *>(gameObject.get()))
         {
 
             sf::Sprite sprite;
-            std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(*it);
+	  std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(gameObject);
 
             sprite.setTexture(*(static_cast<sf::Texture *>(sp->getTexture())));
-            sprite.setPosition((*it)->getTransform().getPosition().get_x(),
-                               (*it)->getTransform().getPosition().get_y());
+	  sprite.setPosition(gameObject->getTransform().getPosition().get_x(),
+			     gameObject->getTransform().getPosition().get_y());
             sprite.setScale(
                     sp->getSize().get_x() / sprite.getLocalBounds().width,
                     sp->getSize().get_y() / sprite.getLocalBounds().height
             );
             this->_window->draw(sprite);
-        }
-        else if (dynamic_cast<Text *>(it->get()))
+        } else
+	if (dynamic_cast<Text *>(gameObject.get()))
         {
             sf::Text text;
-            std::shared_ptr<Text> t = std::dynamic_pointer_cast<Text>(*it);
+	    std::shared_ptr<Text> t = std::dynamic_pointer_cast<Text>(gameObject);
 
             text.setFont(*(static_cast<sf::Font *>(t->getFont()->getFont())));
             text.setString(t->getText());

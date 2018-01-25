@@ -17,7 +17,7 @@ namespace TacosEngine
         for (auto &it : objects)
         {
             auto body = it->getComponent<Rigidbody>();
-            if (body)
+            if (body && body->isActive())
             {
                 Vector2 newPos = body->getGameObject()->getTransform().getPosition() + body->getForce();
                 for (auto &compo : objects)

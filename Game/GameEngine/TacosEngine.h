@@ -4,6 +4,7 @@
 #include <memory>
 #include <GameEngine/Behaviour/Behaviour.h>
 #include <GameEngine/EventManager/EventManager.hpp>
+#include <GameEngine/Animation/Animation.hpp>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -69,6 +70,7 @@ namespace TacosEngine
 		void				destroyObjects();
 		void 				windowEvents();
 		void				checkNewScene();
+		void				animationUpdate(int);
 
 	private:
 		void			processInput();

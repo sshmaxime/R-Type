@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GameEngine/EventManager/EventManager.hpp>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -9,7 +10,6 @@
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
 #include "../../Common/JSON/json.hpp"
-#include "EventManager/EventManager.cpp"
 
 #define _TICK 0.01
 

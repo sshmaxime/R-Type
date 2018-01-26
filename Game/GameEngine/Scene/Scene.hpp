@@ -48,6 +48,7 @@ namespace TacosEngine
         void    setActive(bool);
         bool    isActive() const;
 
+
     protected:
         Transform                   _transform;
         Tag                         _tag;
@@ -88,6 +89,7 @@ namespace TacosEngine
         std::shared_ptr<RessourceManager>	_ressources;
         bool    _newScene;
         std::string _newSceneName;
+        Vector2                     _windowSize;
 
     public:
         explicit Scene(const std::string &myname);
@@ -110,7 +112,8 @@ namespace TacosEngine
         void        loadNewScene(const std::string &name);
         const std::string   &getName() const;
         const std::string   &getNewSceneName() const;
-
+        void    setWindowSize(const Vector2 &);
+        const Vector2 &getWindowSize() const;
 
         template <typename T>
         std::shared_ptr<T> getComponent(unsigned int id);

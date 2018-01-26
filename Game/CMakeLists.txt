@@ -77,9 +77,9 @@ add_executable(Game
         Core/Core.hpp
         Entity/Entity.cpp
         Entity/Entity.hpp
-        main.cpp)
+        main.cpp Behaviours/BackgroundBehaviour.cpp Behaviours/BackgroundBehaviour.hpp Behaviours/PlayerBehaviour.cpp Behaviours/PlayerBehaviour.hpp Behaviours/BulletBehaviour.cpp Behaviours/BulletBehaviour.hpp)
 
-# Detect and add SFML
+# Detect and add SFM L
 if(NOT DEFINED     SFML_ROOT  AND
         NOT DEFINED ENV{SFML_ROOT})
     if(WIN32)

@@ -6,7 +6,7 @@
 #define RESSOURCEMANAGER_SFMLTEXTURE_HPP
 
 #include <memory>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include "ITexture.hpp"
 
 namespace TacosEngine

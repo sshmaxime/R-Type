@@ -32,9 +32,10 @@ void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> game
                         sp->getSize().get_x() / sprite.getLocalBounds().width,
                         sp->getSize().get_y() / sprite.getLocalBounds().height
                 );
+                sprite.setRotation(sp->getTransform().getRotation().get_x());
                 this->_window->draw(sprite);
-            }
-            else if (dynamic_cast<Text *>(gameObject.get()))
+            } else
+            if (dynamic_cast<Text *>(gameObject.get()))
             {
                 sf::Text text;
                 std::shared_ptr<Text> t = std::dynamic_pointer_cast<Text>(gameObject);
@@ -42,11 +43,12 @@ void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> game
                 text.setFont(*(static_cast<sf::Font *>(t->getFont()->getFont())));
                 text.setString(t->getText());
                 text.setCharacterSize(static_cast<unsigned int>(t->getSize().get_x()));
-                text.setFillColor(getColor(t->getColor()));
+                text.setColor(getColor(t->getColor()));
                 text.setPosition(
                         (*t).getTransform().getPosition().get_x(),
                         (*t).getTransform().getPosition().get_y()
                 );
+                text.setRotation(t->getTransform().getRotation().get_x());
                 _window->draw(text);
             }
         }
@@ -74,5 +76,4 @@ sf::Color TacosEngine::SfmlRenderer::getColor(TacosEngine::Color color) {
         case Color::CYAN :
             return sf::Color::Cyan;
     }
-    return sf::Color::Black;
 }

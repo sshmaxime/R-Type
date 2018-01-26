@@ -160,4 +160,14 @@ namespace TacosEngine
     {
         return _newSceneName;
     }
+
+    void    Scene::setWindowSize(const Vector2 &size)
+    {
+
+    }
+
+    const Vector2 &Scene::getWindowSize() const
+    {
+        return _windowSize;
+    }
 }

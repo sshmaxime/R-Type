@@ -70,7 +70,7 @@ namespace TacosEngine
         for (auto &compo : _components)
         {
             std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(compo);
-            if (b && !b->isStarted())
+            if (b && b->isActive() && !b->isStarted())
             {
                 b->Start();
                 b->setStart(true);
@@ -84,7 +84,7 @@ namespace TacosEngine
         while (compo != _components.end())
         {
             std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(*compo);
-            if (b && b->toDestroy())
+            if (b && b->isActive() && b->toDestroy())
             {
                std::shared_ptr<GameObject>  obj = b->getGameObject();
 

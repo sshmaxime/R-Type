@@ -57,7 +57,7 @@ namespace TacosEngine
       if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
 	dir = dir / 2;
       _object->getTransform().setDirection(dir);
-      _object->getTransform().setSpeed(0.5f);
+      _object->getTransform().setSpeed(4);
       rb->addForce(dir * _object->getTransform().getSpeed());
     }
 

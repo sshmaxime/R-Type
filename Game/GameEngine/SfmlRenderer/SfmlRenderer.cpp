@@ -16,38 +16,39 @@ void TacosEngine::SfmlRenderer::draw(std::list<std::shared_ptr<GameObject>> game
 {
     gameObjects.sort(SortByLayout());
     this->_window->clear();
-  for (auto &gameObject : gameObjects)
+    for (auto &gameObject : gameObjects)
     {
-      if (dynamic_cast<Sprite *>(gameObject.get()))
+        if (gameObject->isActive())
         {
+            if (dynamic_cast<Sprite *>(gameObject.get()))
+            {
+                sf::Sprite sprite;
+                std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(gameObject);
 
-            sf::Sprite sprite;
-	  std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(gameObject);
+                sprite.setTexture(*(static_cast<sf::Texture *>(sp->getTexture())));
+                sprite.setPosition(gameObject->getTransform().getPosition().get_x(),
+                                   gameObject->getTransform().getPosition().get_y());
+                sprite.setScale(
+                        sp->getSize().get_x() / sprite.getLocalBounds().width,
+                        sp->getSize().get_y() / sprite.getLocalBounds().height
+                );
+                this->_window->draw(sprite);
+            }
+            else if (dynamic_cast<Text *>(gameObject.get()))
+            {
+                sf::Text text;
+                std::shared_ptr<Text> t = std::dynamic_pointer_cast<Text>(gameObject);
 
-            sprite.setTexture(*(static_cast<sf::Texture *>(sp->getTexture())));
-	  sprite.setPosition(gameObject->getTransform().getPosition().get_x(),
-			     gameObject->getTransform().getPosition().get_y());
-            sprite.setScale(
-                    sp->getSize().get_x() / sprite.getLocalBounds().width,
-                    sp->getSize().get_y() / sprite.getLocalBounds().height
-            );
-            this->_window->draw(sprite);
-        } else
-	if (dynamic_cast<Text *>(gameObject.get()))
-        {
-            sf::Text text;
-	    std::shared_ptr<Text> t = std::dynamic_pointer_cast<Text>(gameObject);
-
-            text.setFont(*(static_cast<sf::Font *>(t->getFont()->getFont())));
-            text.setString(t->getText());
-            text.setCharacterSize(static_cast<unsigned int>(t->getSize().get_x()));
-	      //TODO CHECK SETFILL COLOR
-	      //text.setFillColor(getColor(t->getColor()));
-            text.setPosition(
-                    (*t).getTransform().getPosition().get_x(),
-                    (*t).getTransform().getPosition().get_y()
-            );
-            _window->draw(text);
+                text.setFont(*(static_cast<sf::Font *>(t->getFont()->getFont())));
+                text.setString(t->getText());
+                text.setCharacterSize(static_cast<unsigned int>(t->getSize().get_x()));
+                text.setFillColor(getColor(t->getColor()));
+                text.setPosition(
+                        (*t).getTransform().getPosition().get_x(),
+                        (*t).getTransform().getPosition().get_y()
+                );
+                _window->draw(text);
+            }
         }
     }
     this->_window->display();

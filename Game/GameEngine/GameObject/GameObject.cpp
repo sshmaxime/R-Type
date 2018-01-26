@@ -11,6 +11,7 @@ namespace TacosEngine
     GameObject::GameObject(const std::string &name, std::shared_ptr<Scene> scene, Layout layout, Tag tag)
             : Entity(name), _transform(), _tag(tag)
     {
+        _isActive = true;
         _layout = layout;
        /* if (!scene)
             throw std::exception; */
@@ -66,5 +67,15 @@ namespace TacosEngine
     std::list<std::shared_ptr<GameObject>>  GameObject::findGameObjetcsByTag(Tag tag)
     {
         return _scene->findGameObjetcsByTag(tag);
+    }
+
+    void        GameObject::setActive(bool act)
+    {
+        _isActive = act;
+    }
+
+    bool        GameObject::isActive() const
+    {
+        return _isActive;
     }
 }

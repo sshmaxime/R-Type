@@ -62,7 +62,7 @@ namespace TacosEngine
 		Input();
 		~Input();
 		float		getAxis(const std::string &axis)const;
-		bool		getKey(Key key);
+		bool		getKey(Key key)const;
 		void		setKey(Key, bool);
 		void		setAxis(float, const std::string &axis);
 	};

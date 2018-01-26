@@ -22,19 +22,21 @@ void Core::Init()
   // LVL1
   lvl1->addEntity("Background", Layout::BACKGROUND, "back", Vector2(800, 400));
 
-  auto player = lvl1->addEntity("Player", Layout::SCENE, "ship", Vector2(20, 20));
-  player->addBehaviour(std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite()));
+    auto player = lvl1->addEntity("Player", Layout::SCENE, "ship", Vector2(40, 40));
+  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite());
+  playerBeha->setLevel(lvl1);
+  player->addBehaviour(playerBeha);
   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), Vector2(20, 20),
 						 player->get_sprite()->getTransform().getPosition(), true));
   player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
 
-  auto obs = lvl1->addEntity("Obs", Layout::SCENE, "ship", Vector2(20, 20));
+  auto obs = lvl1->addEntity("Obs", Layout::SCENE, "ship", Vector2(40, 40));
   obs->get_sprite()->getTransform().setPosition(Vector2(400, 200));
   obs->addCollider(std::make_shared<Collider>("Collider", obs->get_sprite(), obs->get_sprite()->getSize(),
-					      obs->get_sprite()->getTransform().getPosition(), false));
+					      obs->get_sprite()->getTransform().getPosition(), true));
   obs->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs->get_sprite()));
 
-  auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "ship", Vector2(20, 20));
+  auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "ship", Vector2(40, 40));
   obs2->get_sprite()->getTransform().setPosition(Vector2(400, 100));
   obs2->addCollider(std::make_shared<Collider>("Collider", obs2->get_sprite(), obs2->get_sprite()->getSize(),
 					       obs2->get_sprite()->getTransform().getPosition(), true));

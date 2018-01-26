@@ -21,7 +21,7 @@ namespace TacosEngine
 		return 0;
 	}
 
-	bool	Input::getKey(Key key)
+	bool	Input::getKey(Key key)const
 	{
 		return keys[static_cast<int>(key)];
 	}

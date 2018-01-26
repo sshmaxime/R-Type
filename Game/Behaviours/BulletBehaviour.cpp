@@ -18,7 +18,7 @@ void TacosEngine::BulletBehaviour::Start()
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)
 {
-  std::cout << "ENTITYOnCollide() => " << other.getInstanceName() << std::endl;
+  //std::cout << "ENTITYOnCollide() => " << other.getInstanceName() << std::endl;
   if (other.getInstanceName().find("bullet") == std::string::npos)
     setDestroy(true);
 }

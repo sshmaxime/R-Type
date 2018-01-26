@@ -4,6 +4,7 @@
 
 #include <GameEngine/Rigidbody/Rigidbody.hpp>
 #include <Behaviours/PlayerBehaviour.hpp>
+#include <Behaviours/BackgroundBehaviour.hpp>
 #include "Core.hpp"
 
 using namespace TacosEngine;
@@ -21,7 +22,9 @@ void Core::Init()
   auto lvl1 = std::make_shared<Level>("lvl1", _engine);
 
   // LVL1
-  lvl1->addEntity("Background", Layout::BACKGROUND, "back", Vector2(800, 400));
+  auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "back", Vector2(800, 400));
+  back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));
+  back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));
 
   auto player = lvl1->addEntity("Player", Layout::SCENE, "ship", Vector2(40, 40));
   auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite());

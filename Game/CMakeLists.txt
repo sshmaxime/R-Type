@@ -79,7 +79,7 @@ add_executable(Game
         Entity/Entity.hpp
         main.cpp)
 
-# Detect and add SFML
+# Detect and add SFM L
 if(NOT DEFINED     SFML_ROOT  AND
         NOT DEFINED ENV{SFML_ROOT})
     if(WIN32)

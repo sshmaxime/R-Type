@@ -93,23 +93,14 @@ namespace TEntity
     ~Entity() = default;
 
     const std::shared_ptr<TacosEngine::Sprite> &get_sprite() const;
-
     void set_sprite(const std::shared_ptr<TacosEngine::Sprite> &_sprite);
-
     const std::string &get_name() const;
-
     void set_name(const std::string &_name);
-
     void addBehaviour(std::shared_ptr<TacosEngine::PlayerBehaviour> ptr);
-
     void addCollider(std::shared_ptr<TacosEngine::Collider> ptr);
-
     void addRigidBody(std::shared_ptr<TacosEngine::Rigidbody> ptr);
-
     void addSound(std::shared_ptr<TacosEngine::AudioComponent> ptr);
-
     void addAnimation(std::shared_ptr<TacosEngine::Animation> ptr);
-
     void loadComponents(std::shared_ptr<TacosEngine::Scene> ptr);
 
    private:

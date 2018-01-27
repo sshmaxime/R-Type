@@ -40,12 +40,12 @@ namespace TacosEngine
 		return (nullptr);
 	}
 
-	std::list<std::shared_ptr<GameObject>>	Scene::getGameObjects()
+  std::list<std::shared_ptr<GameObject>> &Scene::getGameObjects()
 	{
 		return _objects;
 	}
 
-    std::list<std::shared_ptr<Component>>	Scene::getComponents()
+  std::list<std::shared_ptr<Component>> &Scene::getComponents()
     {
         return _components;
     }

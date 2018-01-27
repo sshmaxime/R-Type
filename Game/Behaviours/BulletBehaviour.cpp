@@ -14,7 +14,7 @@ TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 void TacosEngine::BulletBehaviour::Start()
 {
   auto rb = this->getComponent<Rigidbody>();
-  rb->addForce(_dir); //* this->_object->getTransform().getSpeed());
+    rb->addForce(Vector2(5.0, 0)); //* this->_object->getTransform().getSpeed());
 }
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)

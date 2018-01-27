@@ -13,7 +13,7 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config.h.in"
         "${PROJECT_BINARY_DIR}/config.h"
 )
-
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-as-needed -ldl -Wall")
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_executable(Game
@@ -71,13 +71,15 @@ add_executable(Game
         GameEngine/EventManager/EventManager.hpp
         GameEngine/Text/Text.cpp
         GameEngine/Text/Text.hpp
+        GameEngine/LibLoader/LibLoader.cpp
+        GameEngine/LibLoader/LibLoader.hpp
         Level/Level.cpp
         Level/Level.hpp
         Core/Core.cpp
         Core/Core.hpp
         Entity/Entity.cpp
         Entity/Entity.hpp
-        main.cpp Behaviours/BackgroundBehaviour.cpp Behaviours/BackgroundBehaviour.hpp Behaviours/PlayerBehaviour.cpp Behaviours/PlayerBehaviour.hpp Behaviours/BulletBehaviour.cpp Behaviours/BulletBehaviour.hpp Behaviours/ObstacleObserver.cpp Behaviours/ObstacleObserver.hpp)
+        main.cpp Behaviours/BackgroundBehaviour.cpp Behaviours/BackgroundBehaviour.hpp Behaviours/PlayerBehaviour.cpp Behaviours/PlayerBehaviour.hpp Behaviours/BulletBehaviour.cpp Behaviours/BulletBehaviour.hpp Behaviours/MonsterBehaviour.cpp Behaviours/MonsterBehaviour.h Behaviours/MonsterIA.h)
 
 # Detect and add SFM L
 if(NOT DEFINED     SFML_ROOT  AND

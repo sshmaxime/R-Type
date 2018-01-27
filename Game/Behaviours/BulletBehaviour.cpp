@@ -6,9 +6,9 @@
 #include "BulletBehaviour.hpp"
 
 TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
-					      const std::shared_ptr<TacosEngine::GameObject> &object) : Behaviour(name,
+					      const std::shared_ptr<TacosEngine::GameObject> &object, Vector2 dir) : Behaviour(name,
 														  object)
-{}
+{_dir = dir;}
 
 void TacosEngine::BulletBehaviour::Start()
 {

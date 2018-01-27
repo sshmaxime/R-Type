@@ -2,6 +2,7 @@
 // Created by chauvin on 25/01/18.
 //
 
+#include <HelloPacket.h>
 #include "Core.hpp"
 #include "../GameEngine/LibLoader/LibLoader.hpp"
 #include "../Behaviours/MonsterBossBehaviour.h"
@@ -91,5 +92,17 @@ const std::shared_ptr<TacosEngine::Engine> &Core::get_engine() const
 void Core::set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine)
 {
     Core::_engine = _engine;
+}
+
+void Core::addEvent(JSONObject *pObject)
+{
+  auto header = pObject->getHEADER();
+
+  if (header == "1x0")
+    {
+      HelloPacket a;
+      a.buildObjectFromJSON(pObject->getJSON());
+      a.getUsername();
+    }
 }
 

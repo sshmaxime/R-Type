@@ -15,8 +15,8 @@ public:
     ~Client()               = default;
 
 private:
-    CNetwork                _Network;
     Core                    _Game;
+    CNetwork                _Network;
     std::thread             _GameThread;
 
 public:

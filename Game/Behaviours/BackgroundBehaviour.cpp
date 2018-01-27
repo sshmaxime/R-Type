@@ -5,10 +5,6 @@
 
 #include "BackgroundBehaviour.hpp"
 #include "../GameEngine/Rigidbody/Rigidbody.hpp"
-#include "../GameEngine/Vector2/Vector2.hpp"
-#include "../GameEngine/Input/Input.h"
-#include "../GameEngine/Sprite/Sprite.hpp"
-#include "../GameEngine/Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {

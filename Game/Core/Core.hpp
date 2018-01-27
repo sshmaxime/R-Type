@@ -10,6 +10,7 @@
 #include <queue>
 #include "../Level/Level.hpp"
 #include "../GameEngine/TacosEngine.h"
+#include "../../Common/JSON/JSONObject.h"
 
 class Core
 {
@@ -24,11 +25,12 @@ class Core
 
   void set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine);
 
+
+  void addEvent(JSONObject *pObject);
+
  private:
   std::shared_ptr<TacosEngine::Engine> _engine;
   std::vector<std::shared_ptr<Level>> _levels;
-  //std::shared_ptr<std::queue<JSONObject>> _cmdServerIn;
-  //std::shared_ptr<std::queue<JSONObject>> _cmdServerOut;
 };
 
 

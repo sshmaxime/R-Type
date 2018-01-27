@@ -30,6 +30,7 @@ int                 Client::Run()
 int                 Client::LaunchGame()
 {
     this->_Game.Init();
+    this->_Network.set_game(this->_Game);
     this->_Game.get_engine()->run();
     this->Delete();
 }

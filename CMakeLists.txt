@@ -38,7 +38,7 @@ add_executable(client
         ${GAME_FILES_ENTITY}
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
-        ${CLIENT_FILES} Client/Global/CGlobal.cpp Client/Global/CGlobal.h Client/Global/CGlobal.cpp Client/Global/CGlobal.h)
+        ${CLIENT_FILES} Client/Global/CGlobal.cpp Client/Global/CGlobal.h Client/Global/CGlobal.cpp Client/Global/CGlobal.h Game/Events/EventMove.cpp Game/Events/EventMove.hpp)
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})

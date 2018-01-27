@@ -243,4 +243,9 @@ namespace TacosEngine
 	  }
       }
   }
+
+  const std::shared_ptr<EventManager> &Engine::getEventManager() const
+  {
+    return eventManager;
+  }
 }

@@ -107,7 +107,7 @@ void Core::Init()
   std::shared_ptr<Animation>       explosionAnim = std::make_shared<Animation>("explosionAnim", obs2->get_sprite(), false, 30, explosionFrames);
 
   obs2->addAnimation(explosionAnim);
-  obs2->addAnimation(asteroidAnim2);
+  //obs2->addAnimation(asteroidAnim2);
 
 
   lvl1->loadComponents();

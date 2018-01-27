@@ -1,6 +1,8 @@
 #pragma once
 
 #include <GameEngine/Collider/Collider.hpp>
+#include <GameEngine/Rigidbody/Rigidbody.hpp>
+#include <GameEngine/Behaviour/Behaviour.h>
 #include "../Scene/Scene.hpp"
 #include "../Vector2/Vector2.hpp"
 
@@ -15,11 +17,20 @@ namespace TacosEngine
 	  void update(std::list<std::shared_ptr<GameObject>> &components);
 
 	private:
-	  bool checkCollision(std::shared_ptr<GameObject> s1, const Vector2 &posS1, std::shared_ptr<GameObject> s2,
-			      std::list<std::shared_ptr<GameObject>> components, std::shared_ptr<Collider> &,
+	  bool checkCollision(const std::shared_ptr<GameObject> &s1, const Vector2 &posS1, const Vector2 &posS2,
+			      const std::shared_ptr<GameObject> &s2,
+			      std::list<std::shared_ptr<GameObject>> &components, std::shared_ptr<Collider> &,
 			      std::shared_ptr<Collider> &);
-		void	callOnCollide(std::list<std::shared_ptr<GameObject>> components, std::shared_ptr<GameObject> s, std::shared_ptr<GameObject> other);
 
-	  void makeMove(std::shared_ptr<GameObject> s, const Vector2 &pos, std::shared_ptr<Collider> &);
+	  void callOnCollide();
+
+	  void makeMove();
+
+	 private:
+	  std::vector<Vector2> finalPos;
+	  std::vector<std::shared_ptr<GameObject>> gameObjects;
+	  std::vector<std::shared_ptr<GameObject>> gameObjects1;
+	  std::vector<std::shared_ptr<GameObject>> gameObjects2;
+	  std::vector<std::shared_ptr<Collider>> coll;
     };
 }

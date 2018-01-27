@@ -20,7 +20,7 @@ namespace TacosEngine
 	    : Behaviour(name, std::move(sprite))
     {
       can_shoot = 0;
-      tick_per_shoot = 50;
+      tick_per_shoot = 200;
       _ia = ia;
       life = 150;
     }
@@ -29,25 +29,13 @@ namespace TacosEngine
 
     void Start() override
     {
-      std::cout << "MONSTER In Start()" << std::endl;
     }
 
     void update(const Input &) override;
 
     void shoot();
 
-    void onCollide(GameObject &other) override
-    {
-      std::cout << "MONSTEROnCollide() => " << other.getInstanceName() << std::endl;
-
-      if (other.getInstanceName().find("bullet") != std::string::npos &&
-	  other.getInstanceName().find("Player") == std::string::npos)
-	{
-	  std::cout << "DIE life:" << life;
-	  if (--life == 0)
-	    setDestroy(true);
-	}
-    }
+    void onCollide(GameObject &other) override;
 
    private:
     int can_shoot;

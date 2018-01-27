@@ -1,5 +1,5 @@
 texture:
-back:background-18.jpg
+back:background.png
 ship:ship.png
 bullet:bullet.png
 monsterBasic:monsterbasic.png

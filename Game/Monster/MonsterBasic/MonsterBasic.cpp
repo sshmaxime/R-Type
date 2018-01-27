@@ -12,7 +12,9 @@ public:
     MonsterBasic() : MonsterIa()
     {
     }
-    ~MonsterBasic(){}
+
+  ~MonsterBasic() override
+  {}
 
   float getbestY(std::vector<std::pair<float, float> > playerpos, std::pair<float, float> mypos)
   {
@@ -41,7 +43,6 @@ public:
 	  ret = 0.2;
       } else
       {
-	std::cout << "no player.." << std::endl;
 	ret = 0;
       }
     return (ret);
@@ -57,13 +58,10 @@ public:
 
         return ret;
     }
-
-    //    test() : aLib("testt"){};
 };
 
 extern "C" MonsterIa* create() {
     {
-        std::cout << "WILL CREATE MONSTERBASIC" << std::endl;
         return new MonsterBasic();
     }
 }

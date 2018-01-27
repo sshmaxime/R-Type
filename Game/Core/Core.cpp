@@ -8,6 +8,7 @@
 #include <Behaviours/BackgroundBehaviour.hpp>
 #include <GameEngine/LibLoader/LibLoader.hpp>
 #include <Behaviours/MonsterBossBehaviour.h>
+#include <Behaviours/ObstacleBehaviour.hpp>
 #include "Core.hpp"
 
 using namespace TacosEngine;
@@ -28,7 +29,7 @@ void Core::Init()
 
   auto loader = std::make_shared<LibLoader>();
 
-  auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
+  /*auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
   MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
   boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
   boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
@@ -50,9 +51,7 @@ void Core::Init()
   Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
   Monster2->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster2->get_sprite(), create2));
   Monster2->addCollider(std::make_shared<Collider>("Monster", Monster2->get_sprite(), Monster2->get_sprite()->getSize(),
-						   Monster2->get_sprite()->getTransform().getPosition(), true));
-
-  std::cout << "MONSTER FINISHED CREATE" << std::endl;
+						   Monster2->get_sprite()->getTransform().getPosition(), true));*/
   auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "back", Vector2(800, 400));
   back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));
   back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));
@@ -69,12 +68,14 @@ void Core::Init()
   obs->addCollider(std::make_shared<Collider>("Collider", obs->get_sprite(), obs->get_sprite()->getSize(),
 					      obs->get_sprite()->getTransform().getPosition(), true));
   obs->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs->get_sprite()));
+  obs->addBehaviour(std::make_shared<ObstacleBehaviour>("BehaObs", obs->get_sprite(), Vector2(-1.4f, 0)));
 
   auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "ship", Vector2(40, 40));
   obs2->get_sprite()->getTransform().setPosition(Vector2(400, 100));
   obs2->addCollider(std::make_shared<Collider>("Collider", obs2->get_sprite(), obs2->get_sprite()->getSize(),
 					       obs2->get_sprite()->getTransform().getPosition(), true));
   obs2->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs2->get_sprite()));
+  obs2->addBehaviour(std::make_shared<ObstacleBehaviour>("BehaObs2", obs2->get_sprite(), Vector2(-1.4f, 0)));
 
   lvl1->loadComponents();
   // LVL2

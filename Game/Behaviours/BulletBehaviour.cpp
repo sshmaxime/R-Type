@@ -14,13 +14,13 @@ TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 void TacosEngine::BulletBehaviour::Start()
 {
   auto rb = this->getComponent<Rigidbody>();
-  rb->addForce(Vector2(1.2, 0)); //* this->_object->getTransform().getSpeed());
+  rb->addForce(_dir);//* this->_object->getTransform().getSpeed());
 }
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)
 {
-  //std::cout << "ENTITYOnCollide() => " << other.getInstanceName() << std::endl;
-  //setDestroy(true);
+  std::cout << "DESTROY BULLET" << std::endl;
+  setDestroy(true);
 }
 
 void TacosEngine::BulletBehaviour::update(const TacosEngine::Input &input)
@@ -29,7 +29,6 @@ void TacosEngine::BulletBehaviour::update(const TacosEngine::Input &input)
   if (pos.get_x() < 0 || pos.get_y() < 0 ||
       pos.get_x() > 800 || pos.get_y() > 400)
     {
-      std::cout << "will destroy entity" << std::endl;
       setDestroy(true);
     }
 }

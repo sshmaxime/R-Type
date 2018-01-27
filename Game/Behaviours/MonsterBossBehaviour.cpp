@@ -19,7 +19,6 @@ namespace TacosEngine
 	playerPos.push_back(std::make_pair<float, float>(tmp.get_x(), tmp.get_y()));
       } else
       {
-	std::cout << "addfalse playerTEST" << std::endl;
 	playerPos.push_back(std::make_pair<float, float>(100, 100));
       }
     std::pair<float, float> bestmove = _ia->getBestMove(playerPos, std::make_pair(pos.get_x(), pos.get_y()));
@@ -57,6 +56,16 @@ namespace TacosEngine
 	this->_object->getScene()->addComponent(col);
 	this->_object->getScene()->addComponent(rbody);
 	this->_object->getScene()->addComponent(beha);
+      }
+  }
+
+  void MonsterBossBehaviour::onCollide(GameObject &other)
+  {
+    if (other.getInstanceName().find("bullet") != std::string::npos &&
+	other.getInstanceName().find("Player") == std::string::npos)
+      {
+	if (--life == 0)
+	  setDestroy(true);
       }
   }
 }

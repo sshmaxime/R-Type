@@ -149,33 +149,33 @@ namespace TacosEngine
 	      }
 	    std::chrono::duration<double> time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
 		    t2 - t3);
-	    std::cout << "First" << time_span2.count() << std::endl;
+	    //std::cout << "First" << time_span2.count() << std::endl;
 	    t3 = std::chrono::high_resolution_clock::now();
 	    curent_tick = curent_tick + 1;
 	    startObjects();
 	    t2 = std::chrono::high_resolution_clock::now();
 	    time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
 		    t2 - t3);
-	    std::cout << "after startobjects" << time_span2.count() << std::endl;
+	    //std::cout << "after startobjects" << time_span2.count() << std::endl;
 	    t3 = std::chrono::high_resolution_clock::now();
 	    //eventManager->eventUpdate(this->sceneInProcess);
 	    physics.update(sceneInProcess->getGameObjects());
 	    t2 = std::chrono::high_resolution_clock::now();
 	    time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
 		    t2 - t3);
-	    std::cout << "after physics" << time_span2.count() << std::endl;
+	    //std::cout << "after physics" << time_span2.count() << std::endl;
 	    t3 = std::chrono::high_resolution_clock::now();
 	    behaviourUpdate();
 	    t2 = std::chrono::high_resolution_clock::now();
 	    time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
 		    t2 - t3);
-	    std::cout << "after behaviour" << time_span2.count() << std::endl;
+	    //std::cout << "after behaviour" << time_span2.count() << std::endl;
 	    t3 = std::chrono::high_resolution_clock::now();
 	    animationUpdate(curent_tick);
 	    t2 = std::chrono::high_resolution_clock::now();
 	    time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
 		    t2 - t3);
-	    std::cout << "after animation" << time_span2.count() << std::endl;
+	    //std::cout << "after animation" << time_span2.count() << std::endl;
 	    t3 = std::chrono::high_resolution_clock::now();
 
 	    if (displayMode)

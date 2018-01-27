@@ -45,7 +45,6 @@ public:
 	  ret = 0.2;
       } else
       {
-	std::cout << "no player.." << std::endl;
 	ret = 0;
       }
     return (ret);
@@ -79,8 +78,6 @@ private:
 };
 
 extern "C" MonsterIa* create() {
-
-        std::cout << "WILL CREATE MONSTERBASIC" << std::endl;
         return new MonsterZig();
 }
 extern "C" void destroy(MonsterIa* p) {

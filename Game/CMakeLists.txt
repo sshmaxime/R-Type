@@ -13,7 +13,7 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config.h.in"
         "${PROJECT_BINARY_DIR}/config.h"
 )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-as-needed -ldl -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-as-needed -ldl")
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_executable(Game
@@ -90,7 +90,7 @@ add_executable(Game
         Behaviours/MonsterBehaviour.h
         Behaviours/MonsterIA.h
         Behaviours/MonsterBossBehaviour.cpp
-        Behaviours/MonsterBossBehaviour.h)
+        Behaviours/MonsterBossBehaviour.h Behaviours/ObstacleBehaviour.cpp Behaviours/ObstacleBehaviour.hpp)
 
 # Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND

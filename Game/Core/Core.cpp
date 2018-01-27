@@ -5,6 +5,7 @@
 #include <GameEngine/Rigidbody/Rigidbody.hpp>
 #include <Behaviours/PlayerBehaviour.hpp>
 #include <Behaviours/MonsterBehaviour.h>
+#include <Behaviours/MonsterBossBehaviour.h>
 #include <Behaviours/BackgroundBehaviour.hpp>
 #include <GameEngine/LibLoader/LibLoader.hpp>
 #include <Behaviours/MonsterBossBehaviour.h>
@@ -29,13 +30,14 @@ void Core::Init()
 
   auto loader = std::make_shared<LibLoader>();
 
-  /*auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
-  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
-  boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
-  boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
-  boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
-  boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
-					       boss->get_sprite()->getTransform().getPosition(), true));
+    auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
+    MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so",lvl1->get_scene());
+//    std::cout << "lolx" << lol.first << " y" << lol.second << std::endl;
+    boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
+    boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
+    boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
+    boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
+                                                 boss->get_sprite()->getTransform().getPosition(), true));
 
   auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "monsterBasic", Vector2(40, 40));
   MonsterIa *create = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());

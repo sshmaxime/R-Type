@@ -4,11 +4,11 @@
 
 namespace TacosEngine
 {
-  PhysicsEngine::PhysicsEngine()
-  = default;
+    PhysicsEngine::PhysicsEngine()
+    = default;
 
-  PhysicsEngine::~PhysicsEngine()
-  = default;
+    PhysicsEngine::~PhysicsEngine()
+    = default;
 
   void PhysicsEngine::update(std::list<std::shared_ptr<GameObject>> &objects)
   {

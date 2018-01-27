@@ -20,8 +20,15 @@ int                 Client::Run()
 
     a.setUsername("rozita");
     _Network.Send(a);
+    this->LaunchGame();
     _Network.Run();
     return 0;
+}
+
+int                 Client::LaunchGame()
+{
+    this->_Game.Init();
+    this->_Game.get_engine()->run();
 }
 
 int                 Client::Delete()

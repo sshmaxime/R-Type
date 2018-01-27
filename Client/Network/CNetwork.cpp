@@ -5,6 +5,7 @@
 #include <iostream>
 #include <MessagePacket.h>
 #include "CNetwork.h"
+#include "../Global/CGlobal.h"
 
 int                     CNetwork::Receive()
 {
@@ -23,9 +24,14 @@ int                     CNetwork::Receive()
 int                     CNetwork::Initialize(const std::string &ip, int port)
 {
     try {
-        _Endpoint = udp::endpoint(boost::asio::ip::address_v4::from_string(ip.c_str()), port);
-        _Socket = new udp::socket(this->_Service);
+        _Service = new boost::asio::io_service();
+        CGlobal::Instance()->_Service = _Service;
+
+        _Socket = new udp::socket(*this->_Service);
         _Socket->open(udp::v4());
+        CGlobal::Instance()->_Socket = _Socket;
+
+        _Endpoint = udp::endpoint(boost::asio::ip::address_v4::from_string(ip.c_str()), port);
         this->Receive();
     } catch (std::exception &exception) {
         std::cout << exception.what() << std::endl;
@@ -37,7 +43,7 @@ int                     CNetwork::Initialize(const std::string &ip, int port)
 int                     CNetwork::Run()
 {
     try {
-        _Service.run();
+        _Service->run();
     } catch (std::exception &exception) {
         std::cout << exception.what() << std::endl;
         return (-1);
@@ -47,19 +53,34 @@ int                     CNetwork::Run()
 
 void                    CNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
+    if (CGlobal::Instance()->quit)
+    {
+        _Socket->close();
+        return;
+    }
     _DATA[bytes] = '\0';
     std::cout << std::string(_DATA.c_array()) << std::endl;
+    this->Receive();
 }
 
 int                     CNetwork::Send(JSONObject& toSend)
 {
     std::string         JSONtoString = toSend.getHEADER() + toSend.getJSON();
 
+    if (CGlobal::Instance()->quit)
+        return (-1);
     try {
         _Socket->send_to(boost::asio::buffer(JSONtoString), _Endpoint);
     } catch (std::exception& exception) {
+        this->ClearNetwork();
         std::cout << exception.what() << std::endl;
     }
+    return (0);
+}
+
+int                     CNetwork::ClearNetwork()
+{
+    this->_Service->stop();
     return (0);
 }
 

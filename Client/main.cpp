@@ -1,8 +1,10 @@
 #include "Client.h"
+#include "Global/CGlobal.h"
 
 void                exitSignal(int)
 {
-    //Set
+    CGlobal::Instance()->quit = true;
+    CGlobal::Instance()->_Service->stop();
 }
 
 void                signalsHandler()
@@ -12,9 +14,8 @@ void                signalsHandler()
     sa.sa_handler = exitSignal;
     sigfillset(&sa.sa_mask);
     sigaction(SIGINT, &sa, NULL);
-
-    //set
 }
+
 
 int                 main()
 {

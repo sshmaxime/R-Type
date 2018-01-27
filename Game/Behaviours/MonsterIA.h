@@ -23,7 +23,7 @@ class MonsterIa
   };
 
   virtual ~MonsterIa()
-  {}
+  = default;
 
  protected:
   float _lenx;

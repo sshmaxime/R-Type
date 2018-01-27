@@ -6,6 +6,7 @@
 #define R_TYPE_CLIENT_H
 
 #include "Network/CNetwork.h"
+#include "../Game/Core/Core.hpp"
 
 class Client {
 public:
@@ -13,12 +14,14 @@ public:
     ~Client()               = default;
 
 private:
-    CNetwork                 _Network;
+    CNetwork                _Network;
+    Core                    _Game;
 
 public:
     int                     Initialize(const std::string&, int);
     int                     Run();
     int                     Delete();
+    int                     LaunchGame();
 };
 
 

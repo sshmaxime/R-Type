@@ -106,8 +106,8 @@ void Core::Init()
   explosionFrames.push_back(lvl1->get_scene()->getTexture("explosion3"));
   std::shared_ptr<Animation>       explosionAnim = std::make_shared<Animation>("explosionAnim", obs2->get_sprite(), false, 30, explosionFrames);
 
-  obs2->addAnimation(explosionAnim);
-  //obs2->addAnimation(asteroidAnim2);
+  //obs2->addAnimation(explosionAnim);
+  obs2->addAnimation(asteroidAnim2);
 
 
   lvl1->loadComponents();

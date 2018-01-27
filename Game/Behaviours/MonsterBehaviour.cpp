@@ -12,7 +12,20 @@ namespace TacosEngine
         ++can_shoot;
         auto pos = _object->getTransform().getPosition();
         auto rb = getComponent<Rigidbody>();
-        std::pair<float, float> bestmove = _ia->getBestMove(pos.get_x(), pos.get_y());
+        auto playerPos = std::vector<std::pair<float, float> >();
+        auto player = _object->getScene()->findByName("Player");
+        if (player)
+        {
+            auto tmp = player->getTransform().getPosition();
+            playerPos.push_back(std::make_pair<float, float>(tmp.get_x(), tmp.get_y()));
+        }
+        else
+        {
+            std::cout << "addfalse playerTEST" <<std::endl;
+            playerPos.push_back(std::make_pair<float, float>(100, 100));
+        }
+        std::pair<float, float> bestmove = _ia->getBestMove(playerPos, std::make_pair(pos.get_x(), pos.get_y()));
+  //      std::pair<float, float> bestmove = _ia->getBestMove(pos.get_x(), pos.get_y());
         auto dir = Vector2(bestmove.first, bestmove.second);
   //      std::cout << "OKEK"<<std::endl;
         _object->getTransform().setDirection(dir);

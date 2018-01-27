@@ -7,6 +7,7 @@
 #include <Behaviours/MonsterBehaviour.h>
 #include <Behaviours/BackgroundBehaviour.hpp>
 #include <GameEngine/LibLoader/LibLoader.hpp>
+#include <Behaviours/MonsterBossBehaviour.h>
 #include "Core.hpp"
 
 using namespace TacosEngine;
@@ -27,25 +28,34 @@ void Core::Init()
 
   auto loader = std::make_shared<LibLoader>();
 
+  auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
+  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
+//    std::cout << "lolx" << lol.first << " y" << lol.second << std::endl;
+  boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
+  boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
+  boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
+  boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
+					       boss->get_sprite()->getTransform().getPosition(), true));
+
   auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "monsterBasic", Vector2(40, 40));
-   MonsterIa *create = loader->LoadLib("./libMonsterBasic.so",lvl1->get_scene());
+  MonsterIa *create = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
 //    std::cout << "lolx" << lol.first << " y" << lol.second << std::endl;
   Monster->get_sprite()->getTransform().setPosition(Vector2(700, 340));
   Monster->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster->get_sprite()));
   Monster->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster->get_sprite(), create));
   Monster->addCollider(std::make_shared<Collider>("Monster", Monster->get_sprite(), Monster->get_sprite()->getSize(),
-                                                  Monster->get_sprite()->getTransform().getPosition(), true));
+						  Monster->get_sprite()->getTransform().getPosition(), true));
 
   auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "monsterBasic", Vector2(40, 40));
-  MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so",lvl1->get_scene());
+  MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
 //    std::cout << "lolx" << lol.first << " y" << lol.second << std::endl;
   Monster2->get_sprite()->getTransform().setPosition(Vector2(700, 100));
   Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
   Monster2->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster2->get_sprite(), create2));
   Monster2->addCollider(std::make_shared<Collider>("Monster", Monster2->get_sprite(), Monster2->get_sprite()->getSize(),
-                                                  Monster2->get_sprite()->getTransform().getPosition(), true));
+						   Monster2->get_sprite()->getTransform().getPosition(), true));
 
-  std::cout << "MONSTER FINISHED CREATE" <<std::endl;
+  std::cout << "MONSTER FINISHED CREATE" << std::endl;
   auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "back", Vector2(800, 400));
   back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));
   back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));

@@ -20,8 +20,9 @@ namespace TacosEngine
     void update(const Input &) override;
 
     void onCollide(GameObject &other) override;
-  private:
-      Vector2 _dir;
+
+   private:
+    Vector2 _dir;
   };
 }
 

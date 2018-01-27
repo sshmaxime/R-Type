@@ -100,8 +100,10 @@ namespace TacosEngine
         ITexture *getTexture(const std::string &name);
         IFont *getFont(const std::string &name);
         IAudio *getAudio(const std::string &name);
-        std::list<std::shared_ptr<GameObject>>	getGameObjects();
-        std::list<std::shared_ptr<Component>>	getComponents();
+
+      std::list<std::shared_ptr<GameObject>> &getGameObjects();
+
+      std::list<std::shared_ptr<Component>> &getComponents();
         std::shared_ptr<GameObject> getGameObject(unsigned int id);
         void    startObjects();
         void    destroyObjects();

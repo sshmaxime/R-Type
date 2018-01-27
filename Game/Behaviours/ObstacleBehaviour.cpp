@@ -2,8 +2,11 @@
 // Created by chauvin on 27/01/18.
 //
 
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
+
 #include "ObstacleBehaviour.hpp"
+#include "../GameEngine/Scene/Scene.hpp"
+#include "../GameEngine/Behaviour/Behaviour.h"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
 
 namespace TacosEngine
 {

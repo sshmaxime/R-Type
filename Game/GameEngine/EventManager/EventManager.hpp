@@ -8,7 +8,8 @@
 #include <string>
 #include <map>
 #include <memory>
-#include <GameEngine/IEvent/IEvent.hpp>
+#include "../Scene/Scene.hpp"
+#include "../IEvent/IEvent.hpp"
 
 namespace TacosEngine
 {

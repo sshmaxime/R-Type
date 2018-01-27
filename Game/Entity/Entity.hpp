@@ -8,12 +8,12 @@
 #include <memory>
 #include <iostream>
 #include <vector>
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
 #include "../GameEngine/Behaviour/Behaviour.h"
 #include "../GameEngine/Sprite/Sprite.hpp"
 #include "../GameEngine/Collider/Collider.hpp"
 #include "../GameEngine/AudioComponent/AudioComponent.hpp"
 #include "../GameEngine/Animation/Animation.hpp"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
 
 class Level;
 namespace TacosEngine

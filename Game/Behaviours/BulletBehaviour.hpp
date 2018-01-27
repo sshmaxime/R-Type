@@ -5,7 +5,8 @@
 #ifndef GAME_BULLETBEHAVIOUR_HPP
 #define GAME_BULLETBEHAVIOUR_HPP
 
-#include <GameEngine/Behaviour/Behaviour.h>
+
+#include "../GameEngine/Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {

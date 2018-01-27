@@ -1,10 +1,8 @@
 #pragma once
 
-#include <GameEngine/Collider/Collider.hpp>
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
-#include <GameEngine/Behaviour/Behaviour.h>
 #include "../Scene/Scene.hpp"
 #include "../Vector2/Vector2.hpp"
+#include "../Collider/Collider.hpp"
 
 namespace TacosEngine
 {

@@ -4,6 +4,8 @@
 
 #include "PlayerBehaviour.hpp"
 #include "BulletBehaviour.hpp"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
+#include "../GameEngine/Collider/Collider.hpp"
 
 namespace TacosEngine
 {

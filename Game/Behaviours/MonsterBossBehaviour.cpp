@@ -3,6 +3,8 @@
 //
 
 #include "MonsterBossBehaviour.h"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
+#include "../GameEngine/Collider/Collider.hpp"
 
 namespace TacosEngine
 {

@@ -5,9 +5,9 @@
 #ifndef GAME_MONSTERBEHAVIOUR_H
 #define GAME_MONSTERBEHAVIOUR_H
 
-#include <GameEngine/Scene/Scene.hpp>
-#include <GameEngine/Input/Input.h>
-#include <Level/Level.hpp>
+
+#include "../GameEngine/Behaviour/Behaviour.h"
+#include "../GameEngine/Sprite/Sprite.hpp"
 
 class MonsterIa;
 

@@ -7,9 +7,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include <GameEngine/Scene/Scene.hpp>
-#include <GameEngine/IRenderer/IRenderer.hpp>
-#include <GameEngine/Text/Text.hpp>
+#include "../Scene/Scene.hpp"
+#include "../IRenderer/IRenderer.hpp"
+#include "../Text/Text.hpp"
 
 namespace TacosEngine {
 

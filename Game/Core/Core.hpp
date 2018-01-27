@@ -6,9 +6,10 @@
 #define GAME_CORE_HPP
 
 
-#include <GameEngine/TacosEngine.h>
+
 #include <queue>
 #include "../Level/Level.hpp"
+#include "../GameEngine/TacosEngine.h"
 
 class Core
 {

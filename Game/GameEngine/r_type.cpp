@@ -1,12 +1,4 @@
-#include <iostream>
-#include <utility>
-#include <GameEngine/Sprite/Sprite.hpp>
-#include <GameEngine/Input/Input.h>
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
-#include <GameEngine/Collider/Collider.hpp>
-#include <GameEngine/Text/Text.hpp>
-#include "TacosEngine.h"
-
+/*
 namespace TacosEngine
 {
     class Behaviour;
@@ -158,4 +150,4 @@ int main()
     engine.loadScene(splashScreen);
     engine.run();
     return 0;
-}
+}*/

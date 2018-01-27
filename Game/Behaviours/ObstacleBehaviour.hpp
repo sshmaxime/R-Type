@@ -6,7 +6,7 @@
 #define GAME_OBSTACLEBEHAVIOUR_HPP
 
 
-#include <GameEngine/Behaviour/Behaviour.h>
+#include "../GameEngine/Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {

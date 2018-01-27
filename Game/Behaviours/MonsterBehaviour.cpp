@@ -5,6 +5,9 @@
 #include "MonsterBehaviour.h"
 #include "BulletBehaviour.hpp"
 #include "MonsterIA.h"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
+#include "../GameEngine/Collider/Collider.hpp"
+
 namespace TacosEngine
 {
     void MonsterBehaviour::update(const Input &)

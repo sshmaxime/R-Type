@@ -5,7 +5,7 @@
 #ifndef R_TYPE_IEVENT_HPP
 #define R_TYPE_IEVENT_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine {
 

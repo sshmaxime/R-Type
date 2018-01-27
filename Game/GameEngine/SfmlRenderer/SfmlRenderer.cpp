@@ -2,8 +2,11 @@
 // Created by chennetier on 14/01/18.
 //
 
-#include <GameEngine/Sprite/Sprite.hpp>
+
 #include "SfmlRenderer.hpp"
+#include "../Scene/Scene.hpp"
+#include "../Sprite/Sprite.hpp"
+#include "../Text/Text.hpp"
 
 TacosEngine::SfmlRenderer::SfmlRenderer(sf::RenderWindow *window)
 {

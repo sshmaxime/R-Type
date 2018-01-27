@@ -2,8 +2,13 @@
 // Created by chauvin on 26/01/18.
 //
 
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
+
 #include "BackgroundBehaviour.hpp"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
+#include "../GameEngine/Vector2/Vector2.hpp"
+#include "../GameEngine/Input/Input.h"
+#include "../GameEngine/Sprite/Sprite.hpp"
+#include "../GameEngine/Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {
@@ -40,6 +45,6 @@ namespace TacosEngine
 
   void BackgroundBehaviour::onCollide(GameObject &other)
   {
-    Behaviour::onCollide(other);
+
   }
 }

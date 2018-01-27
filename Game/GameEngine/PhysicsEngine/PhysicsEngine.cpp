@@ -1,5 +1,7 @@
 
 #include "PhysicsEngine.h"
+#include "../Rigidbody/Rigidbody.hpp"
+#include "../Behaviour/Behaviour.h"
 
 
 namespace TacosEngine

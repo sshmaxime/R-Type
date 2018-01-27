@@ -2,14 +2,14 @@
 // Created by chauvin on 25/01/18.
 //
 
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
-#include <Behaviours/PlayerBehaviour.hpp>
-#include <Behaviours/MonsterBehaviour.h>
-#include <Behaviours/MonsterBossBehaviour.h>
-#include <Behaviours/BackgroundBehaviour.hpp>
-#include <GameEngine/LibLoader/LibLoader.hpp>
-#include <Behaviours/ObstacleBehaviour.hpp>
 #include "Core.hpp"
+#include "../GameEngine/TacosEngine.h"
+#include "../GameEngine/LibLoader/LibLoader.hpp"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
+#include "../Behaviours/MonsterBossBehaviour.h"
+#include "../Behaviours/BackgroundBehaviour.hpp"
+#include "../Behaviours/PlayerBehaviour.hpp"
+#include "../Behaviours/ObstacleBehaviour.hpp"
 
 using namespace TacosEngine;
 

@@ -6,9 +6,9 @@
 #define GAME_LEVEL_HPP
 
 #include <vector>
-#include <GameEngine/TacosEngine.h>
 #include "../GameEngine/Scene/Scene.hpp"
 #include "../Entity/Entity.hpp"
+#include "../GameEngine/TacosEngine.h"
 
 class Level
 {

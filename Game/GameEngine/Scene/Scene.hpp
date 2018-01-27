@@ -2,9 +2,9 @@
 
 #include <memory>
 #include <list>
-#include <GameEngine/Entity/Entity.hpp>
-#include <GameEngine/Transform/Transform.h>
-#include <GameEngine/RessourceManager/RessourceManager.hpp>
+#include "../Entity/Entity.hpp"
+#include "../Transform/Transform.h"
+#include "../RessourceManager/RessourceManager.hpp"
 
 namespace TacosEngine
 {

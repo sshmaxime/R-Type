@@ -2,8 +2,11 @@
 // Created by chauvin on 26/01/18.
 //
 
-#include <GameEngine/Rigidbody/Rigidbody.hpp>
+
 #include "BulletBehaviour.hpp"
+#include "../GameEngine/Scene/Scene.hpp"
+#include "../GameEngine/Behaviour/Behaviour.h"
+#include "../GameEngine/Rigidbody/Rigidbody.hpp"
 
 TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 					      const std::shared_ptr<TacosEngine::GameObject> &object, Vector2 dir)

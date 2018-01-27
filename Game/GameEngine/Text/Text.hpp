@@ -5,7 +5,8 @@
 #ifndef GAME_TEXT_HPP
 #define GAME_TEXT_HPP
 
-#include <GameEngine/Scene/Scene.hpp>
+
+#include "../Scene/Scene.hpp"
 
 namespace TacosEngine
 {

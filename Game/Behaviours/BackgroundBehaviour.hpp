@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <memory>
-#include <GameEngine/Behaviour/Behaviour.h>
-#include <GameEngine/Sprite/Sprite.hpp>
+#include "../GameEngine/Behaviour/Behaviour.h"
+#include "../GameEngine/Sprite/Sprite.hpp"
 
 namespace TacosEngine
 {

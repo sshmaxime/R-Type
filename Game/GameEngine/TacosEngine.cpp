@@ -8,6 +8,7 @@
 #include "InputManagerSFML/InputManagerSFML.h"
 #include "Behaviour/Behaviour.h"
 #include "Animation/Animation.hpp"
+#include "../../Client/Global/CGlobal.h"
 
 namespace TacosEngine
 {
@@ -132,7 +133,7 @@ namespace TacosEngine
     std::chrono::high_resolution_clock::time_point t3 = std::chrono::high_resolution_clock::now();
     int curent_tick = 0;
 
-    while (inGame)
+    while (inGame && !CGlobal::Instance()->quit)
       {
 	t2 = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(

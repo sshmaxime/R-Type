@@ -7,6 +7,7 @@
 
 #include "Network/CNetwork.h"
 #include "../Game/Core/Core.hpp"
+#include <thread>
 
 class Client {
 public:
@@ -16,6 +17,7 @@ public:
 private:
     CNetwork                _Network;
     Core                    _Game;
+    std::thread             _GameThread;
 
 public:
     int                     Initialize(const std::string&, int);

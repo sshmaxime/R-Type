@@ -25,9 +25,10 @@ public:
     int                     Bye();
     int                     Receive();
     int                     Run();
+    int                     ClearNetwork();
 
 private:
-    boost::asio::io_service _Service;
+    boost::asio::io_service *_Service;
     udp::socket             *_Socket;
     udp::endpoint           _Endpoint;
     udp::endpoint           _SenderEndpoint;

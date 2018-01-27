@@ -92,7 +92,7 @@ add_executable(Game
         Behaviours/MonsterBossBehaviour.cpp
         Behaviours/MonsterBossBehaviour.h)
 
-# Detect and add SFM L
+# Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND
         NOT DEFINED ENV{SFML_ROOT})
     if(WIN32)

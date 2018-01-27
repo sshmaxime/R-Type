@@ -47,7 +47,7 @@ namespace TacosEngine
 					       Layout::SCENE);
 	bullet->setTexture(_object->getScene()->getTexture("bullet"));
 	bullet->setSize(Vector2(30, 30));
-	bullet->getTransform().setPosition(_object->getTransform().getPosition() - Vector2(100, 10 - i * 30));
+	bullet->getTransform().setPosition(_object->getTransform().getPosition() - Vector2(130, 10 - i * 30));
 	bullet->getTransform().setSpeed(_object->getTransform().getSpeed() + 3);
 	auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),
 					      bullet->getTransform().getPosition(), true);

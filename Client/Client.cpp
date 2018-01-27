@@ -4,6 +4,7 @@
 
 #include <HelloPacket.h>
 #include "Client.h"
+#include "Global/CGlobal.h"
 
 int                 Client::Initialize(const std::string& ip, int port)
 {
@@ -20,8 +21,9 @@ int                 Client::Run()
 
     a.setUsername("rozita");
     _Network.Send(a);
-    this->LaunchGame();
+    _GameThread = std::thread(&Client::LaunchGame, this);
     _Network.Run();
+    this->_GameThread.join();
     return 0;
 }
 
@@ -29,9 +31,12 @@ int                 Client::LaunchGame()
 {
     this->_Game.Init();
     this->_Game.get_engine()->run();
+    this->Delete();
 }
 
 int                 Client::Delete()
 {
+    CGlobal::Instance()->quit = true;
+    CGlobal::Instance()->_Service->stop();
     return 0;
 }

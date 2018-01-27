@@ -1,6 +1,6 @@
 texture:
-back:background.png
-ship:ship.png
-bullet:bullet.png
-monsterBasic:monsterbasic.png
+back:../Game/Extra/background.png
+ship:../Game/Extra/ship.png
+bullet:../Game/Extra/bullet.png
+monsterBasic:../Game/Extra/monsterbasic.png
 /:/

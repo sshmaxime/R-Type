@@ -2,12 +2,13 @@
 #include <memory>
 #include <thread>
 
-#include <GameEngine/RessourceManager/SfmlWindow.hpp>
-#include <GameEngine/SfmlRenderer/SfmlRenderer.hpp>
-#include <GameEngine/InputManagerSFML/InputManagerSFML.h>
-#include <GameEngine/Behaviour/Behaviour.h>
-#include <GameEngine/Animation/Animation.hpp>
 #include "TacosEngine.h"
+#include "RessourceManager/SfmlWindow.hpp"
+#include "SfmlRenderer/SfmlRenderer.hpp"
+#include "InputManagerSFML/InputManagerSFML.h"
+#include "Behaviour/Behaviour.h"
+#include "Animation/Animation.hpp"
+#include "../../Client/Global/CGlobal.h"
 
 namespace TacosEngine
 {

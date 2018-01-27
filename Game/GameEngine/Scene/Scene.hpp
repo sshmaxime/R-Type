@@ -26,6 +26,7 @@ namespace TacosEngine
         BACKGROUND = 1,
     };
 
+
     class GameObject : public Entity
     {
     public:

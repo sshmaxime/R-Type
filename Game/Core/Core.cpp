@@ -29,7 +29,7 @@ void Core::Init()
 
   auto loader = std::make_shared<LibLoader>();
 
-    auto boss = lvl1->addEntity("boss", Layout::SCENE, "monsterBasic", Vector2(150, 150));
+    auto boss = lvl1->addEntity("boss", Layout::SCENE, "boss1", Vector2(150, 150));
     MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so",lvl1->get_scene());
 //    std::cout << "lolx" << lol.first << " y" << lol.second << std::endl;
     boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
@@ -38,7 +38,7 @@ void Core::Init()
     boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
                                                  boss->get_sprite()->getTransform().getPosition(), true));
 
-  auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "monsterBasic", Vector2(40, 40));
+  auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "crab", Vector2(40, 40));
   MonsterIa *create = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
   Monster->get_sprite()->getTransform().setPosition(Vector2(700, 340));
   Monster->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster->get_sprite()));
@@ -46,7 +46,7 @@ void Core::Init()
   Monster->addCollider(std::make_shared<Collider>("Monster", Monster->get_sprite(), Monster->get_sprite()->getSize(),
 						  Monster->get_sprite()->getTransform().getPosition(), true));
 
-  auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "monsterBasic", Vector2(40, 40));
+  auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "crab", Vector2(40, 40));
   MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
   Monster2->get_sprite()->getTransform().setPosition(Vector2(700, 100));
   Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
@@ -59,26 +59,48 @@ void Core::Init()
   back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));
   back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));
 
-  auto player = lvl1->addEntity("Player", Layout::SCENE, "ship", Vector2(40, 40));
+
+  auto player = lvl1->addEntity("Player", Layout::SCENE, "player1", Vector2(24, 10));
   auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite());
   player->addBehaviour(playerBeha);
   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
 						 player->get_sprite()->getTransform().getPosition(), true));
   player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
 
-  auto obs = lvl1->addEntity("Obs", Layout::SCENE, "ship", Vector2(40, 40));
+  auto obs = lvl1->addEntity("Obs", Layout::SCENE, "asteroid1", Vector2(40, 40));
   obs->get_sprite()->getTransform().setPosition(Vector2(400, 200));
   obs->addCollider(std::make_shared<Collider>("Collider", obs->get_sprite(), obs->get_sprite()->getSize(),
 					      obs->get_sprite()->getTransform().getPosition(), true));
   obs->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs->get_sprite()));
 
-  auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "ship", Vector2(40, 40));
+  std::vector<ITexture*>      asteroidFrames;
+
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid1"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid2"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid3"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid4"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid5"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid6"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid7"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid8"));
+    asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid9"));
+  std::shared_ptr<Animation>       asteroidAnim = std::make_shared<Animation>("asteroidAnim", obs->get_sprite(), true, 40, asteroidFrames);
+
+  obs->addAnimation(asteroidAnim);
+
+
+  auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "asteroid5", Vector2(40, 40));
   obs2->get_sprite()->getTransform().setPosition(Vector2(400, 100));
   obs2->addCollider(std::make_shared<Collider>("Collider", obs2->get_sprite(), obs2->get_sprite()->getSize(),
 					       obs2->get_sprite()->getTransform().getPosition(), true));
   obs2->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs2->get_sprite()));
 
-  lvl1->loadComponents();
+
+  std::shared_ptr<Animation>       asteroidAnim2 = std::make_shared<Animation>("asteroidAnim", obs2->get_sprite(), true, 40, asteroidFrames);
+  obs2->addAnimation(asteroidAnim2);
+
+
+          lvl1->loadComponents();
   // LVL2
 
   // Load and run level1

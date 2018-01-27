@@ -126,55 +126,24 @@ namespace TacosEngine
             t2 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(
                     t2 - t1);
-            //std::cout << "TIME : " << time_span.count() << std::endl;
             if (displayMode) {
                 windowEvents();
             }
             processInput();
             if (time_span.count() > _TICK) {
                 t1 = std::chrono::high_resolution_clock::now();
-                if (curent_tick >= _TICK * 100) {
+                if (curent_tick >= _TICK * 10000) {
                     curent_tick = 0;
                 }
-                std::chrono::duration<double> time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                //std::cout << "First" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
                 curent_tick = curent_tick + 1;
                 startObjects();
-                t2 = std::chrono::high_resolution_clock::now();
-                time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                //std::cout << "after startobjects" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
-                //eventManager->eventUpdate(this->sceneInProcess);
+                eventManager->eventUpdate(this->sceneInProcess);
                 physics.update(sceneInProcess->getGameObjects());
-                t2 = std::chrono::high_resolution_clock::now();
-                time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                std::cout << "after physics" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
                 behaviourUpdate();
-                t2 = std::chrono::high_resolution_clock::now();
-                time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                //std::cout << "after behaviour" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
                 animationUpdate(curent_tick);
-                t2 = std::chrono::high_resolution_clock::now();
-                time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                //std::cout << "after animation" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
-
                 if (displayMode) {
                     renderer->draw(sceneInProcess->getGameObjects());
                 }
-                t2 = std::chrono::high_resolution_clock::now();
-                time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(
-                        t2 - t3);
-                //std::cout << "after draw" << time_span2.count() << std::endl;
-                t3 = std::chrono::high_resolution_clock::now();
                 destroyObjects();
                 if (inputs.getKey(Key::KEY_ESCAPE)) {
                     inGame = false;
@@ -220,8 +189,9 @@ namespace TacosEngine
 
         for (const auto &i : compo) {
             auto animation = std::dynamic_pointer_cast<Animation>(i);
-            if (animation && animation->isActive())
+            if (animation && animation->isActive()) {
                 animation->update(tick);
+            }
         }
     }
 

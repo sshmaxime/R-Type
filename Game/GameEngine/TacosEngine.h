@@ -12,7 +12,7 @@
 #include "InputManager/InputManager.h"
 #include "../../Common/JSON/json.hpp"
 
-#define _TICK 0.02
+#define _TICK 0.01
 
 namespace TacosEngine
 {

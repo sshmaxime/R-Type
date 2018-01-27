@@ -12,20 +12,24 @@ namespace TacosEngine {
                                                                                                 _loop(loop),
                                                                                                 _frame_speed(
                                                                                                         frame_speed),
-                                                                                                _frames(frames) {
+                                                                                                _frames(frames){
       _frame = 0;
+        _check_speed = 0;
     }
 
     void Animation::update(int tick) {
-        static int check_speed = 0;
+
         std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(_object);
 
-      if (this->_frame <= this->_frames.size() && (tick - check_speed) >= _frame_speed) {
+      if (this->_frame <= this->_frames.size() && (_check_speed) >= _frame_speed) {
         _frame++;
-        check_speed = tick;
+        _check_speed = 0;
       }
-      if (_frame > this->_frames.size() && this->_loop)
-        _frame = 0;
+      if (_frame > this->_frames.size() - 1 && this->_loop) {
+          _frame = 0;
+          _check_speed = 0;
+      }
+        _check_speed++;
       if (sp->getTexture() != this->_frames[_frame])
         sp->setTexture(this->_frames[_frame]);
     }

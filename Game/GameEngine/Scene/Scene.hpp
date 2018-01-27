@@ -27,7 +27,7 @@ namespace TacosEngine
     };
 
 
-    class GameObject : public Entity
+  class GameObject : public Entity
     {
     public:
         GameObject(const std::string &name, std::shared_ptr<Scene> scene, Layout layout, Tag tag = Tag::UNKNOWN);

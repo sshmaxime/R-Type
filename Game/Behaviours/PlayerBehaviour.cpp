@@ -30,13 +30,12 @@ namespace TacosEngine
 
   void PlayerBehaviour::shoot()
   {
-    std::cout << "Create BULLET" << std::endl;
     auto bullet = std::make_shared<Sprite>("bullet" + this->getGameObjectName(), this->_object->getScene(),
 					   Layout::SCENE);
     bullet->setTexture(_object->getScene()->getTexture("bullet"));
     bullet->setSize(Vector2(20, 20));
     bullet->getTransform().setPosition(_object->getTransform().getPosition() + Vector2(42, 0));
-      bullet->getTransform().setSpeed(_object->getTransform().getSpeed());
+    bullet->getTransform().setSpeed(_object->getTransform().getSpeed());
     auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),
 					  bullet->getTransform().getPosition(), true);
     auto rbody = std::make_shared<Rigidbody>("Rigidbody" + bullet->getInstanceName(), bullet);

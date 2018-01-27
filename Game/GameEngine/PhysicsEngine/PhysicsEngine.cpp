@@ -38,7 +38,7 @@ namespace TacosEngine
 		    if (itCol && compoCol)
 		      {
 			collide = checkCollision(it, newPos, newPosCol, compo, objects, itCol, compoCol);
-			if (!compoCol->is_isTrigger())
+			if (!compoCol->is_isTrigger() && collide)
 			  resetPos = true;
 		      }
 		  }

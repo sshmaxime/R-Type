@@ -52,12 +52,12 @@ public:
 
   std::pair<float, float> getBestMove(std::vector<std::pair<float, float> > playerpos, std::pair<float, float> mypos)
   {
-        float besty = getbestY(playerpos, mypos);
-      auto ret = std::pair<float, float>(-0.4, 0);
-        if (besty *m_y < 0)
-            maxample = 50;
-        else
-            maxample = 150;
+    float besty = getbestY(playerpos, mypos);
+    auto ret = std::pair<float, float>(-0.4, 0);
+    if (besty * m_y < 0)
+      maxample = 50;
+    else
+      maxample = 150;
         if (ampl++ > maxample)
         {
             ampl = 1;

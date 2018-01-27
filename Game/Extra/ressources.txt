@@ -4,6 +4,3 @@ ship:ship.png
 bullet:bullet.png
 monsterBasic:monsterbasic.png
 /:/
-font:
-rtypefont:Starjedi.ttf
-/:/

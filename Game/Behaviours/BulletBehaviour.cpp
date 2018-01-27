@@ -14,12 +14,11 @@ TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 void TacosEngine::BulletBehaviour::Start()
 {
   auto rb = this->getComponent<Rigidbody>();
-  rb->addForce(_dir);//* this->_object->getTransform().getSpeed());
+  rb->addForce(_dir * this->_object->getTransform().getSpeed());
 }
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)
 {
-  std::cout << "DESTROY BULLET" << std::endl;
   setDestroy(true);
 }
 

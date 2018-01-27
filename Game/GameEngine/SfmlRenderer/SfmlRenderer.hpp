@@ -9,6 +9,7 @@
 #include <memory>
 #include <GameEngine/Scene/Scene.hpp>
 #include <GameEngine/IRenderer/IRenderer.hpp>
+#include <GameEngine/Text/Text.hpp>
 
 namespace TacosEngine {
 
@@ -27,6 +28,7 @@ namespace TacosEngine {
         explicit SfmlRenderer(sf::RenderWindow *window);
         ~SfmlRenderer() override;
         void draw(std::list<std::shared_ptr<GameObject>> _sprites) override;
+        sf::Color getColor(Color color);
     };
 }
 

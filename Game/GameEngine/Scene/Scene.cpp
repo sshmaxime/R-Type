@@ -1,10 +1,11 @@
-#include <GameEngine/Scene/Scene.hpp>
-#include <GameEngine/Behaviour/Behaviour.h>
+
+#include "Scene.hpp"
+#include "../Behaviour/Behaviour.h"
 
 namespace TacosEngine
 {
 	Scene::Scene(const std::string &myname)
-		: _name(myname)
+		: _name(myname), _newScene(false), _newSceneName("")
 	{
 	}
 
@@ -39,12 +40,12 @@ namespace TacosEngine
 		return (nullptr);
 	}
 
-	std::list<std::shared_ptr<GameObject>>	Scene::getGameObjects()
+  std::list<std::shared_ptr<GameObject>> &Scene::getGameObjects()
 	{
 		return _objects;
 	}
 
-    std::list<std::shared_ptr<Component>>	Scene::getComponents()
+  std::list<std::shared_ptr<Component>> &Scene::getComponents()
     {
         return _components;
     }
@@ -54,12 +55,22 @@ namespace TacosEngine
         return _ressources->getTexture(name);
     }
 
+    IFont *Scene::getFont(const std::string &name)
+    {
+        return _ressources->getFont(name);
+    }
+
+    IAudio *Scene::getAudio(const std::string &name)
+    {
+        return _ressources->getAudio(name);
+    }
+
     void    Scene::startObjects()
     {
         for (auto &compo : _components)
         {
             std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(compo);
-            if (b && !b->isStarted())
+            if (b && b->isActive() && !b->isStarted())
             {
                 b->Start();
                 b->setStart(true);
@@ -73,7 +84,7 @@ namespace TacosEngine
         while (compo != _components.end())
         {
             std::shared_ptr<Behaviour> b = std::dynamic_pointer_cast<Behaviour>(*compo);
-            if (b && b->toDestroy())
+            if (b && b->isActive() && b->toDestroy())
             {
                std::shared_ptr<GameObject>  obj = b->getGameObject();
 
@@ -127,5 +138,36 @@ namespace TacosEngine
                 gameObjects.push_back(gameObject);
         }
         return gameObjects;
+    }
+
+    bool        Scene::isNewScene() const
+    {
+        return _newScene;
+    }
+
+    void        Scene::loadNewScene(const std::string &name)
+    {
+        _newScene = true;
+        _newSceneName = name;
+    }
+
+    const std::string   &Scene::getName() const
+    {
+        return _name;
+    }
+
+    const std::string   &Scene::getNewSceneName() const
+    {
+        return _newSceneName;
+    }
+
+    void    Scene::setWindowSize(const Vector2 &size)
+    {
+
+    }
+
+    const Vector2 &Scene::getWindowSize() const
+    {
+        return _windowSize;
     }
 }

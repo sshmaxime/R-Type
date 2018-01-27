@@ -2,10 +2,9 @@
 
 #include <memory>
 #include <list>
-#include <Entity/Entity.hpp>
 #include <GameEngine/Entity/Entity.hpp>
 #include <GameEngine/Transform/Transform.h>
-#include "../RessourceManager/RessourceManager.hpp"
+#include <GameEngine/RessourceManager/RessourceManager.hpp>
 
 namespace TacosEngine
 {
@@ -46,12 +45,16 @@ namespace TacosEngine
         std::shared_ptr<GameObject> findByTag(Tag tag);
         std::list<std::shared_ptr<GameObject>>  findGameObjetcsByTag(Tag tag);
         bool		operator<(const GameObject &);
+        void    setActive(bool);
+        bool    isActive() const;
+
 
     protected:
         Transform                   _transform;
         Tag                         _tag;
         Layout                      _layout;
         std::shared_ptr<Scene>      _scene;
+        bool                        _isActive;
     };
 
 
@@ -65,12 +68,15 @@ namespace TacosEngine
         void addGameObject(std::shared_ptr<GameObject> toAdd);
         const std::string &getGameObjectName();
         bool  isObjected() const;
+        void    setActive(bool);
+        bool    isActive() const;
 
         template <typename T>
         std::shared_ptr<T> getComponent();
 
     protected:
         std::shared_ptr<GameObject> _object;
+        bool                        _isActive;
     };
 
     class Scene
@@ -81,6 +87,9 @@ namespace TacosEngine
         //std::list<std::shared_ptr<IEvent> _events;
         std::string _name;
         std::shared_ptr<RessourceManager>	_ressources;
+        bool    _newScene;
+        std::string _newSceneName;
+        Vector2                     _windowSize;
 
     public:
         explicit Scene(const std::string &myname);
@@ -89,14 +98,24 @@ namespace TacosEngine
         void addComponent(std::shared_ptr<Component> toAdd);
         void setRessources(std::shared_ptr<RessourceManager> ress);
         ITexture *getTexture(const std::string &name);
-        std::list<std::shared_ptr<GameObject>>	getGameObjects();
-        std::list<std::shared_ptr<Component>>	getComponents();
+        IFont *getFont(const std::string &name);
+        IAudio *getAudio(const std::string &name);
+
+      std::list<std::shared_ptr<GameObject>> &getGameObjects();
+
+      std::list<std::shared_ptr<Component>> &getComponents();
         std::shared_ptr<GameObject> getGameObject(unsigned int id);
         void    startObjects();
         void    destroyObjects();
         std::shared_ptr<GameObject> findByName(const std::string &);
         std::shared_ptr<GameObject> findByTag(Tag tag);
         std::list<std::shared_ptr<GameObject>>  findGameObjetcsByTag(Tag tag);
+        bool        isNewScene() const;
+        void        loadNewScene(const std::string &name);
+        const std::string   &getName() const;
+        const std::string   &getNewSceneName() const;
+        void    setWindowSize(const Vector2 &);
+        const Vector2 &getWindowSize() const;
 
         template <typename T>
         std::shared_ptr<T> getComponent(unsigned int id);

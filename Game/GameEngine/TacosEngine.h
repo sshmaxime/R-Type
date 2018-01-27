@@ -1,8 +1,7 @@
 #pragma once
 
-#include <list>
-#include <memory>
-#include <Behaviour/Behaviour.h>
+#include <GameEngine/EventManager/EventManager.hpp>
+#include <GameEngine/Animation/Animation.hpp>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -11,11 +10,12 @@
 #include "IRenderer/IRenderer.hpp"
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
-#include "../Common/JSON/json.hpp"
+#include "../../Common/JSON/json.hpp"
+
+#define _TICK 0.01
 
 namespace TacosEngine
 {
-
     using json = nlohmann::json;
 
 	class Engine
@@ -36,7 +36,7 @@ namespace TacosEngine
 
 		// Window
 		bool								displayMode;
-		std::unique_ptr<IWindow>			window;
+		std::shared_ptr<IWindow>			window;
 
 		// Renderer
 		std::unique_ptr<IRenderer>			renderer;
@@ -45,6 +45,9 @@ namespace TacosEngine
 		TacosEngine::Input									inputs;
 		std::unique_ptr<TacosEngine::InputManager>			inputManager;
 		TestInput											test;
+
+		// Event
+		std::shared_ptr<EventManager>       eventManager;
 
 
 	public:
@@ -61,6 +64,9 @@ namespace TacosEngine
 		void				behaviourUpdate();
 		void				startObjects();
 		void				destroyObjects();
+		void 				windowEvents();
+		void				checkNewScene();
+		void				animationUpdate(int);
 
 	private:
 		void			processInput();

@@ -63,7 +63,9 @@
             Rigidbody/Rigidbody.cpp
             Rigidbody/Rigidbody.hpp
             Sprite/Sprite.hpp
-            GameObject/GameObject.cpp)
+            GameObject/GameObject.cpp
+            EventManager/EventManager.cpp
+            EventManager/EventManager.hpp)
 
 
     # Detect and add SFML

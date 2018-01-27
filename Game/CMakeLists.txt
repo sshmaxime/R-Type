@@ -13,24 +13,10 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config.h.in"
         "${PROJECT_BINARY_DIR}/config.h"
 )
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-as-needed -ldl -Wall")
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_executable(Game
-        Core/Core.cpp
-        Core/Core.hpp
-        Entity/Andromede.cpp
-        Entity/Andromede.hpp
-        Entity/BasicMonster.cpp
-        Entity/BasicMonster.hpp
-        Entity/EnnemyEntity.cpp
-        Entity/EnnemyEntity.hpp
-        Entity/Entity.cpp
-        Entity/Entity.hpp
-        Entity/Pegasus.cpp
-        Entity/Pegasus.hpp
-        Entity/PlayableEntity.cpp
-        Entity/PlayableEntity.hpp
         GameEngine/Animation/Animation.cpp
         GameEngine/Animation/Animation.hpp
         GameEngine/AudioComponent/AudioComponent.cpp
@@ -81,9 +67,30 @@ add_executable(Game
         GameEngine/TacosEngine.cpp
         GameEngine/TacosEngine.h
         GameEngine/TestInput.h
+        GameEngine/EventManager/EventManager.cpp
+        GameEngine/EventManager/EventManager.hpp
+        GameEngine/Text/Text.cpp
+        GameEngine/Text/Text.hpp
+        GameEngine/LibLoader/LibLoader.cpp
+        GameEngine/LibLoader/LibLoader.hpp
         Level/Level.cpp
         Level/Level.hpp
-        main.c)
+        Core/Core.cpp
+        Core/Core.hpp
+        Entity/Entity.cpp
+        Entity/Entity.hpp
+        main.cpp
+        Behaviours/BackgroundBehaviour.cpp
+        Behaviours/BackgroundBehaviour.hpp
+        Behaviours/PlayerBehaviour.cpp
+        Behaviours/PlayerBehaviour.hpp
+        Behaviours/BulletBehaviour.cpp
+        Behaviours/BulletBehaviour.hpp
+        Behaviours/MonsterBehaviour.cpp
+        Behaviours/MonsterBehaviour.h
+        Behaviours/MonsterIA.h
+        Behaviours/MonsterBossBehaviour.cpp
+        Behaviours/MonsterBossBehaviour.h)
 
 # Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND

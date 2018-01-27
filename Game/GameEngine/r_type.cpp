@@ -1,25 +1,34 @@
 #include <iostream>
 #include <utility>
-#include <TacosEngine.h>
-#include <Sprite/Sprite.hpp>
+#include <GameEngine/Sprite/Sprite.hpp>
+#include <GameEngine/Input/Input.h>
+#include <GameEngine/Rigidbody/Rigidbody.hpp>
+#include <GameEngine/Collider/Collider.hpp>
+#include <GameEngine/Text/Text.hpp>
+#include "TacosEngine.h"
 
 namespace TacosEngine
 {
     class Behaviour;
 
-    class PlayerBehaviour : public Behaviour
-    {
+    class PlayerBehaviour : public Behaviour {
+    private:
+        float sizeX;
+        float sizeY;
+
     public:
-        PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
-                : Behaviour(name, std::move(sprite))
-        {
+        PlayerBehaviour(const std::string &name, std::shared_ptr<GameObject> object)
+                : Behaviour(name, std::move(object)) {
         }
 
         ~PlayerBehaviour() override = default;
 
-        void    Start()
-        {
+        void Start() override {
             std::cout << "In Start()" << std::endl;
+            auto sp = std::dynamic_pointer_cast<Sprite>(_object);
+            sizeX = sp->getSize().get_x();
+            sizeY = sp->getSize().get_y();
+            _object->getTransform().setSpeed(4.0f);
         }
 
         void update(const Input &input) override {
@@ -28,18 +37,52 @@ namespace TacosEngine
 
             if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
                 dir = dir / 2;
+            CheckWindowCollide(dir);
             _object->getTransform().setDirection(dir);
-            _object->getTransform().setSpeed(0.5f);
             rb->addForce(dir * _object->getTransform().getSpeed());
         }
 
-        void PlayerBehaviour::onCollide(GameObject &other) override {
+        void onCollide(GameObject &other) override {
             std::cout << "OnCollide() => " << other.getInstanceName() << std::endl;
-            if (other.getInstanceName() == "Obs")
-            {
+            if (other.getInstanceName() == "Obs") {
                 if (auto obs2 = _object->findByName("Obs2"))
                     obs2->getTransform().setPosition(Vector2(10, 10));
                 setDestroy(true);
+            }
+        }
+
+        Vector2    &CheckWindowCollide(Vector2 &dir)
+        {
+            if (dir.get_x() < 0 && _object->getTransform().getPosition().get_x() <= 0.5 ||
+                dir.get_x() > 0 && _object->getTransform().getPosition().get_x() >= (799.5 - sizeX))
+                dir.set_x(0);
+            if (dir.get_y() > 0 && _object->getTransform().getPosition().get_y() >= (399.5 - sizeY) ||
+                dir.get_y() < 0 && _object->getTransform().getPosition().get_y() <= 0.5)
+                dir.set_y(0);
+            return dir;
+        }
+    };
+
+    class TextBehaviour : public Behaviour {
+    public:
+        TextBehaviour(const std::string &name, std::shared_ptr<GameObject> object)
+                : Behaviour(name, std::move(object)) {
+        }
+
+        ~TextBehaviour() override = default;
+
+        void Start() override {
+            std::cout << "In Start()" << std::endl;
+            auto rb = getComponent<Rigidbody>();
+
+            rb->addForce(Vector2(0, -1));
+        }
+
+        void update(const Input &input) override {
+            if (_object->getTransform().getPosition().get_y() < -80)
+            {
+                std::cout << "New Scene !" << std::endl;
+                _object->getScene()->loadNewScene("Scene1");
             }
         }
     };
@@ -50,12 +93,26 @@ using namespace TacosEngine;
 int main()
 {
     Engine engine;
+    std::shared_ptr<Scene> splashScreen = std::make_shared<Scene>("SplashScreen");
     std::shared_ptr <Scene> scene = std::make_shared<Scene>("Scene1");
 
     engine.initRessources("ressources.txt");
 
     // Scene
+    engine.addScene(splashScreen);
     engine.addScene(scene);
+
+    // SplashScreen
+    std::shared_ptr<Text> rtypeText = std::make_shared<Text>("RtypeText", splashScreen, Layout::UI, Tag::UNKNOWN, "R-Type");
+    rtypeText->setColor(Color::YELLOW);
+    rtypeText->setFont(scene->getFont("rtypefont"));
+    rtypeText->setSize(Vector2(30, 0));
+    rtypeText->getTransform().setPosition(Vector2(350, 400));
+    std::shared_ptr<TextBehaviour> textBeha = std::make_shared<TextBehaviour>("TextBeha", rtypeText);
+    std::shared_ptr<Rigidbody> rigText = std::make_shared<Rigidbody>("RbText", rtypeText);
+    splashScreen->addGameObject(rtypeText);
+    splashScreen->addComponent(textBeha);
+    splashScreen->addComponent(rigText);
 
     // Sprite background
     std::shared_ptr<Sprite> back = std::make_shared<Sprite>("Background", scene, Layout::BACKGROUND);
@@ -98,7 +155,7 @@ int main()
     scene->addComponent(rigObs2);
 
     // Load and run scene
-    engine.loadScene(scene);
+    engine.loadScene(splashScreen);
     engine.run();
     return 0;
 }

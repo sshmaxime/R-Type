@@ -12,7 +12,7 @@ namespace TacosEngine
   class BulletBehaviour : public TacosEngine::Behaviour
   {
    public:
-    BulletBehaviour(const std::string &name, const std::shared_ptr<GameObject> &object);
+    BulletBehaviour(const std::string &name, const std::shared_ptr<GameObject> &object, Vector2 dir);
 
    private:
     void Start() override;
@@ -20,6 +20,8 @@ namespace TacosEngine
     void update(const Input &) override;
 
     void onCollide(GameObject &other) override;
+  private:
+      Vector2 _dir;
   };
 }
 

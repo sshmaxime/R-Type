@@ -39,7 +39,7 @@ namespace TacosEngine
     auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),
 					  bullet->getTransform().getPosition(), true);
     auto rbody = std::make_shared<Rigidbody>("Rigidbody" + bullet->getInstanceName(), bullet);
-    auto beha = std::make_shared<BulletBehaviour>("bulletbeha" + bullet->getInstanceName(), bullet);
+    auto beha = std::make_shared<BulletBehaviour>("bulletbeha" + bullet->getInstanceName(), bullet, Vector2(1, 0));
     this->_object->getScene()->addGameObject(bullet);
     this->_object->getScene()->addComponent(col);
     this->_object->getScene()->addComponent(rbody);

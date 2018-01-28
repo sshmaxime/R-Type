@@ -62,20 +62,29 @@ int SNetwork::Shutdown()
 }
 
 
+bool                isValid(const std::string& str)
+{
+    return (false);
+}
+
 void                SNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
     std::string     msgSender = "[" + _Endpoint.address().to_string() + ":" + std::to_string(_Endpoint.port()) + "]";
 
+    std::cout << "receive" << std::endl;
+
     _DATA.at(bytes) = '\0';
     if (Global::Instance()->quit)
     {
-	this->Shutdown();
+    	this->Shutdown();
         return;
     }
+    this->Receive();
+    if (!isValid(std::string(_DATA.c_array())))
+        return ;
     mutex_AllMessagesReceived.lock();
     _AllMessagesReceived->push_back(msgSender + std::string(_DATA.c_array()));
     mutex_AllMessagesReceived.unlock();
-
     this->Receive();
 }
 

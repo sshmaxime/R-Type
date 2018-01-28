@@ -2,6 +2,7 @@
 // Created by sshsupreme on 20/01/18.
 //
 
+#include <CmdShotPacket.h>
 #include "Room.h"
 
 bool                    Room::isAvailable() const
@@ -42,9 +43,17 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
 int Room::Send(const std::string &toSend)
 {
+    std::cout << "send" << std::endl;
+    CmdShotPacket a;
+
+    a.buildObjectFromJSON(toSend.substr(3));
+    a.setUsername("Player2");
+
+    std::cout << a << std::endl;
+
     for (const auto &user : _Users)
     {
-        user->send(toSend);
+        user->send(a);
     }
   return (0);
 }

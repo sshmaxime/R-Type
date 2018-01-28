@@ -21,6 +21,9 @@ void                    CmdShotPacket::setUsername(const std::string& newUsernam
 {
     this->_Username = newUsername;
     _JSON["username"] = this->_Username;
+
+    std::string a = _JSON["username"];
+    std::cout << "name in json = " + a << std::endl;
 }
 
 const std::string &CmdShotPacket::getUsername() const

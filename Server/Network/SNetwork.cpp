@@ -4,17 +4,18 @@
 
 #include "SNetwork.h"
 #include "../Global/Global.h"
-#include "../Global/Global.h"
 
-std::mutex              mutex_AllMessagesReceived;
+std::mutex mutex_AllMessagesReceived;
 
-int                 SNetwork::Initialize(int port, std::shared_ptr<std::list<std::string>>& queue)
+int SNetwork::Initialize(int port, std::shared_ptr<std::list<std::string>> &allMessageReceived)
 {
-    _AllMessagesReceived = queue;
+  _AllMessagesReceived = allMessageReceived;
+
+  Global::Instance()->_Service = new boost::asio::io_service();
 
     try {
-        _Socket = new udp::socket(_Service, udp::endpoint(udp::v4(), port));
-        Global::Instance()->_Socket = _Socket;
+	Global::Instance()->_Socket = new udp::socket(*Global::Instance()->_Service, udp::endpoint(udp::v4(), port));
+
         this->Receive();
     } catch (std::exception& exception) {
         std::cout << exception.what() << std::endl;
@@ -26,7 +27,7 @@ int                 SNetwork::Initialize(int port, std::shared_ptr<std::list<std
 int                 SNetwork::Receive()
 {
     try {
-        _Socket->async_receive_from(
+	Global::Instance()->_Socket->async_receive_from(
                 boost::asio::buffer(_DATA), _Endpoint,
                 boost::bind(&SNetwork::handleReceive, this,
                             boost::asio::placeholders::error,
@@ -46,7 +47,7 @@ int                 SNetwork::Send(JSONObject &toSend)
 int                 SNetwork::Run()
 {
     try {
-        _Service.run();
+	Global::Instance()->_Service->run();
     } catch (std::exception &exception) {
         std::cout << exception.what() << std::endl;
         return (-1);
@@ -54,16 +55,12 @@ int                 SNetwork::Run()
     return (0);
 }
 
-void                printQueue(std::shared_ptr<std::list<std::string>> lol)
+int SNetwork::Shutdown()
 {
-    int x = 0;
-    std::cout << "print" << std::endl;
-    for (const auto item : *lol)
-    {
-        std::cout << item + "->tst" << std::endl;
-    }
-
+  Global::Instance()->_Service->stop();
+  return 0;
 }
+
 
 void                SNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
@@ -72,7 +69,7 @@ void                SNetwork::handleReceive(const boost::system::error_code &err
     _DATA.at(bytes) = '\0';
     if (Global::Instance()->quit)
     {
-        _Socket->close();
+	this->Shutdown();
         return;
     }
     mutex_AllMessagesReceived.lock();
@@ -82,17 +79,8 @@ void                SNetwork::handleReceive(const boost::system::error_code &err
     this->Receive();
 }
 
-int                 SNetwork::Stop()
-{
-    if (!this->_Service.stopped())
-        this->_Service.stop();
-    return (0);
-}
-
 SNetwork::~SNetwork()
 {
-    if (_Socket != nullptr)
-        delete _Socket;
-    if (!this->_Service.stopped())
-        this->_Service.stop();
+  delete Global::Instance()->_Socket;
+  delete Global::Instance()->_Service;
 }

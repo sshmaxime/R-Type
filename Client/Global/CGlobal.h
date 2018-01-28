@@ -6,13 +6,17 @@
 #define R_TYPE_CGLOBAL_H
 
 #include <boost/asio/ip/udp.hpp>
+#include <mutex>
 
 using boost::asio::ip::udp;
 
-class  CGlobal {
+class CGlobal
+{
 public:
     static                  CGlobal* Instance();
-    CGlobal&                operator= (const CGlobal&){}
+
+  CGlobal &operator=(const CGlobal &)
+  {}
 
     CGlobal                  (const CGlobal&){}
 
@@ -24,9 +28,10 @@ private:
 
 public:
     bool                    quit = false;
-    udp::socket             *_Socket = NULL;
+  udp::socket *_Socket = nullptr;
     boost::asio::io_service *_Service;
-
+  std::mutex _mutexSend;
+  bool _init = false;
 };
 
 

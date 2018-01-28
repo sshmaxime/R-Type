@@ -20,11 +20,20 @@ file(GLOB_RECURSE GAME_FILES_CORE Game/Core/*.cpp)
 file(GLOB_RECURSE GAME_FILES_ENTITY Game/Entity/*.cpp)
 file(GLOB_RECURSE GAME_FILES_GAMEENGINE Game/GameEngine/*.cpp)
 file(GLOB_RECURSE GAME_FILES_LEVEL Game/Level/*.cpp)
+file(GLOB_RECURSE GAME_FILES_EVENTS Game/GameEngine/Events/*.cpp)
 
 
 add_executable(server
         ${COMMON}
-        ${SERVER_FILES} Server/Room/RoomManager.cpp Server/Room/RoomManager.h)
+        ${GAME_FILES_BEHAVIOURS}
+        ${GAME_FILES_CORE}
+        ${GAME_FILES_ENTITY}
+        ${GAME_FILES_GAMEENGINE}
+        ${GAME_FILES_LEVEL}
+        ${GAME_FILES_EVENTS}
+        ${SERVER_FILES}
+        Client/Global/CGlobal.cpp
+        )
 
 add_executable(client
         ${COMMON}
@@ -33,6 +42,7 @@ add_executable(client
         ${GAME_FILES_ENTITY}
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
+        ${GAME_FILES_EVENTS}
         ${CLIENT_FILES})
 
 target_link_libraries(server ${Boost_LIBRARIES})

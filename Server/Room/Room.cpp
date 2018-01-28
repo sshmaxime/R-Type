@@ -6,9 +6,7 @@
 
 bool                    Room::isAvailable() const
 {
-    if (_Users.size() >= 4)
-        return (false);
-    return (true);
+  return _Users.size() < 4;
 }
 
 bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) const
@@ -38,7 +36,35 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
     _Users.emplace_back(newUser);
     std::cout << "User added" << std::endl;
+  this->checkStart();
     return 0;
+}
+
+int Room::Send(const std::string &toSend)
+{
+  for (const auto &user : _Users)
+    {
+      user->send(toSend);
+    }
+  return (0);
+}
+
+int Room::startGame()
+{
+  _Game.Init(true);
+  this->Send("start");
+  _Game.get_engine()->run();
+  return (0);
+}
+
+int Room::checkStart()
+{
+  if (_Users.size() == 4)
+    {
+      if (!_ThreadGame.joinable())
+	_ThreadGame = std::thread(&Room::startGame, this);
+    }
+  return (0);
 }
 
 bool                    Room::isUserIn(const std::string &ip) const
@@ -66,11 +92,14 @@ bool                    Room::deleteUser(const std::string& ip)
     return false;
 }
 
+int Room::Shutdown()
+{
+  return 0;
+}
+
 bool                    Room::isEmpty() const
 {
-    if (_Users.size() == 0)
-        return (true);
-    return (false);
+  return _Users.empty();
 }
 
 Room::Room()
@@ -82,3 +111,4 @@ Room::~Room()
 {
     std::cout << "Room deleted" << std::endl;
 }
+

@@ -27,6 +27,7 @@ int                 RoomManager::checkEmptyRoom()
     {
         if (it->get()->isEmpty())
         {
+	    it->get()->Shutdown();
             it = _Rooms.erase(it);
             return (0);
         }
@@ -49,6 +50,14 @@ int                 RoomManager::deleteUser(const std::string& ip)
     }
     return 0;
 }
+
+int RoomManager::sendInRoom(const std::string &packetContent)
+{
+  if (_Rooms.size() > 0)
+    _Rooms.at(0)->Send(packetContent);
+  return 0;
+}
+
 
 int                 RoomManager::stop()
 {

@@ -17,7 +17,7 @@ namespace TacosEngine
 
     this->_background2 = std::make_shared<Sprite>("background2" + this->getGameObjectName(), this->_object->getScene(),
 						  Layout::BACKGROUND);
-    _background2->setTexture(this->_object->getScene()->getTexture("back"));
+    _background2->setTexture(this->_object->getScene()->getTexture("background2"));
     _background2->setSize(Vector2(800, 400));
     _background2->getTransform().setSpeed(1);
     _background2->getTransform().setPosition(Vector2(1600, 0));

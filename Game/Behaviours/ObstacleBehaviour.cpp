@@ -4,8 +4,6 @@
 
 
 #include "ObstacleBehaviour.hpp"
-#include "../GameEngine/Scene/Scene.hpp"
-#include "../GameEngine/Behaviour/Behaviour.h"
 #include "../GameEngine/Rigidbody/Rigidbody.hpp"
 
 namespace TacosEngine

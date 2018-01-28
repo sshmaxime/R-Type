@@ -77,13 +77,12 @@ void                    CNetwork::handleReceive(const boost::system::error_code 
   tmp = new CmdInGamePacket();
   tmp->buildObjectFromJSON(packetContent);
   this->_game.addEvent(tmp);
-  //this->_game.get_engine()->getEventManager()->addEvent();
   this->Receive();
 }
 
-int                     CNetwork::Send(JSONObject& toSend)
+int                     CNetwork::Send(JSONObject *toSend)
 {
-  std::string         JSONtoString = toSend.getHEADER() + toSend.getJSON();
+  std::string         JSONtoString = toSend->getHEADER() + toSend->getJSON();
 
   if (CGlobal::Instance()->quit)
     return (-1);

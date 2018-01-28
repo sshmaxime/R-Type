@@ -14,16 +14,16 @@ namespace TacosEngine
   class PlayerBehaviour : public Behaviour
   {
    public:
-    PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
+    PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite, bool isActive)
 	    : Behaviour(name, std::move(sprite))
     {
+      _isActive = isActive;
     }
 
     ~PlayerBehaviour() override = default;
 
     void Start() override
     {
-      std::cout << "In Start()" << std::endl;
     }
 
     void update(const Input &input) override;
@@ -32,11 +32,9 @@ namespace TacosEngine
 
     void onCollide(GameObject &other) override
     {
-      std::cout << "OnCollide() => " << other.getInstanceName() << std::endl;
       if (other.getInstanceName().find("bullet") != std::string::npos &&
 	  other.getInstanceName().find(getInstanceName()) == std::string::npos)
 	{
-	  std::cout << "COLLISION WITH BULLET, should destroy" << std::endl;
 	  /*if (auto obs2 = _object->findByName("Obs2"))
 	    obs2->getTransform().setPosition(Vector2(10, 10));
 	  setDestroy(true);*/

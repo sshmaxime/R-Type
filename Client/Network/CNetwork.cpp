@@ -63,13 +63,7 @@ void                    CNetwork::handleReceive(const boost::system::error_code 
 
   std::string msg = std::string(_DATA.c_array());
 
-  std::string header = msg.substr(0, 3);
-  std::string packetContent = msg.substr(3);
-
-  JSONObject *tmp;
-  tmp = new CmdInGamePacket();
-  tmp->buildObjectFromJSON(packetContent);
-  this->_game.addEvent(tmp);
+  this->_game.addEvent(msg);
   this->Receive();
 }
 

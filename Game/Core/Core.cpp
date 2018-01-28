@@ -151,14 +151,16 @@ void Core::set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine)
     Core::_engine = _engine;
 }
 
-void Core::addEvent(JSONObject *pObject)
+void Core::addEvent(std::string &msg)
 {
-  auto header = pObject->getHEADER();
+  std::string header = msg.substr(0, 3);
+  std::string packetContent = msg.substr(3);
+
 
   if (header == "1x1")
     {
       CmdMovePacket a;
-      a.buildObjectFromJSON(pObject->getJSON());
+      a.buildObjectFromJSON(packetContent);
       Vector2 v(stof(a.get_x()), stof(a.get_y()));
       auto event = std::make_shared<EventMove>(this->get_engine()->getSceneInProcess()->findByName(a.get_sprite()), v);
       auto name = "EventMove" + a.getUsername();
@@ -169,7 +171,7 @@ void Core::addEvent(JSONObject *pObject)
   if (header == "1x2")
     {
       CmdShotPacket a;
-      a.buildObjectFromJSON(pObject->getJSON());
+      a.buildObjectFromJSON(packetContent);
       auto event = std::make_shared<EventShoot>(this->get_engine()->getSceneInProcess()->findByName(a.getUsername()));
       auto name = "EventMove" + a.getUsername();
       while (!CGlobal::Instance()->_mutexSend.try_lock());

@@ -17,7 +17,7 @@ int                 Client::Run()
 {
   // Do whatever we want to
 
-  HelloPacket   *a = new HelloPacket;
+  auto *a = new HelloPacket;
 
   a->setUsername("rozita");
   _Network.Send(a);

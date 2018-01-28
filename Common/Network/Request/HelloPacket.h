@@ -22,7 +22,7 @@ public:
     void                            setUsername(const std::string&);
 
 public:
-    std::string                     getUsername() const;
+  std::string &getUsername() const;
 };
 
 

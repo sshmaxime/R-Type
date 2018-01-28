@@ -23,7 +23,7 @@ void                    HelloPacket::setUsername(const std::string& newUsername)
   _JSON.at("username") = this->_Username;
 }
 
-std::string             HelloPacket::getUsername() const
+std::string &HelloPacket::getUsername() const
 {
     return (this->_Username);
 }

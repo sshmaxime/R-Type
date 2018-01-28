@@ -54,8 +54,6 @@ int                     CNetwork::Run()
 
 void                    CNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
-  std::string     	msgSender = "[" + _Endpoint.address().to_string() + ":" + std::to_string(_Endpoint.port()) + "]";
-
   if (CGlobal::Instance()->quit)
     {
       _Socket->close();
@@ -63,15 +61,10 @@ void                    CNetwork::handleReceive(const boost::system::error_code 
     }
   _DATA[bytes] = '\0';
 
-  std::string msg = msgSender + std::string(_DATA.c_array());
+  std::string msg = std::string(_DATA.c_array());
 
-
-  auto beg = msg.find('[');
-  auto end = msg.find(']');
-
-  std::string ip = msg.substr(beg + 1, end - 1);
-  std::string header = msg.substr(end + 1, 3);
-  std::string packetContent = msg.substr(end + 4);
+  std::string header = msg.substr(0, 3);
+  std::string packetContent = msg.substr(3);
 
   JSONObject *tmp;
   tmp = new CmdInGamePacket();

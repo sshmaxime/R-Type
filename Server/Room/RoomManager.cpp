@@ -27,6 +27,7 @@ int                 RoomManager::checkEmptyRoom()
     {
         if (it->get()->isEmpty())
         {
+            it->get()->Shutdown();
             it = _Rooms.erase(it);
             return (0);
         }

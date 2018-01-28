@@ -4,8 +4,7 @@
 void                exitSignal(int)
 {
     Global::Instance()->quit = true;
-    if (Global::Instance()->_Socket != NULL)
-        Global::Instance()->_Socket->cancel();
+    Global::Instance()->_Service->stop();
 }
 
 void                signalsHandler()
@@ -19,7 +18,7 @@ void                signalsHandler()
 
 int                 main(int ac, char* av[])
 {
-    Server            myServer;
+    Server          myServer;
 
     signalsHandler();
 

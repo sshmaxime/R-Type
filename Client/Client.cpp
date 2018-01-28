@@ -19,7 +19,7 @@ int                 Client::Run()
 
     HelloPacket   a;
 
-    a.setUsername("rozita");
+    a.setUsername("max");
     _Network.Send(a);
     _GameThread = std::thread(&Client::LaunchGame, this);
     _Network.Run();
@@ -29,7 +29,7 @@ int                 Client::Run()
 
 int                 Client::LaunchGame()
 {
-    this->_Game.Init();
+    this->_Game.Init(true);
     this->_Game.get_engine()->run();
     this->Delete();
 }

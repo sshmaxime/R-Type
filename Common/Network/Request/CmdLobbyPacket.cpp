@@ -21,21 +21,21 @@ int                     CmdLobbyPacket::buildObjectFromJSON(const std::string& J
 void                    CmdLobbyPacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-  _JSON.at("username") = this->_Username;
+    _JSON["username"] = this->_Username;
 }
 
 void                    CmdLobbyPacket::setCommand(const std::string& newCommand)
 {
     this->_Command = newCommand;
-  _JSON.at("command") = this->_Command;
+    _JSON["command"] = this->_Command;
 }
 
-std::string             CmdLobbyPacket::getUsername() const
+const std::string &CmdLobbyPacket::getUsername() const
 {
     return (this->_Username);
 }
 
-std::string             CmdLobbyPacket::getCommand() const
+const std::string &CmdLobbyPacket::getCommand() const
 {
     return (this->_Command);
 }

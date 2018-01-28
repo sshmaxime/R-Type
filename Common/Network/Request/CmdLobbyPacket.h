@@ -24,8 +24,9 @@ public:
     void                            setCommand(const std::string&);
 
 public:
-    std::string                     getUsername() const;
-    std::string                     getCommand() const;
+    const std::string &getUsername() const;
+
+    const std::string &getCommand() const;
 };
 
 

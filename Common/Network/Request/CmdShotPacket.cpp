@@ -9,7 +9,7 @@ int                     CmdShotPacket::buildObjectFromJSON(const std::string& JS
     try {
         _JSON = JSON::parse(JSONString);
 
-        this->_Username = _JSON.at("username");
+        this->_Username = _JSON["username"];
     } catch (std::exception &exception) {
         std::cout << "Error Parsing CmdLobbyPacket" << std::endl;
         return (-1);

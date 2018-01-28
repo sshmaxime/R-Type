@@ -6,7 +6,6 @@
 #include <CmdMovePacket.h>
 #include <CmdShotPacket.h>
 #include "Core.hpp"
-#include "../GameEngine/LibLoader/LibLoader.hpp"
 #include "../Behaviours/MonsterBossBehaviour.h"
 #include "../Behaviours/BackgroundBehaviour.hpp"
 #include "../Behaviours/PlayerBehaviour.hpp"
@@ -14,7 +13,6 @@
 #include "../../Client/Global/CGlobal.h"
 #include "../GameEngine/Events/EventShoot.hpp"
 #include "../Behaviours/MonsterBonusBehaviour.hpp"
-#include "../Level/SpawnManager.h"
 
 using namespace TacosEngine;
 
@@ -28,15 +26,43 @@ void Core::Init(bool displayMode)
   this->_engine = std::make_shared<Engine>(displayMode);
     _engine->initRessources("ressources.txt");
 
-    auto lvl1 = std::make_shared<Level>("lvl1", _engine);
+  auto lvl1 = std::make_shared<Level>("lvl1", _engine);
 
     // LVL1
 
-    auto loader = std::make_shared<LibLoader>();
+  /*auto loader = std::make_shared<LibLoader>();
 
+  auto boss = lvl1->addEntity("boss", Layout::SCENE, "boss1", Vector2(150, 150));
+  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
+  boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
+  boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
+  boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
+  boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
+					       boss->get_sprite()->getTransform().getPosition(), true));
 
-  auto spawn = lvl1->addEntity("Spawner", Layout::SCENE, "droid", Vector2(1, 1));
-  spawn->addBehaviour(std::make_shared<SpawnManager>("Spawner", spawn->get_sprite()));
+  auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "crab", Vector2(40, 40));
+  MonsterIa *create = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
+  Monster->get_sprite()->getTransform().setPosition(Vector2(700, 340));
+  Monster->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster->get_sprite()));
+  Monster->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster->get_sprite(), create));
+  Monster->addCollider(std::make_shared<Collider>("Monster", Monster->get_sprite(), Monster->get_sprite()->getSize(),
+						  Monster->get_sprite()->getTransform().getPosition(), true));
+
+  auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "crab", Vector2(40, 40));
+  MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
+  Monster2->get_sprite()->getTransform().setPosition(Vector2(700, 100));
+  Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
+  Monster2->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster2->get_sprite(), create2));
+  Monster2->addCollider(std::make_shared<Collider>("Monster", Monster2->get_sprite(), Monster2->get_sprite()->getSize(),
+						   Monster2->get_sprite()->getTransform().getPosition(), true));
+
+    auto Monster3 = lvl1->addEntity("Monster", Layout::SCENE, "droid", Vector2(30, 30));
+    MonsterIa *create3 = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
+    Monster3->get_sprite()->getTransform().setPosition(Vector2(700, 200));
+    Monster3->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster3->get_sprite()));
+    Monster3->addBehaviour(std::make_shared<MonsterBonusBehaviour>("monsterBeh", Monster3->get_sprite(), create3));
+    Monster3->addCollider(std::make_shared<Collider>("Monster", Monster3->get_sprite(), Monster3->get_sprite()->getSize(),
+                                                     Monster3->get_sprite()->getTransform().getPosition(), true));*/
 
 
     auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "background2", Vector2(800, 400));
@@ -124,14 +150,15 @@ void Core::set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine)
     Core::_engine = _engine;
 }
 
-void Core::addEvent(JSONObject *pObject)
+void Core::addEvent(const std::string& JSONString)
 {
-  auto header = pObject->getHEADER();
+    std::string header = JSONString.substr(0, 3);
+    std::string packetContent = JSONString.substr(3);
 
   if (header == "1x1")
     {
       CmdMovePacket a;
-      a.buildObjectFromJSON(pObject->getJSON());
+      a.buildObjectFromJSON(packetContent);
       Vector2 v(stof(a.get_x()), stof(a.get_y()));
       auto event = std::make_shared<EventMove>(this->get_engine()->getSceneInProcess()->findByName(a.get_sprite()), v);
       auto name = "EventMove" + a.getUsername();
@@ -142,7 +169,7 @@ void Core::addEvent(JSONObject *pObject)
   if (header == "1x2")
     {
       CmdShotPacket a;
-      a.buildObjectFromJSON(pObject->getJSON());
+      a.buildObjectFromJSON(packetContent);
       auto event = std::make_shared<EventShoot>(this->get_engine()->getSceneInProcess()->findByName(a.getUsername()));
       auto name = "EventMove" + a.getUsername();
       while (!CGlobal::Instance()->_mutexSend.try_lock());

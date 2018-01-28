@@ -17,31 +17,33 @@ namespace TacosEngine
     Vector2 dir(input.getAxis("Horizontal"), input.getAxis("Vertical"));
     auto rb = getComponent<Rigidbody>();
 
-    if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
-      dir = dir / 2;
-      CheckWindowCollide(dir);
-      _object->getTransform().setDirection(dir);
+    CheckWindowCollide(dir);
+    _object->getTransform().setDirection(dir);
     _object->getTransform().setSpeed(2.5);
     rb->addForce(dir * _object->getTransform().getSpeed());
 
-    /*CmdMovePacket *a = new CmdMovePacket;
-    a->set_sprite(_object->getInstanceName());
-    a->setUsername(_object->getInstanceName());
-    std::ostringstream ss;
-    ss << _object->getTransform().getPosition().get_x();
-    a->set_x(ss.str());
-    ss.clear();
-    ss << _object->getTransform().getPosition().get_y();
-    a->set_y(ss.str());
-    while (!CGlobal::Instance()->_mutexSend.try_lock());
-    this->_object->getScene()->get_send()->emplace(a);
-    CGlobal::Instance()->_mutexSend.unlock();*/
-
-    _object->getScene();
+    if (input.getAxis("Horizontal")  != 0 || input.getAxis("Vertical") != 0)
+      {
+	auto *a = new CmdMovePacket;
+	a->set_sprite(_object->getInstanceName());
+	a->setUsername(_object->getInstanceName());
+	std::ostringstream ss;
+	ss << dir.get_x();
+	std::cout << "X send " + ss.str() << std::endl;
+	a->set_x(ss.str());
+	std::ostringstream s2;
+	s2 << dir.get_y();
+	std::cout << "Y send " + s2.str() << std::endl;
+	a->set_y(s2.str());
+	//while (!CGlobal::Instance()->_mutexSend.try_lock());
+	CGlobal::Instance()->_mutexSend.lock();
+	this->_object->getScene()->get_send()->emplace(a);
+	CGlobal::Instance()->_mutexSend.unlock();
+      }
     if (input.getKey(Key::KEY_SPACE) && !isShooting)
       {
 	shoot();
-	CmdShotPacket *b = new CmdShotPacket;
+	auto *b = new CmdShotPacket;
 	b->setUsername(this->_object->getInstanceName());
 	while (!CGlobal::Instance()->_mutexSend.try_lock());
 	this->_object->getScene()->get_send()->emplace(b);
@@ -49,9 +51,9 @@ namespace TacosEngine
       }
     isShooting = input.getKey(Key::KEY_SPACE);
     if (_health <= 0) {
-        //animation de mort
-        this->setDestroy(true);
-    }
+	//animation de mort
+	this->setDestroy(true);
+      }
   }
 
   void PlayerBehaviour::shoot()
@@ -59,13 +61,13 @@ namespace TacosEngine
     auto bullet = std::make_shared<Sprite>("bulletPlayer" + this->getGameObjectName(), this->_object->getScene(),
 					   Layout::SCENE);
     if (this->_bulletType == 1) {
-        bullet->setTexture(_object->getScene()->getTexture("laser1"));
-        bullet->setSize(Vector2(10, 10));
-    }
+	bullet->setTexture(_object->getScene()->getTexture("laser1"));
+	bullet->setSize(Vector2(10, 10));
+      }
     else {
-        bullet->setTexture(_object->getScene()->getTexture("laser"));
-        bullet->setSize(Vector2(16, 16));
-    }
+	bullet->setTexture(_object->getScene()->getTexture("laser"));
+	bullet->setSize(Vector2(16, 16));
+      }
     bullet->getTransform().setPosition(_object->getTransform().getPosition() + Vector2(42, 0));
     bullet->getTransform().setSpeed(_object->getTransform().getSpeed());
     auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),
@@ -76,5 +78,53 @@ namespace TacosEngine
     this->_object->getScene()->addComponent(col);
     this->_object->getScene()->addComponent(rbody);
     this->_object->getScene()->addComponent(beha);
+  }
+
+  void PlayerBehaviour::onCollide(GameObject &other)
+  {
+    if (other.getInstanceName().find("bullet") != std::string::npos &&
+	other.getInstanceName().find(getInstanceName()) == std::string::npos)
+      {
+	std::cout << "Oui" << std::endl;
+	std::cout << _health << std::endl;
+	this->_health = this->_health - other.getComponent<BulletBehaviour>()->get_damages();
+      }
+    else if (other.getInstanceName().find("Obs") != std::string::npos &&
+	     other.getInstanceName().find(getInstanceName()) == std::string::npos)
+	{
+	  this->_health = this->_health - other.getComponent<ObstacleBehaviour>()->get_damages();
+	}
+      else if (other.getInstanceName().find("ammo") != std::string::npos &&
+		   other.getInstanceName().find(getInstanceName()) == std::string::npos)
+	  {
+	    this->_damages = this->_damages * 2;
+	    this->_bulletType = 2;
+	    other.setActive(false);
+	  }
+    if (this->_health <= 0)
+      {
+	auto explosion = std::make_shared<Sprite>("explosion", this->_object->getScene(),
+						  Layout::SCENE);
+
+	std::vector<ITexture*>      explosionFrames;
+	explosionFrames.push_back(_object->getScene()->getTexture("explosion1"));
+	explosionFrames.push_back(_object->getScene()->getTexture("explosion2"));
+	explosionFrames.push_back(_object->getScene()->getTexture("explosion3"));
+
+	explosion->setTexture(_object->getScene()->getTexture("explosion1"));
+	explosion->setSize(Vector2(40, 40));
+	explosion->getTransform().setPosition(_object->getTransform().getPosition());
+	explosion->getTransform().setSpeed(0.0);
+	explosion->setActive(true);
+	std::shared_ptr<Animation>       explosionAnim =
+		std::make_shared<Animation>("explosionAnim", explosion,
+					    false, 20, explosionFrames);
+	auto beha = std::make_shared<AnimationBehaviour>("endAnim", explosion);
+
+
+	this->_object->getScene()->addGameObject(explosion);
+	this->_object->getScene()->addComponent(explosionAnim);
+	this->_object->getScene()->addComponent(beha);
+      }
   }
 }

@@ -15,7 +15,7 @@ namespace TacosEngine
     EventMove(const std::shared_ptr<GameObject> &obj,const Vector2 &dir);
     ~EventMove() override = default;
     void onEvent() override;
-
+    Vector2    &CheckWindowCollide(Vector2 &dir);
    private:
     std::shared_ptr<GameObject> _object;
     Vector2 _dir;

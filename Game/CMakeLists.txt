@@ -90,7 +90,9 @@ add_executable(Game
         Behaviours/MonsterBehaviour.h
         Behaviours/MonsterIA.h
         Behaviours/MonsterBossBehaviour.cpp
-        Behaviours/MonsterBossBehaviour.h Behaviours/ObstacleBehaviour.cpp Behaviours/ObstacleBehaviour.hpp)
+        Behaviours/MonsterBossBehaviour.h Behaviours/ObstacleBehaviour.cpp Behaviours/ObstacleBehaviour.hpp
+        Behaviours/AnimationBehaviour.hpp Behaviours/AnimationBehaviour.hpp
+        Level/SpawnManager.cpp Level/SpawnManager.h)
 
 # Detect and add SFML
 if(NOT DEFINED     SFML_ROOT  AND

@@ -12,7 +12,8 @@ TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 					      const std::shared_ptr<TacosEngine::GameObject> &object, Vector2 dir)
 	: Behaviour(name,
 		    object)
-{ _dir = dir; }
+{ _dir = dir;
+    _damages = 10;}
 
 void TacosEngine::BulletBehaviour::Start()
 {
@@ -22,7 +23,13 @@ void TacosEngine::BulletBehaviour::Start()
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)
 {
-  setDestroy(true);
+    if ((other.getInstanceName().find("bullet") != std::string::npos ||
+            other.getInstanceName().find("Monster") != std::string::npos) &&
+        other.getInstanceName().find(getInstanceName()) == std::string::npos)
+    {
+        return;
+    }
+    setDestroy(true);
 }
 
 void TacosEngine::BulletBehaviour::update(const TacosEngine::Input &input)
@@ -33,4 +40,12 @@ void TacosEngine::BulletBehaviour::update(const TacosEngine::Input &input)
     {
       setDestroy(true);
     }
+}
+
+int TacosEngine::BulletBehaviour::get_damages() const {
+    return _damages;
+}
+
+void TacosEngine::BulletBehaviour::set_damages(int _damages) {
+    BulletBehaviour::_damages = _damages;
 }

@@ -16,7 +16,8 @@ namespace TacosEngine
 
     if (input.getAxis("Horizontal") != 0 && input.getAxis("Vertical") != 0)
       dir = dir / 2;
-    _object->getTransform().setDirection(dir);
+      CheckWindowCollide(dir);
+      _object->getTransform().setDirection(dir);
     _object->getTransform().setSpeed(2.5);
     rb->addForce(dir * _object->getTransform().getSpeed());
     if (dir.get_y() != 0 || dir.get_x() != 0)
@@ -28,14 +29,24 @@ namespace TacosEngine
 	shoot();
       }
     isShooting = input.getKey(Key::KEY_SPACE);
+    if (_health <= 0) {
+        //animation de mort
+        this->setDestroy(true);
+    }
   }
 
   void PlayerBehaviour::shoot()
   {
-    auto bullet = std::make_shared<Sprite>("bullet" + this->getGameObjectName(), this->_object->getScene(),
+    auto bullet = std::make_shared<Sprite>("bulletPlayer" + this->getGameObjectName(), this->_object->getScene(),
 					   Layout::SCENE);
-    bullet->setTexture(_object->getScene()->getTexture("bullet"));
-    bullet->setSize(Vector2(20, 20));
+    if (this->_bulletType == 1) {
+        bullet->setTexture(_object->getScene()->getTexture("laser1"));
+        bullet->setSize(Vector2(10, 10));
+    }
+    else {
+        bullet->setTexture(_object->getScene()->getTexture("laser"));
+        bullet->setSize(Vector2(16, 16));
+    }
     bullet->getTransform().setPosition(_object->getTransform().getPosition() + Vector2(42, 0));
     bullet->getTransform().setSpeed(_object->getTransform().getSpeed());
     auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),

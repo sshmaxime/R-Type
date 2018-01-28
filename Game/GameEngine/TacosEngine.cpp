@@ -201,8 +201,12 @@ namespace TacosEngine
 
         for (const auto &i : compo) {
             auto animation = std::dynamic_pointer_cast<Animation>(i);
-            if (animation && animation->isActive()) {
-                animation->update(tick);
+
+            if (animation) {
+                if (animation->isActive())
+                {
+                    animation->update(tick);
+                }
             }
         }
     }

@@ -13,36 +13,37 @@ class MonsterIa;
 
 namespace TacosEngine
 {
-  class MonsterBossBehaviour : public Behaviour
-  {
-   public:
-    MonsterBossBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite, MonsterIa *ia)
-	    : Behaviour(name, std::move(sprite))
+    class MonsterBossBehaviour : public Behaviour
     {
-      can_shoot = 0;
-      tick_per_shoot = 200;
-      _ia = ia;
-      life = 150;
-    }
+    public:
+        MonsterBossBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite, MonsterIa *ia)
+                : Behaviour(name, std::move(sprite))
+        {
+          can_shoot = 0;
+          tick_per_shoot = 200;
+          _ia = ia;
+          _health = 200;
+        }
 
-    ~MonsterBossBehaviour() override = default;
+        ~MonsterBossBehaviour() override = default;
 
-    void Start() override
-    {
-    }
+        void Start() override
+        {
+        }
 
-    void update(const Input &) override;
+        void update(const Input &) override;
 
-    void shoot();
+        void shoot();
 
-    void onCollide(GameObject &other) override;
+        void onCollide(GameObject &other) override;
 
-   private:
-    int can_shoot;
-    int tick_per_shoot;
-    int life;
-    MonsterIa *_ia;
-  };
+    private:
+        int can_shoot;
+        int tick_per_shoot;
+        int _health;
+
+        MonsterIa *_ia;
+    };
 }
 
 #endif //GAME_MONSTERBOSSBEHAVIOUR_H

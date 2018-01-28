@@ -26,7 +26,7 @@ Core::~Core()
 void Core::Init(bool displayMode)
 {
   this->_engine = std::make_shared<Engine>(displayMode);
-    _engine->initRessources("./../Game/Extra/ressources.txt");
+    _engine->initRessources("ressources.txt");
 
     auto lvl1 = std::make_shared<Level>("lvl1", _engine);
 

@@ -5,6 +5,7 @@
 #include "SpawnManager.h"
 #include "../Behaviours/MonsterIA.h"
 #include "../Behaviours/MonsterBossBehaviour.h"
+#include "../Behaviours/MonsterBonusBehaviour.hpp"
 #include <ctime>
 #include <cstdlib>
 
@@ -14,7 +15,7 @@ SpawnManager::SpawnManager(const std::string &name, const std::shared_ptr<TacosE
         : Behaviour(name, object)
 {
     _tick = 450;
-    _tickToAdd = 500;
+    _tickToAdd = 1000;
     _loader = std::make_shared<LibLoader>();
     _wayve = 0;
     setOrder("./lvl1.txt");
@@ -35,16 +36,16 @@ void SpawnManager::setOrder(const std::string &path)
             std::string tmp;
             if (!line.empty())
             {
-                int space = 0;
-                int next = 0;
-                int vir = 0;
-                while ((next = line.find(' ', space)) != std::string::npos)
+                unsigned long space = 0;
+                unsigned long next = 0;
+                unsigned long vir = 0;
+                while ((next = (line.find(' ', space))) != std::string::npos)
                 {
                     vir = line.find(':', space);
                     std::string texture = line.substr(vir + 1, next - vir  -1);
                     std::string lib = line.substr(space, vir - space) + LIB_EXT;
                     space = next + 1;
-                    toAdd.push_back(std::make_pair(lib, texture));
+                    toAdd.emplace_back(lib, texture);
                 }
                 _order.push_back(toAdd);
             }
@@ -66,31 +67,42 @@ void SpawnManager::update(const TacosEngine::Input &)
         for (auto &n : toAdd)
         {
             auto rand = get_random();
+            std::shared_ptr<Behaviour> beha;
             std::string lib = "./libMonster" + n.first;
             std::shared_ptr<Sprite>monster;
             MonsterIa *ia = _loader->LoadLib(lib, _object->getScene());
-            if (n.first != std::string("Boss.so"))
-            {
-                monster = std::make_shared<Sprite>("monster" + this->getGameObjectName(), this->_object->getScene(),
-                                                   Layout::SCENE);
-                monster->setTexture(_object->getScene()->getTexture(n.second));
-                monster->setSize(Vector2(40, 40));
-                monster->getTransform().setSpeed(_object->getTransform().getSpeed() + 3);
-            }
-            else
+            if (n.first == "Boss.so")
             {
                 monster = std::make_shared<Sprite>("boss" + this->getGameObjectName(), this->_object->getScene(),
                                                    Layout::SCENE);
+                beha = std::make_shared<MonsterBossBehaviour>("monsterbeha" + monster->getInstanceName(), monster,ia);
                 monster->setTexture(_object->getScene()->getTexture(n.second));
                 monster->setSize(Vector2(140, 140));
-
+            }
+            else
+            {
+                if (n.first == "Bonus.so") {
+                    monster = std::make_shared<Sprite>("droid" + this->getGameObjectName(),
+                                                       this->_object->getScene(),
+                                                       Layout::SCENE);
+                    beha = std::make_shared<MonsterBonusBehaviour>("monsterbeha" + monster->getInstanceName(), monster,ia);
+                }
+                else {
+                    monster = std::make_shared<Sprite>("crab" + this->getGameObjectName(),
+                                                       this->_object->getScene(),
+                                                       Layout::SCENE);
+                    beha = std::make_shared<MonsterBehaviour>("monsterbeha" + monster->getInstanceName(), monster,ia);
+                }
+                monster->setTexture(_object->getScene()->getTexture(n.second));
+                monster->setSize(Vector2(40, 40));
             }
             monster->getTransform().setSpeed(_object->getTransform().getSpeed() + 3);
             monster->getTransform().setPosition(Vector2(700, rand));
-            auto col = std::make_shared<Collider>("Collider" + monster->getInstanceName(), monster, monster->getSize(),
+
+            auto col = std::make_shared<Collider>("Monster" + monster->getInstanceName(), monster, monster->getSize(),
                                                   monster->getTransform().getPosition(), true);
-            auto rbody = std::make_shared<Rigidbody>("Rigidbody" + monster->getInstanceName(), monster);
-            auto beha = std::make_shared<MonsterBehaviour>("monsterbeha" + monster->getInstanceName(), monster,ia);
+            auto rbody = std::make_shared<Rigidbody>("Rb" + monster->getInstanceName(), monster);
+
             this->_object->getScene()->addGameObject(monster);
             this->_object->getScene()->addComponent(col);
             this->_object->getScene()->addComponent(rbody);

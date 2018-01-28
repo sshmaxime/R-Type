@@ -11,6 +11,7 @@ class MonsterBasic : public MonsterIa
 public:
     MonsterBasic() : MonsterIa()
     {
+        k = true;
     }
 
   ~MonsterBasic() override
@@ -51,13 +52,21 @@ public:
   std::pair<float, float> getBestMove(std::vector<std::pair<float, float> > playerpos, std::pair<float, float> mypos)
     {
         std::pair<float, float> ret;
+        if (mypos.first < 0 || mypos.first > 400)
+            k = !k;
+        if (k)
+            ret.first = -0.4;
+        else
+            ret.first = 0.4;
 
-        ret.first = -0.4;
-      ret.second = getbestY(playerpos, mypos);
+        ret.second = getbestY(playerpos, mypos);
       ret.second = ret.second * 0.7;
 
         return ret;
     }
+
+private:
+    bool k;
 };
 
 extern "C" MonsterIa* create() {

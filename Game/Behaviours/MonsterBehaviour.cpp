@@ -45,7 +45,7 @@ namespace TacosEngine
         auto bullet = std::make_shared<Sprite>("bullet" + this->getGameObjectName(), this->_object->getScene(),
                                                Layout::SCENE);
         bullet->setTexture(_object->getScene()->getTexture("bullet"));
-        bullet->setSize(Vector2(20, 20));
+        bullet->setSize(Vector2(10, 10));
         bullet->getTransform().setPosition(_object->getTransform().getPosition() - Vector2(42, 0));
         bullet->getTransform().setSpeed(_object->getTransform().getSpeed() + 2);
         auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),

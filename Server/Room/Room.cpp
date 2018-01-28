@@ -42,9 +42,9 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
 int Room::Send(const std::string &toSend)
 {
-  for (const auto &user : _Users)
+    for (const auto &user : _Users)
     {
-      user->send(toSend);
+        user->send(toSend);
     }
   return (0);
 }
@@ -59,7 +59,7 @@ int Room::startGame()
 
 int Room::checkStart()
 {
-  if (_Users.size() == 4)
+    if (_Users.size() == 2)
     {
       if (!_ThreadGame.joinable())
 	_ThreadGame = std::thread(&Room::startGame, this);

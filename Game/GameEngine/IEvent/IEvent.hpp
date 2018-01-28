@@ -14,7 +14,7 @@ namespace TacosEngine {
     public:
         virtual ~IEvent() = default;
 
-      virtual void onEvent(std::shared_ptr<GameObject> obj) = 0;
+      virtual void onEvent() = 0;
     };
 }
 

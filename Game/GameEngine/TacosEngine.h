@@ -1,5 +1,6 @@
 #pragma once
 
+#include <queue>
 #include "TestInput.h"
 #include "RessourceManager/RessourceManager.hpp"
 #include "Scene/Scene.hpp"
@@ -8,7 +9,6 @@
 #include "IRenderer/IRenderer.hpp"
 #include "Input/Input.h"
 #include "InputManager/InputManager.h"
-#include "../../Common/JSON/json.hpp"
 #include "EventManager/EventManager.hpp"
 
 #define _TICK 0.01

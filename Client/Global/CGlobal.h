@@ -6,6 +6,7 @@
 #define R_TYPE_CGLOBAL_H
 
 #include <boost/asio/ip/udp.hpp>
+#include <mutex>
 
 using boost::asio::ip::udp;
 
@@ -26,7 +27,7 @@ public:
     bool                    quit = false;
     udp::socket             *_Socket = NULL;
     boost::asio::io_service *_Service;
-
+  std::mutex		_mutexSend;
 };
 
 

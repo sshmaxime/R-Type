@@ -10,20 +10,21 @@
 #include <thread>
 
 class Client {
-public:
-    Client()                = default;
-    ~Client()               = default;
+ public:
+  Client()                = default;
+  ~Client()               = default;
 
-private:
-    Core                    _Game;
-    CNetwork                _Network;
-    std::thread             _GameThread;
-
-public:
-    int                     Initialize(const std::string&, int);
-    int                     Run();
-    int                     Delete();
-    int                     LaunchGame();
+ private:
+  Core                    _Game;
+  CNetwork                _Network;
+  std::thread             _GameThread;
+  std::thread		_sendThread;
+ public:
+  int                     Initialize(const std::string&, int);
+  int                     Run();
+  int                     Delete();
+  int                     LaunchGame();
+  void 			sendListener();
 };
 
 

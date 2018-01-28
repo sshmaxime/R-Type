@@ -16,6 +16,7 @@ file(GLOB_RECURSE GAME_FILES_CORE Game/Core/*.cpp)
 file(GLOB_RECURSE GAME_FILES_ENTITY Game/Entity/*.cpp)
 file(GLOB_RECURSE GAME_FILES_GAMEENGINE Game/GameEngine/*.cpp)
 file(GLOB_RECURSE GAME_FILES_LEVEL Game/Level/*.cpp)
+file(GLOB_RECURSE GAME_FILES_EVENTS Game/GameEngine/Events/*.cpp)
 
 
 find_package(Boost 1.58.0 COMPONENTS system filesystem REQUIRED)
@@ -38,7 +39,8 @@ add_executable(client
         ${GAME_FILES_ENTITY}
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
-        ${CLIENT_FILES} Client/Global/CGlobal.cpp Client/Global/CGlobal.h Client/Global/CGlobal.cpp Client/Global/CGlobal.h Game/Events/EventMove.cpp Game/Events/EventMove.hpp)
+        ${GAME_FILES_EVENTS}
+        ${CLIENT_FILES})
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})

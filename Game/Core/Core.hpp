@@ -16,18 +16,13 @@ class Core
 {
  public:
   Core();
-
   ~Core();
-
   void Init();
-
   const std::shared_ptr<TacosEngine::Engine> &get_engine() const;
-
   void set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine);
-
-
   void addEvent(JSONObject *pObject);
-
+  const std::shared_ptr<std::queue<JSONObject>> &get_send() const;
+  void set_send(const std::shared_ptr<std::queue<JSONObject>> &_send);
  private:
   std::shared_ptr<TacosEngine::Engine> _engine;
   std::vector<std::shared_ptr<Level>> _levels;

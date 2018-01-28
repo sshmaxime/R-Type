@@ -2,12 +2,18 @@
 // Created by chauvin on 25/01/18.
 //
 
+#include <HelloPacket.h>
+#include <CmdMovePacket.h>
+#include <CmdShotPacket.h>
 #include "Core.hpp"
 #include "../GameEngine/LibLoader/LibLoader.hpp"
 #include "../Behaviours/MonsterBossBehaviour.h"
 #include "../Behaviours/BackgroundBehaviour.hpp"
 #include "../Behaviours/PlayerBehaviour.hpp"
 #include "../Behaviours/ObstacleBehaviour.hpp"
+#include "../GameEngine/Events/EventMove.hpp"
+#include "../../Client/Global/CGlobal.h"
+#include "../GameEngine/Events/EventShoot.hpp"
 
 using namespace TacosEngine;
 
@@ -125,3 +131,29 @@ void Core::set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine)
   Core::_engine = _engine;
 }
 
+void Core::addEvent(JSONObject *pObject)
+{
+  auto header = pObject->getHEADER();
+
+  if (header == "1x1")
+    {
+      CmdMovePacket a;
+      a.buildObjectFromJSON(pObject->getJSON());
+      Vector2 v(stof(a.get_x()), stof(a.get_y()));
+      auto event = std::make_shared<EventMove>(this->get_engine()->getSceneInProcess()->findByName(a.get_sprite()), v);
+      auto name = "EventMove" + a.getUsername();
+      while (!CGlobal::Instance()->_mutexSend.try_lock());
+      this->_engine->getEventManager()->addEvent(event, name);
+        CGlobal::Instance()->_mutexSend.unlock();
+    }
+  if (header == "1x2")
+    {
+      CmdShotPacket a;
+      a.buildObjectFromJSON(pObject->getJSON());
+      auto event = std::make_shared<EventShoot>(this->get_engine()->getSceneInProcess()->findByName(a.getUsername()));
+      auto name = "EventMove" + a.getUsername();
+      while (!CGlobal::Instance()->_mutexSend.try_lock());
+      this->_engine->getEventManager()->addEvent(event, name);
+        CGlobal::Instance()->_mutexSend.unlock();
+    }
+}

@@ -6,9 +6,7 @@
 
 bool                    Room::isAvailable() const
 {
-    if (_Users.size() >= 4)
-        return (false);
-    return (true);
+    return _Users.size() < 4;
 }
 
 bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) const
@@ -42,13 +40,19 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
     return 0;
 }
 
+int                     Room::Send(const std::string& toSend)
+{
+    for (const auto &user : _Users)
+    {
+        user->send(toSend);
+    }
+    return (0);
+}
+
 int                     Room::startGame()
 {
     _Game.Init(true);
-    for (const auto &user : _Users)
-    {
-        user->send("start");
-    }
+    this->Send("start");
     _Game.get_engine()->run();
     return (0);
 }

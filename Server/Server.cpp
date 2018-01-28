@@ -72,6 +72,8 @@ int                 Server::TreatMessage(const std::string& header, const std::s
         this->HelloPacketHandler(packetContent, ip);
     else if (header == "0x1")
         this->MessagePacketHandler(packetContent, ip);
+    else
+        this->_RoomManager.sendInRoom(header + packetContent);
     return (0);
 }
 

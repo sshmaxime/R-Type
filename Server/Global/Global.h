@@ -15,7 +15,7 @@ extern std::mutex              mutex_AllMessagesReceived;
 class Global {
 public:
     static                  Global* Instance();
-    Global&                 operator= (const Global&){}
+    Global&                operator= (const Global&){}
 
     Global                  (const Global&){}
 
@@ -29,8 +29,7 @@ public:
     bool                    quit = false;
     udp::socket             *_Socket = NULL;
     boost::asio::io_service *_Service;
-
+    std::mutex		        _mutexSend;
 };
-
 
 #endif //R_TYPE_GLOBAL_H

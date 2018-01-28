@@ -15,7 +15,7 @@ namespace TacosEngine
     {
         for (auto &_event : _events)
         {
-            _event.first->onEvent(currentScene->findByName(_event.second));
+            _event.first->onEvent();
         }
         _events.clear();
 

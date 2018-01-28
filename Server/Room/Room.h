@@ -33,6 +33,7 @@ public:
     int                     checkStart();
     int                     startGame();
     int                     Shutdown();
+    int                     Send(const std::string&);
 };
 
 

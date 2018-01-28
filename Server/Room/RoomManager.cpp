@@ -51,6 +51,14 @@ int                 RoomManager::deleteUser(const std::string& ip)
     return 0;
 }
 
+int                 RoomManager::sendInRoom(const std::string& packetContent)
+{
+    if (_Rooms.size() > 0)
+        _Rooms.at(0)->Send(packetContent);
+    return 0;
+}
+
+
 int                 RoomManager::stop()
 {
     // TODO

@@ -2,9 +2,11 @@
 
 #include <memory>
 #include <list>
+#include <queue>
 #include "../Entity/Entity.hpp"
 #include "../Transform/Transform.h"
 #include "../RessourceManager/RessourceManager.hpp"
+#include "../../../Common/JSON/JSONObject.h"
 
 namespace TacosEngine
 {
@@ -91,6 +93,7 @@ namespace TacosEngine
         bool    _newScene;
         std::string _newSceneName;
         Vector2                     _windowSize;
+      	std::shared_ptr<std::queue<JSONObject*>> _send;
 
     public:
         explicit Scene(const std::string &myname);
@@ -120,6 +123,8 @@ namespace TacosEngine
 
         template <typename T>
         std::shared_ptr<T> getComponent(unsigned int id);
+
+      const std::shared_ptr<std::queue<JSONObject *>> &get_send() const;
     };
 }
 
@@ -134,7 +139,7 @@ std::shared_ptr<T> TacosEngine::Scene::getComponent(unsigned int id)
         }
     }
     return (NULL);
-};
+}
 
 template <typename T>
 std::shared_ptr<T> TacosEngine::Component::getComponent()

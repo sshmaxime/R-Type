@@ -76,6 +76,7 @@ void                SNetwork::handleReceive(const boost::system::error_code &err
     mutex_AllMessagesReceived.lock();
     _AllMessagesReceived->push_back(msgSender + std::string(_DATA.c_array()));
     mutex_AllMessagesReceived.unlock();
+
     this->Receive();
 }
 

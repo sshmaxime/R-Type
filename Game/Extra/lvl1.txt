@@ -1,0 +1,5 @@
+Zig:droid Basic:droid Zig:droid ;
+Basic:crab Basic:crab Basic:crab Basic:crab ;
+Zig:droid Zig:crab Zig:droid Zig:crab Zig:droid ;
+Zig:crab Basic:crab Zig:crab Basic:droid Zig:droid ;
+Boss:boss1 ;

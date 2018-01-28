@@ -57,7 +57,7 @@ void SpawnManager::update(const TacosEngine::Input &)
     if (_tick++ > _tickToAdd)
     {
         _tick = 0;
-        if (_wayve >= 5)
+        if (_wayve >= _order.size())
             return ;
         std::vector<std::pair<std::string, std::string> > toAdd = _order.at(_wayve);
         if (toAdd.empty())

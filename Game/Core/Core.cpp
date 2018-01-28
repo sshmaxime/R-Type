@@ -13,6 +13,7 @@
 #include "../../Client/Global/CGlobal.h"
 #include "../GameEngine/Events/EventShoot.hpp"
 #include "../Behaviours/MonsterBonusBehaviour.hpp"
+#include "../Level/SpawnManager.h"
 
 using namespace TacosEngine;
 
@@ -64,6 +65,9 @@ void Core::Init(bool displayMode)
     Monster3->addCollider(std::make_shared<Collider>("Monster", Monster3->get_sprite(), Monster3->get_sprite()->getSize(),
                                                      Monster3->get_sprite()->getTransform().getPosition(), true));*/
 
+
+  auto spawn = lvl1->addEntity("Spawner", Layout::SCENE, "droid", Vector2(1, 1));
+  spawn->addBehaviour(std::make_shared<SpawnManager>("Spawner", spawn->get_sprite()));
 
     auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "background2", Vector2(800, 400));
     back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));

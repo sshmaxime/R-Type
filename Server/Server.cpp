@@ -26,16 +26,15 @@ bool                isCommandLineValid(char *av[], int ac)
 
 int                 Server::Initialize(char *av[], int ac)
 {
-    _AllMessagesReceived = std::make_shared<std::list<std::string>>();
     if (!isCommandLineValid(av, ac))
     {
         Help();
         return (-1);
     }
-
+    _AllMessagesReceived = std::make_shared<std::list<std::string>>();
     if (_Network.Initialize(8887, _AllMessagesReceived) == -1)
         return (-1);
-    _MessageHandler = std::thread(&Server::MessageHandler, this);
+    _MessageHandlerThread = std::thread(&Server::MessageHandler, this);
     return 0;
 }
 
@@ -111,12 +110,16 @@ int                 Server::Run()
 {
     if (_Network.Run() == -1)
         return (-1);
-    _MessageHandler.join();
+    _MessageHandlerThread.join();
     return 0;
+}
+
+int                 Server::Shutdown()
+{
+    this->_Network.Shutdown();
 }
 
 Server::~Server()
 {
-    if (_MessageHandler.joinable())
-        _MessageHandler.detach();
+
 }

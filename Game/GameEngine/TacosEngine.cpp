@@ -40,15 +40,19 @@ namespace TacosEngine
         }
     }
 
-    void Engine::addScene(std::shared_ptr<Scene> scene) {
-        sf::RenderWindow *win;
+  void Engine::addScene(std::shared_ptr<Scene> scene)
+  {
 
-        scene->setRessources(ressources);
+      if (displayMode)
+      {
+        sf::RenderWindow *win;
         win = dynamic_cast<SfmlWindow *>(window.get())->get_window();
         scene->setWindowSize(
-                Vector2(static_cast<float>(win->getPosition().x), static_cast<float>(win->getPosition().y)));
-        scenes.push_back(scene);
-    }
+	    Vector2(static_cast<float>(win->getPosition().x), static_cast<float>(win->getPosition().y)));
+      }
+    scene->setRessources(ressources);
+    scenes.push_back(scene);
+  }
 
     /*
         void Engine::addScene(const std::string &path){
@@ -124,36 +128,42 @@ namespace TacosEngine
         std::chrono::high_resolution_clock::time_point t3 = std::chrono::high_resolution_clock::now();
         int curent_tick = 0;
 
-        while (inGame) {
-            t2 = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(
-                    t2 - t1);
-            if (displayMode) {
-                windowEvents();
-            }
-            processInput();
-            if (time_span.count() > _TICK) {
-                t1 = std::chrono::high_resolution_clock::now();
-                if (curent_tick >= _TICK * 10000) {
-                    curent_tick = 0;
-                }
-                curent_tick = curent_tick + 1;
-                startObjects();
-                eventManager->eventUpdate(this->sceneInProcess);
-                physics.update(sceneInProcess->getGameObjects());
-                behaviourUpdate();
-                animationUpdate(curent_tick);
-                if (displayMode) {
-                    renderer->draw(sceneInProcess->getGameObjects());
-                }
-                destroyObjects();
-                if (inputs.getKey(Key::KEY_ESCAPE)) {
-                    inGame = false;
-                }
-                checkNewScene();
-            }
-        }
-    }
+    while (inGame)
+      {
+	t2 = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(
+		t2 - t1);
+	//std::cout << "TIME : " << time_span.count() << std::endl;
+	if (displayMode)
+	  {
+	    windowEvents();
+	  }
+	processInput();
+	if (time_span.count() > _TICK)
+	  {
+	    if (curent_tick >= _TICK * 100)
+	      {
+		curent_tick = 0;
+	      }
+	    curent_tick = curent_tick + 1;
+	    startObjects();
+	    physics.update(sceneInProcess->getGameObjects());
+	    behaviourUpdate();
+	    animationUpdate(curent_tick);
+	    if (displayMode)
+	      {
+		renderer->draw(sceneInProcess->getGameObjects());
+	      }
+	    destroyObjects();
+	    if (inputs.getKey(Key::KEY_ESCAPE))
+	      {
+		inGame = false;
+	      }
+	    checkNewScene();
+	    t1 = std::chrono::high_resolution_clock::now();
+	  }
+      }
+  }
 
     void Engine::windowEvents() {
         sf::RenderWindow *window = std::dynamic_pointer_cast<SfmlWindow>(this->window)->get_window();

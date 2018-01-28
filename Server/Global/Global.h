@@ -28,6 +28,8 @@ private:
 public:
     bool                    quit = false;
     udp::socket             *_Socket = NULL;
+    boost::asio::io_service *_Service;
+
 };
 
 

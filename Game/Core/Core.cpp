@@ -3,9 +3,7 @@
 //
 
 #include "Core.hpp"
-#include "../GameEngine/TacosEngine.h"
 #include "../GameEngine/LibLoader/LibLoader.hpp"
-#include "../GameEngine/Rigidbody/Rigidbody.hpp"
 #include "../Behaviours/MonsterBossBehaviour.h"
 #include "../Behaviours/BackgroundBehaviour.hpp"
 #include "../Behaviours/PlayerBehaviour.hpp"
@@ -18,10 +16,10 @@ Core::Core() = default;
 Core::~Core()
 = default;
 
-void Core::Init()
+void Core::Init(bool displayMode)
 {
-  this->_engine = std::make_shared<Engine>();
-  _engine->initRessources("ressources.txt");
+    this->_engine = std::make_shared<Engine>(displayMode);
+    _engine->initRessources("./../Game/Extra/ressources.txt");
 
   auto lvl1 = std::make_shared<Level>("lvl1", _engine);
 

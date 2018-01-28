@@ -22,9 +22,11 @@ public:
 public:
     int                     Initialize(int, std::shared_ptr<std::list<std::string>>&);
     void                    handleReceive(const boost::system::error_code& error, size_t bytes);
-    int                     Send(JSONObject&);
+
+  int Send(JSONObject &);
     int                     Receive();
-    int                     Shutdown();
+
+  int Shutdown();
     int                     Run();
 
 private:

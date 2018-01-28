@@ -22,32 +22,32 @@ int                     CmdInGamePacket::buildObjectFromJSON(const std::string& 
 void                    CmdInGamePacket::setCommand(const std::string& newCommand)
 {
     this->_Command = newCommand;
-    _JSON.emplace("command", this->_Command);
+    _JSON["command"] = this->_Command;
 }
 
 void                    CmdInGamePacket::setCommandContent(const std::string& newCommandContent)
 {
     this->_CommandContent = newCommandContent;
-    _JSON.emplace("commandContent", this->_CommandContent);
+    _JSON["commandContent"] = this->_CommandContent;
 }
 
 void                    CmdInGamePacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-    _JSON.emplace("username", this->_Username);
+    _JSON["username"] = this->_Username;
 }
 
-std::string             CmdInGamePacket::getUsername() const
+const std::string &CmdInGamePacket::getUsername() const
 {
     return (this->_Username);
 }
 
-std::string             CmdInGamePacket::getCommand() const
+const std::string &CmdInGamePacket::getCommand() const
 {
     return (this->_Command);
 }
 
-std::string             CmdInGamePacket::getCommandContent() const
+const std::string &CmdInGamePacket::getCommandContent() const
 {
     return (this->_CommandContent);
 }

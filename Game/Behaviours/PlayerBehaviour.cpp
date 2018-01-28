@@ -2,10 +2,13 @@
 // Created by chauvin on 26/01/18.
 //
 
+#include "CmdMovePacket.h"
+#include "CmdShotPacket.h"
 #include "PlayerBehaviour.hpp"
 #include "BulletBehaviour.hpp"
 #include "../GameEngine/Rigidbody/Rigidbody.hpp"
 #include "../GameEngine/Collider/Collider.hpp"
+#include "../../Client/Global/CGlobal.h"
 
 namespace TacosEngine
 {
@@ -20,13 +23,29 @@ namespace TacosEngine
       _object->getTransform().setDirection(dir);
     _object->getTransform().setSpeed(2.5);
     rb->addForce(dir * _object->getTransform().getSpeed());
-    if (dir.get_y() != 0 || dir.get_x() != 0)
-      _lastdir = dir * _object->getTransform().getSpeed() * 1.5;
+
+    /*CmdMovePacket *a = new CmdMovePacket;
+    a->set_sprite(_object->getInstanceName());
+    a->setUsername(_object->getInstanceName());
+    std::ostringstream ss;
+    ss << _object->getTransform().getPosition().get_x();
+    a->set_x(ss.str());
+    ss.clear();
+    ss << _object->getTransform().getPosition().get_y();
+    a->set_y(ss.str());
+    while (!CGlobal::Instance()->_mutexSend.try_lock());
+    this->_object->getScene()->get_send()->emplace(a);
+    CGlobal::Instance()->_mutexSend.unlock();*/
 
     _object->getScene();
     if (input.getKey(Key::KEY_SPACE) && !isShooting)
       {
 	shoot();
+	CmdShotPacket *b = new CmdShotPacket;
+	b->setUsername(this->_object->getInstanceName());
+	while (!CGlobal::Instance()->_mutexSend.try_lock());
+	this->_object->getScene()->get_send()->emplace(b);
+	CGlobal::Instance()->_mutexSend.unlock();
       }
     isShooting = input.getKey(Key::KEY_SPACE);
     if (_health <= 0) {

@@ -2,13 +2,12 @@
 // Created by sshsupreme on 20/01/18.
 //
 
+#include <CmdShotPacket.h>
 #include "Room.h"
 
 bool                    Room::isAvailable() const
 {
-    if (_Users.size() >= 4)
-        return (false);
-    return (true);
+  return _Users.size() < 4;
 }
 
 bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) const
@@ -38,29 +37,43 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
     _Users.emplace_back(newUser);
     std::cout << "User added" << std::endl;
-    this->checkStart();
+  this->checkStart();
     return 0;
 }
 
-int                     Room::startGame()
+int Room::Send(const std::string &toSend)
 {
-    _Game.Init(true);
+    std::cout << "send" << std::endl;
+    CmdShotPacket a;
+
+    a.buildObjectFromJSON(toSend.substr(3));
+    a.setUsername("Player2");
+
+    std::cout << a << std::endl;
+
     for (const auto &user : _Users)
     {
-        user->send("start");
+        user->send(a);
     }
-    _Game.get_engine()->run();
-    return (0);
+  return (0);
 }
 
-int                     Room::checkStart()
+int Room::startGame()
 {
-    if (_Users.size() == 4)
+  _Game.Init(true);
+  this->Send("start");
+  _Game.get_engine()->run();
+  return (0);
+}
+
+int Room::checkStart()
+{
+    if (_Users.size() == 2)
     {
-        if (!_ThreadGame.joinable())
-            _ThreadGame = std::thread(&Room::startGame, this);
+      if (!_ThreadGame.joinable())
+	_ThreadGame = std::thread(&Room::startGame, this);
     }
-    return (0);
+  return (0);
 }
 
 bool                    Room::isUserIn(const std::string &ip) const
@@ -90,12 +103,12 @@ bool                    Room::deleteUser(const std::string& ip)
 
 int Room::Shutdown()
 {
-    return 0;
+  return 0;
 }
 
 bool                    Room::isEmpty() const
 {
-    return _Users.empty();
+  return _Users.empty();
 }
 
 Room::Room()

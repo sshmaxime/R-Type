@@ -10,7 +10,9 @@ int                     CmdMovePacket::buildObjectFromJSON(const std::string& JS
         _JSON = JSON::parse(JSONString);
 
         this->_Username = _JSON.at("username");
-        this->_Command = _JSON.at("command");
+	this->_sprite = _JSON.at("sprite");
+	this->_x = _JSON.at("x");
+	this->_y = _JSON.at("y");
     } catch (std::exception &exception) {
         std::cout << "Error Parsing CmdLobbyPacket" << std::endl;
         return (-1);
@@ -21,21 +23,44 @@ int                     CmdMovePacket::buildObjectFromJSON(const std::string& JS
 void                    CmdMovePacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-    _JSON.emplace("username", this->_Username);
+    _JSON["username"] = this->_Username;
 }
 
-void                    CmdMovePacket::setCommand(const std::string& newCommand)
+
+const std::string &CmdMovePacket::get_sprite() const
 {
-    this->_Command = newCommand;
-    _JSON.emplace("command", this->_Command);
+  return _sprite;
 }
 
-std::string             CmdMovePacket::getUsername() const
+void CmdMovePacket::set_sprite(const std::string &_sprite)
 {
-    return (this->_Username);
+  CmdMovePacket::_sprite = _sprite;
+    _JSON["sprite"] = this->_sprite;
 }
 
-std::string             CmdMovePacket::getCommand() const
+const std::string &CmdMovePacket::get_x() const
 {
-    return (this->_Command);
+  return _x;
+}
+
+void CmdMovePacket::set_x(const std::string &_x)
+{
+  CmdMovePacket::_x = _x;
+    _JSON["x"] = this->_x;
+}
+
+const std::string &CmdMovePacket::get_y() const
+{
+  return _y;
+}
+
+void CmdMovePacket::set_y(const std::string &_y)
+{
+  CmdMovePacket::_y = _y;
+    _JSON["y"] = this->_y;
+}
+
+const std::string &CmdMovePacket::getUsername() const
+{
+  return _Username;
 }

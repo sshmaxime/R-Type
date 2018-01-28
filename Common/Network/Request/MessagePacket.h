@@ -24,8 +24,9 @@ public:
     void                            setUsername(const std::string&);
 
 public:
-    std::string                     getMessage() const;
-    std::string                     getUsername() const;
+    const std::string &getMessage() const;
+
+    const std::string &getUsername() const;
 };
 
 

@@ -21,21 +21,21 @@ int                     MessagePacket::buildObjectFromJSON(const std::string& JS
 void                    MessagePacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-    _JSON.emplace("username", this->_Username);
+    _JSON["username"] = this->_Username;
 }
 
 void                    MessagePacket::setMessage(const std::string& newMessage)
 {
     this->_Message = newMessage;
-    _JSON.emplace("message", this->_Message);
+    _JSON["message"] = this->_Message;
 }
 
-std::string             MessagePacket::getUsername() const
+const std::string &MessagePacket::getUsername() const
 {
     return (this->_Username);
 }
 
-std::string             MessagePacket::getMessage() const
+const std::string &MessagePacket::getMessage() const
 {
     return (this->_Message);
 }

@@ -18,7 +18,7 @@ namespace TacosEngine
     class PlayerBehaviour : public Behaviour
     {
     public:
-        PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite)
+        PlayerBehaviour(const std::string &name, std::shared_ptr<Sprite> sprite, bool a)
                 : Behaviour(name, std::move(sprite))
         {
             this->_health = 100;
@@ -27,6 +27,7 @@ namespace TacosEngine
             this->_bulletType = 1;
             sizeX = 0;
             sizeY = 0;
+            _isActive = a;
         }
 
         ~PlayerBehaviour() override = default;

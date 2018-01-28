@@ -1,5 +1,4 @@
 
-#include "Scene.hpp"
 #include "../Behaviour/Behaviour.h"
 
 namespace TacosEngine
@@ -7,6 +6,7 @@ namespace TacosEngine
 	Scene::Scene(const std::string &myname)
 		: _name(myname), _newScene(false), _newSceneName("")
 	{
+	  this->_send = std::make_shared<std::queue<JSONObject*>>();
 	}
 
 	Scene::~Scene()
@@ -170,4 +170,8 @@ namespace TacosEngine
     {
         return _windowSize;
     }
+  const std::shared_ptr<std::queue<JSONObject *>> &TacosEngine::Scene::get_send() const
+  {
+    return _send;
+  }
 }

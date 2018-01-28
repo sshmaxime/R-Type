@@ -10,32 +10,36 @@
 #include <boost/bind.hpp>
 #include <boost/asio/error.hpp>
 #include "../../Common/JSON/JSONObject.h"
+#include "../../Game/Core/Core.hpp"
 
 using boost::asio::ip::udp;
 
 class CNetwork {
-public:
-    CNetwork()               = default;
-    ~CNetwork();
+ public:
+  CNetwork()               = default;
+  ~CNetwork();
 
-public:
-    int                     Initialize(const std::string&, int);
-    int                     Send(JSONObject&);
-    void                    handleReceive(const boost::system::error_code& error, size_t bytes);
-    int                     Bye();
-    int                     Receive();
-    int                     Run();
-    int                     ClearNetwork();
+ public:
+  int                     Initialize(const std::string&, int);
+  int                     Send(JSONObject*);
+  void                    handleReceive(const boost::system::error_code& error, size_t bytes);
+  int                     Bye();
+  int                     Receive();
+  int                     Run();
+  int                     ClearNetwork();
 
-private:
-    boost::asio::io_service *_Service;
-    udp::socket             *_Socket;
-    udp::endpoint           _Endpoint;
-    udp::endpoint           _SenderEndpoint;
+  void set_game(const Core &_game);
 
-public:
-    enum                    { max_length = 1024 };
-    boost::array<char, 128> _DATA;
+ private:
+  boost::asio::io_service *_Service;
+  udp::socket             *_Socket;
+  udp::endpoint           _Endpoint;
+  udp::endpoint           _SenderEndpoint;
+  Core	_game;
+
+ public:
+  enum                    { max_length = 1024 };
+  boost::array<char, 128> _DATA;
 };
 
 

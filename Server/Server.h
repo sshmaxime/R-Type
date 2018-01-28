@@ -11,6 +11,7 @@
 #include "Room/Room.h"
 #include "Network/SNetwork.h"
 #include "Room/RoomManager.h"
+#include "../Game/Core/Core.hpp"
 #include <thread>
 
 class Server {
@@ -21,12 +22,14 @@ public:
 private:
     SNetwork                _Network;
     RoomManager             _RoomManager;
+    Core                    _Game;
 
 private:
     std::shared_ptr<std::list<std::string>> _AllMessagesReceived;
 
 private:
-    std::thread             _MessageHandler;
+    std::thread             _MessageHandlerThread;
+
 public:
     int                     MessageHandler();
 
@@ -34,6 +37,7 @@ public:
 public:
     int                     Initialize(char*[], int);
     int                     Run();
+    int                     Shutdown();
     int                     TreatMessage(const std::string&, const std::string&, const std::string&);
 
 public:

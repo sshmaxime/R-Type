@@ -72,7 +72,8 @@ void Core::Init(bool displayMode)
 
 
   auto player = lvl1->addEntity("Player", Layout::SCENE, "player1", Vector2(29, 13));
-  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), true);
+  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), false);
+  player->get_sprite()->getTransform().setPosition(Vector2(40, 40));
   player->addBehaviour(playerBeha);
   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
 						 player->get_sprite()->getTransform().getPosition(), true));
@@ -156,7 +157,7 @@ void Core::addEvent(std::string &msg)
   std::string header = msg.substr(0, 3);
   std::string packetContent = msg.substr(3);
 
-
+  std::cout << "ADD EVENT :" + msg << std::endl;
   if (header == "1x1")
     {
       CmdMovePacket a;

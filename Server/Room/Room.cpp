@@ -12,48 +12,40 @@ bool                    Room::isAvailable() const
 
 bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) const
 {
-    for (const auto &user : _Users)
+  for (const auto &user : _Users)
     {
-        if (user->getUsername() == newUser->getUsername())
-        {
-            std::cout << "Name already used" << std::endl;
-            return (true);
-        }
-        if (user->getFullIp() == newUser->getFullIp())
-        {
-            std::cout << "Already connected" << std::endl;
-            return (true);
-        }
+      if (user->getUsername() == newUser->getUsername())
+	{
+	  std::cout << "Name already used" << std::endl;
+	  return (true);
+	}
+      if (user->getFullIp() == newUser->getFullIp())
+	{
+	  std::cout << "Already connected" << std::endl;
+	  return (true);
+	}
     }
-    return (false);
+  return (false);
 }
 
 int                     Room::addUser(const std::shared_ptr<User> newUser)
 {
-    if (_Users.size() >= 4)
-        return (-1);
-    if (isDuplicate(newUser))
-        return (-1);
+  if (_Users.size() >= 4)
+    return (-1);
+  if (isDuplicate(newUser))
+    return (-1);
 
-    _Users.emplace_back(newUser);
-    std::cout << "User added" << std::endl;
+  _Users.emplace_back(newUser);
   this->checkStart();
-    return 0;
+  return 0;
 }
 
 int Room::Send(const std::string &toSend)
 {
-    std::cout << "send" << std::endl;
-    CmdShotPacket a;
-
-    a.buildObjectFromJSON(toSend.substr(3));
-    a.setUsername("Player2");
-
-    std::cout << a << std::endl;
-
-    for (const auto &user : _Users)
+  std::cout << "send :" + toSend << std::endl;
+  for (const auto &user : _Users)
     {
-        user->send(a);
+      user->send(toSend);
     }
   return (0);
 }
@@ -68,7 +60,7 @@ int Room::startGame()
 
 int Room::checkStart()
 {
-    if (_Users.size() == 2)
+  if (_Users.size() == 2)
     {
       if (!_ThreadGame.joinable())
 	_ThreadGame = std::thread(&Room::startGame, this);
@@ -78,27 +70,27 @@ int Room::checkStart()
 
 bool                    Room::isUserIn(const std::string &ip) const
 {
-    for (const auto &user : _Users)
+  for (const auto &user : _Users)
     {
-        if (user->getFullIp() == ip)
-            return (true);
+      if (user->getFullIp() == ip)
+	return (true);
     }
-    return false;
+  return false;
 }
 
 bool                    Room::deleteUser(const std::string& ip)
 {
-    for (auto it = _Users.begin(); it != _Users.end();)
+  for (auto it = _Users.begin(); it != _Users.end();)
     {
-        if(it->get()->getFullIp() == ip)
-        {
-            it = _Users.erase(it);
-            return (true);
-        }
-        else
-            ++it;
+      if(it->get()->getFullIp() == ip)
+	{
+	  it = _Users.erase(it);
+	  return (true);
+	}
+      else
+	++it;
     }
-    return false;
+  return false;
 }
 
 int Room::Shutdown()
@@ -113,11 +105,11 @@ bool                    Room::isEmpty() const
 
 Room::Room()
 {
-    std::cout << "Room created" << std::endl;
+  std::cout << "Room created" << std::endl;
 }
 
 Room::~Room()
 {
-    std::cout << "Room deleted" << std::endl;
+  std::cout << "Room deleted" << std::endl;
 }
 

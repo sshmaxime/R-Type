@@ -20,7 +20,7 @@ void TacosEngine::EventShoot::onEvent()
   bullet->setTexture(_object->getScene()->getTexture("bullet"));
   bullet->setSize(Vector2(20, 20));
   bullet->getTransform().setPosition(_object->getTransform().getPosition() + Vector2(42, 0));
-  bullet->getTransform().setSpeed(_object->getTransform().getSpeed());
+  bullet->getTransform().setSpeed(2);
   auto col = std::make_shared<Collider>("Collider" + bullet->getInstanceName(), bullet, bullet->getSize(),
 					bullet->getTransform().getPosition(), true);
   auto rbody = std::make_shared<Rigidbody>("Rigidbody" + bullet->getInstanceName(), bullet);

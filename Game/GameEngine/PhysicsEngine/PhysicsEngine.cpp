@@ -105,6 +105,7 @@ namespace TacosEngine
 		{
 			diff = (*pos) - (*object)->getTransform().getPosition();
 			(*object)->getTransform().setPosition(*pos);
+		    (*object)->getComponent<Rigidbody>()->addForce(Vector2(0, 0));
 			if (*collider)
 			{
 				(*collider)->set_position((*collider)->get_position() + diff);

@@ -74,6 +74,7 @@ int                     CNetwork::Send(JSONObject *toSend)
 {
   std::string         JSONtoString = toSend->getHEADER() + toSend->getJSON();
 
+  std::cout << "what I send = " + JSONtoString << std::endl;
   if (CGlobal::Instance()->quit)
     return (-1);
   try {

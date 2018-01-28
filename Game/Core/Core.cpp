@@ -74,15 +74,15 @@ void Core::Init(bool displayMode)
     back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));
 
 
-  auto player = lvl1->addEntity("Player", Layout::SCENE, "player1", Vector2(29, 13));
-  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), true);
+  auto player = lvl1->addEntity("Player1", Layout::SCENE, "player1", Vector2(29, 13));
+  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), false);
   player->addBehaviour(playerBeha);
   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
 						 player->get_sprite()->getTransform().getPosition(), true));
   player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
 
   auto player2 = lvl1->addEntity("Player2", Layout::SCENE, "player2", Vector2(29, 13));
-  auto playerBeha2 = std::make_shared<PlayerBehaviour>("playerBeh2", player2->get_sprite(), false);
+  auto playerBeha2 = std::make_shared<PlayerBehaviour>("playerBeh2", player2->get_sprite(), true);
   player2->addBehaviour(playerBeha2);
   player2->addCollider(std::make_shared<Collider>("ok", player2->get_sprite(), player2->get_sprite()->getSize(),
 						  player2->get_sprite()->getTransform().getPosition(), true));
@@ -159,6 +159,7 @@ void Core::addEvent(const std::string& JSONString)
     std::string header = JSONString.substr(0, 3);
     std::string packetContent = JSONString.substr(3);
 
+    std::cout << "--" << packetContent << "--" << std::endl;
   if (header == "1x1")
     {
       CmdMovePacket a;

@@ -19,7 +19,7 @@ int                 Client::Run()
 
   auto *a = new HelloPacket;
 
-  a->setUsername("rozita");
+  a->setUsername("player2");
   _Network.Send(a);
   _GameThread = std::thread(&Client::LaunchGame, this);
   _sendThread = std::thread(&Client::sendListener, this);

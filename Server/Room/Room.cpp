@@ -42,7 +42,6 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
 int Room::Send(const std::string &toSend)
 {
-  std::cout << "send :" + toSend << std::endl;
   for (const auto &user : _Users)
     {
       user->send(toSend);
@@ -52,7 +51,7 @@ int Room::Send(const std::string &toSend)
 
 int Room::startGame()
 {
-  _Game.Init(true);
+  _Game.Init(false);
   this->Send("start");
   _Game.get_engine()->run();
   return (0);

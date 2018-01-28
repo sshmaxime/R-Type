@@ -156,7 +156,7 @@ namespace TacosEngine
 	    curent_tick = curent_tick + 1;
 	    startObjects();
 	    physics.update(sceneInProcess->getGameObjects());
-	    this->getEventManager()->eventUpdate(this->sceneInProcess);
+	    //this->getEventManager()->eventUpdate(this->sceneInProcess);
 	    behaviourUpdate();
 	    animationUpdate(curent_tick);
 	    if (displayMode)

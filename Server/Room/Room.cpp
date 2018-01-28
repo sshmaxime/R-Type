@@ -36,6 +36,7 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
     return (-1);
 
   _Users.emplace_back(newUser);
+    std::cout << "User " +  newUser->getUsername() + " added" << std::endl;
   this->checkStart();
   return 0;
 }

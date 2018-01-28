@@ -23,7 +23,7 @@ namespace TacosEngine
     _object->getTransform().setSpeed(2.5);
     rb->addForce(dir * _object->getTransform().getSpeed());
 
-    CmdMovePacket *a = new CmdMovePacket;
+    /*CmdMovePacket *a = new CmdMovePacket;
     a->set_sprite(_object->getInstanceName());
     a->setUsername(_object->getInstanceName());
     std::ostringstream ss;
@@ -34,7 +34,7 @@ namespace TacosEngine
     a->set_y(ss.str());
     while (!CGlobal::Instance()->_mutexSend.try_lock());
     this->_object->getScene()->get_send()->emplace(a);
-    CGlobal::Instance()->_mutexSend.unlock();
+    CGlobal::Instance()->_mutexSend.unlock();*/
 
     _object->getScene();
     if (input.getKey(Key::KEY_SPACE) && !isShooting)

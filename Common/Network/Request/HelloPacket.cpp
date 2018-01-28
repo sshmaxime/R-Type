@@ -20,7 +20,7 @@ int                     HelloPacket::buildObjectFromJSON(const std::string& JSON
 void                    HelloPacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-    _JSON.emplace("username", this->_Username);
+  _JSON.at("username") = this->_Username;
 }
 
 std::string             HelloPacket::getUsername() const

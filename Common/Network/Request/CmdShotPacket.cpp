@@ -20,7 +20,7 @@ int                     CmdShotPacket::buildObjectFromJSON(const std::string& JS
 void                    CmdShotPacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-    _JSON.emplace("username", this->_Username);
+  _JSON.at("username") = this->_Username;
 }
 
 std::string             CmdShotPacket::getUsername() const

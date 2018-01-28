@@ -4,7 +4,7 @@
 void                exitSignal(int)
 {
     Global::Instance()->quit = true;
-    Global::Instance()->_Service->stop();
+  Global::Instance()->_Service->stop();
 }
 
 void                signalsHandler()
@@ -18,7 +18,7 @@ void                signalsHandler()
 
 int                 main(int ac, char* av[])
 {
-    Server          myServer;
+  Server myServer;
 
     signalsHandler();
 

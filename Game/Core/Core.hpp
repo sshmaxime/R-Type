@@ -17,6 +17,7 @@ class Core
  public:
   Core();
   ~Core();
+
   void Init(bool);
   const std::shared_ptr<TacosEngine::Engine> &get_engine() const;
   void set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine);

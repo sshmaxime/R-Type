@@ -20,8 +20,8 @@ public:
 
 private:
     std::vector<std::shared_ptr<User>>  _Users;
-    Core                                _Game;
-    std::thread                         _ThreadGame;
+  Core _Game;
+  std::thread _ThreadGame;
 
 public:
     bool                    isAvailable() const;
@@ -30,10 +30,14 @@ public:
     bool                    isUserIn(const std::string&) const;
     bool                    deleteUser(const std::string&);
     bool                    isEmpty() const;
-    int                     checkStart();
-    int                     startGame();
-    int                     Shutdown();
-    int                     Send(const std::string&);
+
+  int checkStart();
+
+  int startGame();
+
+  int Shutdown();
+
+  int Send(const std::string &);
 };
 
 

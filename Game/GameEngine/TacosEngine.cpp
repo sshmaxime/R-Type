@@ -12,17 +12,19 @@
 
 namespace TacosEngine
 {
-    Engine::Engine(bool displayMode)
-            : inGame(true), displayMode(displayMode) {
-        if (displayMode) {
-            window = std::make_shared<SfmlWindow>();
-            window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
-            renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
-        }
-        inputManager = std::make_unique<InputManagerSFML>();
-        ressources = std::make_shared<RessourceManager>();
-        eventManager = std::make_shared<EventManager>();
-    }
+  Engine::Engine(bool displayMode)
+	  : inGame(true), displayMode(displayMode)
+  {
+    if (displayMode)
+      {
+	window = std::make_shared<SfmlWindow>();
+	window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
+	renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
+      }
+    inputManager = std::make_unique<InputManagerSFML>();
+    ressources = std::make_shared<RessourceManager>();
+    eventManager = std::make_shared<EventManager>();
+  }
 
   Engine::~Engine()
   {
@@ -46,11 +48,11 @@ namespace TacosEngine
   void Engine::addScene(std::shared_ptr<Scene> scene)
   {
 
-      if (displayMode)
+    if (displayMode)
       {
-        sf::RenderWindow *win;
-        win = dynamic_cast<SfmlWindow *>(window.get())->get_window();
-        scene->setWindowSize(
+	sf::RenderWindow *win;
+	win = dynamic_cast<SfmlWindow *>(window.get())->get_window();
+	scene->setWindowSize(
 	    Vector2(static_cast<float>(win->getPosition().x), static_cast<float>(win->getPosition().y)));
       }
     scene->setRessources(ressources);

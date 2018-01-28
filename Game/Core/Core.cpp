@@ -24,7 +24,7 @@ Core::~Core()
 
 void Core::Init(bool displayMode)
 {
-    this->_engine = std::make_shared<Engine>(displayMode);
+  this->_engine = std::make_shared<Engine>(displayMode);
     _engine->initRessources("./../Game/Extra/ressources.txt");
 
   auto lvl1 = std::make_shared<Level>("lvl1", _engine);
@@ -34,7 +34,7 @@ void Core::Init(bool displayMode)
   auto loader = std::make_shared<LibLoader>();
 
   auto boss = lvl1->addEntity("boss", Layout::SCENE, "boss1", Vector2(150, 150));
-  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so",lvl1->get_scene());
+  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
   boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
   boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
   boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
@@ -47,7 +47,7 @@ void Core::Init(bool displayMode)
   Monster->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster->get_sprite()));
   Monster->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster->get_sprite(), create));
   Monster->addCollider(std::make_shared<Collider>("Monster", Monster->get_sprite(), Monster->get_sprite()->getSize(),
-                                                  Monster->get_sprite()->getTransform().getPosition(), true));
+						  Monster->get_sprite()->getTransform().getPosition(), true));
 
   auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "crab", Vector2(40, 40));
   MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
@@ -55,7 +55,7 @@ void Core::Init(bool displayMode)
   Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
   Monster2->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster2->get_sprite(), create2));
   Monster2->addCollider(std::make_shared<Collider>("Monster", Monster2->get_sprite(), Monster2->get_sprite()->getSize(),
-                                                   Monster2->get_sprite()->getTransform().getPosition(), true));
+						   Monster2->get_sprite()->getTransform().getPosition(), true));
 
   auto back = lvl1->addEntity("Background", Layout::BACKGROUND, "background2", Vector2(800, 400));
   back->addRigidBody(std::make_shared<Rigidbody>("RigidBodyback", back->get_sprite()));
@@ -63,20 +63,28 @@ void Core::Init(bool displayMode)
 
 
   auto player = lvl1->addEntity("Player", Layout::SCENE, "player1", Vector2(29, 13));
-  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite());
+  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), true);
   player->addBehaviour(playerBeha);
   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
-                                                 player->get_sprite()->getTransform().getPosition(), true));
+						 player->get_sprite()->getTransform().getPosition(), true));
   player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
+
+  auto player2 = lvl1->addEntity("Player2", Layout::SCENE, "player2", Vector2(29, 13));
+  auto playerBeha2 = std::make_shared<PlayerBehaviour>("playerBeh2", player2->get_sprite(), false);
+  player2->addBehaviour(playerBeha2);
+  player2->addCollider(std::make_shared<Collider>("ok", player2->get_sprite(), player2->get_sprite()->getSize(),
+						  player2->get_sprite()->getTransform().getPosition(), true));
+  player2->addRigidBody(std::make_shared<Rigidbody>("Rb", player2->get_sprite()));
+
 
   auto obs = lvl1->addEntity("Obs", Layout::SCENE, "asteroid1", Vector2(40, 40));
   obs->get_sprite()->getTransform().setPosition(Vector2(400, 200));
   obs->addCollider(std::make_shared<Collider>("Collider", obs->get_sprite(), obs->get_sprite()->getSize(),
-                                              obs->get_sprite()->getTransform().getPosition(), true));
+					      obs->get_sprite()->getTransform().getPosition(), true));
   obs->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs->get_sprite()));
   obs->addBehaviour(std::make_shared<ObstacleBehaviour>("BehaObs", obs->get_sprite(), Vector2(-1.4f, 0)));
 
-  std::vector<ITexture*>      asteroidFrames;
+  std::vector<ITexture *> asteroidFrames;
 
   asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid1"));
   asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid2"));
@@ -87,7 +95,8 @@ void Core::Init(bool displayMode)
   asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid7"));
   asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid8"));
   asteroidFrames.push_back(lvl1->get_scene()->getTexture("asteroid9"));
-  std::shared_ptr<Animation>       asteroidAnim = std::make_shared<Animation>("asteroidAnim", obs->get_sprite(), true, 40, asteroidFrames);
+  std::shared_ptr<Animation> asteroidAnim = std::make_shared<Animation>("asteroidAnim", obs->get_sprite(), true, 40,
+									asteroidFrames);
 
   obs->addAnimation(asteroidAnim);
 
@@ -95,20 +104,22 @@ void Core::Init(bool displayMode)
   auto obs2 = lvl1->addEntity("Obs2", Layout::SCENE, "asteroid5", Vector2(40, 40));
   obs2->get_sprite()->getTransform().setPosition(Vector2(400, 100));
   obs2->addCollider(std::make_shared<Collider>("Collider", obs2->get_sprite(), obs2->get_sprite()->getSize(),
-                                               obs2->get_sprite()->getTransform().getPosition(), true));
+					       obs2->get_sprite()->getTransform().getPosition(), true));
   obs2->addRigidBody(std::make_shared<Rigidbody>("Rigidbody", obs2->get_sprite()));
   obs2->addBehaviour(std::make_shared<ObstacleBehaviour>("BehaObs2", obs2->get_sprite(), Vector2(-1.4f, 0)));
 
 
-  std::shared_ptr<Animation>       asteroidAnim2 = std::make_shared<Animation>("asteroidAnim", obs2->get_sprite(), true, 30, asteroidFrames);
+  std::shared_ptr<Animation> asteroidAnim2 = std::make_shared<Animation>("asteroidAnim", obs2->get_sprite(), true, 30,
+									 asteroidFrames);
 
 
-  std::vector<ITexture*>      explosionFrames;
+  std::vector<ITexture *> explosionFrames;
 
   explosionFrames.push_back(lvl1->get_scene()->getTexture("explosion1"));
   explosionFrames.push_back(lvl1->get_scene()->getTexture("explosion2"));
   explosionFrames.push_back(lvl1->get_scene()->getTexture("explosion3"));
-  std::shared_ptr<Animation>       explosionAnim = std::make_shared<Animation>("explosionAnim", obs2->get_sprite(), false, 30, explosionFrames);
+  std::shared_ptr<Animation> explosionAnim = std::make_shared<Animation>("explosionAnim", obs2->get_sprite(), false, 30,
+									 explosionFrames);
 
   //obs2->addAnimation(explosionAnim);
   obs2->addAnimation(asteroidAnim2);

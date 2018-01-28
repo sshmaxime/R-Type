@@ -30,7 +30,7 @@ namespace TacosEngine
 	 private:
 	  bool	_loop;
 	  int	_frame_speed;
-		int _check_speed;
+	  int _check_speed;
 	  std::vector<TacosEngine::ITexture*> _frames;
 	  unsigned int 	_frame;
 	};

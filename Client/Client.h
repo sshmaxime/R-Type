@@ -19,6 +19,7 @@ class Client {
   CNetwork                _Network;
   std::thread             _GameThread;
   std::thread		_sendThread;
+
  public:
   int                     Initialize(const std::string&, int);
   int                     Run();

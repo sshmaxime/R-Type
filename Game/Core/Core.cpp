@@ -130,7 +130,7 @@ void Core::Init(bool displayMode)
   // LVL2
 
   // Load and run level1
-  _engine->loadScene(lvl1->get_scene())
+  _engine->loadScene(lvl1->get_scene());
 }
 
 const std::shared_ptr<TacosEngine::Engine> &Core::get_engine() const

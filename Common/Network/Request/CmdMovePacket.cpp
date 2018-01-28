@@ -23,7 +23,7 @@ int                     CmdMovePacket::buildObjectFromJSON(const std::string& JS
 void                    CmdMovePacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-  _JSON.at("username", this->_Username);
+  _JSON.at("username") = this->_Username;
 }
 
 

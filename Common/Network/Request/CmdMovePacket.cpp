@@ -23,7 +23,7 @@ int                     CmdMovePacket::buildObjectFromJSON(const std::string& JS
 void                    CmdMovePacket::setUsername(const std::string& newUsername)
 {
     this->_Username = newUsername;
-  _JSON.at("username") = this->_Username;
+    _JSON["username"] = this->_Username;
 }
 
 
@@ -35,7 +35,7 @@ const std::string &CmdMovePacket::get_sprite() const
 void CmdMovePacket::set_sprite(const std::string &_sprite)
 {
   CmdMovePacket::_sprite = _sprite;
-  _JSON.at("sprite") = this->_sprite;
+    _JSON["sprite"] = this->_sprite;
 }
 
 const std::string &CmdMovePacket::get_x() const
@@ -46,7 +46,7 @@ const std::string &CmdMovePacket::get_x() const
 void CmdMovePacket::set_x(const std::string &_x)
 {
   CmdMovePacket::_x = _x;
-  _JSON.at("x") = this->_x;
+    _JSON["x"] = this->_x;
 }
 
 const std::string &CmdMovePacket::get_y() const
@@ -57,7 +57,7 @@ const std::string &CmdMovePacket::get_y() const
 void CmdMovePacket::set_y(const std::string &_y)
 {
   CmdMovePacket::_y = _y;
-  _JSON.at("y") = this->_y;
+    _JSON["y"] = this->_y;
 }
 
 const std::string &CmdMovePacket::getUsername() const

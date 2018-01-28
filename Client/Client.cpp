@@ -33,6 +33,7 @@ int                 Client::LaunchGame()
     this->_Network.set_game(this->_Game);
     this->_Game.get_engine()->run();
     this->Delete();
+    return 0;
 }
 
 int                 Client::Delete()

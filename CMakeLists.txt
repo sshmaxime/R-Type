@@ -4,7 +4,11 @@ project(R_Type)
 include_directories("Common/Network/Request")
 
 set(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread -Wl,--no-as-needed -ldl")
+if(WIN32)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+else()
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread -Wl,--no-as-needed -ldl")
+endif()
 
 file(GLOB_RECURSE COMMON Common/*.cpp)
 
@@ -18,15 +22,6 @@ file(GLOB_RECURSE GAME_FILES_GAMEENGINE Game/GameEngine/*.cpp)
 file(GLOB_RECURSE GAME_FILES_LEVEL Game/Level/*.cpp)
 
 
-find_package(Boost 1.58.0 COMPONENTS system filesystem REQUIRED)
-if(Boost_FOUND)
-    message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-    message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
-    message(STATUS "Boost_VERSION: ${Boost_VERSION}")
-    include_directories(${Boost_INCLUDE_DIRS})
-endif()
-
-
 add_executable(server
         ${COMMON}
         ${SERVER_FILES} Server/Room/RoomManager.cpp Server/Room/RoomManager.h)
@@ -38,12 +33,10 @@ add_executable(client
         ${GAME_FILES_ENTITY}
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
-        ${CLIENT_FILES} Client/Global/CGlobal.cpp Client/Global/CGlobal.h Client/Global/CGlobal.cpp Client/Global/CGlobal.h Game/Events/EventMove.cpp Game/Events/EventMove.hpp)
+        ${CLIENT_FILES})
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})
-
-
 
 
 # Detect and add SFML
@@ -61,4 +54,27 @@ if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(client ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
     target_link_libraries(server ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+endif()
+
+#Detect and add boost
+if(NOT DEFINED     BOOST_ROOT  AND
+        NOT DEFINED ENV{BOOST_ROOT})
+    if(WIN32)
+        set(BOOST_ROOT "C:/dev/libs/BOOST")
+        set(Boost_USE_MULTITHREADED ON)
+        set(Boost_USE_STATIC_RUNTIME OFF)
+        set(Boost_USE_STATIC_LIBS OFF)
+        add_definitions( -DBOOST_ALL_NO_LIB )
+        add_definitions( -DBOOST_ALL_DYN_LINK )
+    endif()
+endif()
+find_package(Boost 1.58.0 COMPONENTS system filesystem REQUIRED)
+if(Boost_FOUND)
+    message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+    message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+    message(STATUS "Boost_VERSION: ${Boost_VERSION}")
+    include_directories(${Boost_INCLUDE_DIRS})
+    if (WIN32)
+    target_link_libraries(client ${Boost_LIBRARIES})
+    endif()
 endif()

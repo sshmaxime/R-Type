@@ -1,3 +1,4 @@
+#ifndef WIN32
 #include "LibLoader.hpp"
 
 LibLoader::LibLoader()
@@ -50,3 +51,4 @@ int main()
     al->draw();
     al->onCollide();
 }*/
+#endif

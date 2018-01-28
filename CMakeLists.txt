@@ -30,7 +30,15 @@ endif()
 
 add_executable(server
         ${COMMON}
-        ${SERVER_FILES} Server/Room/RoomManager.cpp Server/Room/RoomManager.h)
+        ${GAME_FILES_BEHAVIOURS}
+        ${GAME_FILES_CORE}
+        ${GAME_FILES_ENTITY}
+        ${GAME_FILES_GAMEENGINE}
+        ${GAME_FILES_LEVEL}
+        ${GAME_FILES_EVENTS}
+        ${SERVER_FILES}
+        Client/Global/CGlobal.cpp
+        )
 
 add_executable(client
         ${COMMON}

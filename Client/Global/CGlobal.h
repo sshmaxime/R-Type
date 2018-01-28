@@ -10,10 +10,10 @@
 
 using boost::asio::ip::udp;
 
-class  CGlobal {
+class CGlobal {
 public:
     static                  CGlobal* Instance();
-    CGlobal&                operator= (const CGlobal&){}
+    CGlobal&                 operator= (const CGlobal&){}
 
     CGlobal                  (const CGlobal&){}
 
@@ -27,7 +27,7 @@ public:
     bool                    quit = false;
     udp::socket             *_Socket = NULL;
     boost::asio::io_service *_Service;
-  std::mutex		_mutexSend;
+    std::mutex		        _mutexSend;
 };
 
 

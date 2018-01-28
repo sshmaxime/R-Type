@@ -21,6 +21,9 @@ public:
     std::vector<std::shared_ptr<Room>> _Rooms;
 
 public:
+    int                             sendInRoom(const std::string&);
+
+public:
     int                             addUser(std::shared_ptr<User>);
     int                             deleteUser(const std::string&);
     int                             stop();

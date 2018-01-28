@@ -21,15 +21,13 @@ public:
 
 public:
     int                     Initialize(int, std::shared_ptr<std::list<std::string>>&);
-    int                     Send(JSONObject&);
     void                    handleReceive(const boost::system::error_code& error, size_t bytes);
+    int                     Send(JSONObject&);
     int                     Receive();
-    int                     Stop();
+    int                     Shutdown();
     int                     Run();
 
 private:
-    boost::asio::io_service _Service;
-    udp::socket             *_Socket = NULL;
     udp::endpoint           _Endpoint;
 
 private:

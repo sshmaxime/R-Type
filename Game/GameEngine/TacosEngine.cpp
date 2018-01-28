@@ -12,19 +12,17 @@
 
 namespace TacosEngine
 {
-  Engine::Engine(bool displayMode)
-	  : inGame(true), displayMode(displayMode)
-  {
-    if (displayMode)
-      {
-	window = std::make_shared<SfmlWindow>();
-	window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
-	renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
-      }
-    inputManager = std::make_unique<InputManagerSFML>();
-    ressources = std::make_shared<RessourceManager>();
-    eventManager = std::make_shared<EventManager>();
-  }
+    Engine::Engine(bool displayMode)
+            : inGame(true), displayMode(displayMode) {
+        if (displayMode) {
+            window = std::make_shared<SfmlWindow>();
+            window->InitWindow("TacosEngine Window", TacosEngine::VIDEO_MODE::PARTIAL);
+            renderer = std::make_unique<SfmlRenderer>(dynamic_cast<SfmlWindow *>(window.get())->get_window());
+        }
+        inputManager = std::make_unique<InputManagerSFML>();
+        ressources = std::make_shared<RessourceManager>();
+        eventManager = std::make_shared<EventManager>();
+    }
 
   Engine::~Engine()
   {
@@ -47,12 +45,15 @@ namespace TacosEngine
 
   void Engine::addScene(std::shared_ptr<Scene> scene)
   {
-    sf::RenderWindow *win;
 
-    scene->setRessources(ressources);
-    win = dynamic_cast<SfmlWindow *>(window.get())->get_window();
-    scene->setWindowSize(
+      if (displayMode)
+      {
+        sf::RenderWindow *win;
+        win = dynamic_cast<SfmlWindow *>(window.get())->get_window();
+        scene->setWindowSize(
 	    Vector2(static_cast<float>(win->getPosition().x), static_cast<float>(win->getPosition().y)));
+      }
+    scene->setRessources(ressources);
     scenes.push_back(scene);
   }
 
@@ -133,7 +134,7 @@ namespace TacosEngine
     std::chrono::high_resolution_clock::time_point t3 = std::chrono::high_resolution_clock::now();
     int curent_tick = 0;
 
-    while (inGame && !CGlobal::Instance()->quit)
+    while (inGame)
       {
 	t2 = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(

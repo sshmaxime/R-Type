@@ -1,7 +1,8 @@
 texture:
-background2:background-18.jpg
+background2:background.png
 ship:ship.png
 crab:crab.png
+droid:droid.png
 explosion1:explosion1.png
 explosion2:explosion2.png
 explosion3:explosion3.png
@@ -19,6 +20,11 @@ asteroid6:asteroid6.png
 asteroid7:asteroid7.png
 asteroid8:asteroid8.png
 asteroid9:asteroid9.png
+missile:missile.png
+laser:laser.png
+laser1:laser1.png
+ammo:ammo.png
+laserBoss:laserBoss.png
 bullet:bullet.png
 monsterBasic:monsterbasic.png
 /:/

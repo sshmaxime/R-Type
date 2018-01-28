@@ -22,6 +22,7 @@ namespace TacosEngine {
         std::shared_ptr<Sprite> sp = std::dynamic_pointer_cast<Sprite>(_object);
 
         if (!this->_loop && _frame >= this->_frames.size() - 1) {
+            this->setActive(false);
             return;
         }
         if (this->_frame <= this->_frames.size() && (_check_speed) >= _frame_speed) {
@@ -33,8 +34,9 @@ namespace TacosEngine {
             _check_speed = 0;
         }
         _check_speed++;
-        if (sp->getTexture() != this->_frames[_frame])
+        if (sp->getTexture() != this->_frames[_frame]) {
             sp->setTexture(this->_frames[_frame]);
+        }
     }
 
     bool Animation::is_loop() const {

@@ -21,7 +21,11 @@ namespace TacosEngine
 
     void update(const Input &) override;
 
-    void onCollide(GameObject &other) override;
+      int get_damages() const;
+
+      void set_damages(int _damages);
+
+      void onCollide(GameObject &other) override;
 
     float get_random()
     {
@@ -32,6 +36,7 @@ namespace TacosEngine
 
    private:
     Vector2 _dir;
+      int _damages;
   };
 }
 

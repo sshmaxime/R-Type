@@ -23,6 +23,13 @@ namespace TacosEngine
     void onCollide(GameObject &other) override;
 
    private:
+  public:
+      int get_damages() const;
+
+      void set_damages(int _damages);
+
+  private:
+      int _damages;
     Vector2 _dir;
   };
 }

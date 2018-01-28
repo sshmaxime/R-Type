@@ -45,7 +45,7 @@ add_executable(client
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
         ${CLIENT_FILES}
-        )
+        Game/Behaviours/AnimationBehaviour.cpp Game/Behaviours/AnimationBehaviour.hpp Game/Behaviours/MonsterBonusBehaviour.cpp Game/Behaviours/MonsterBonusBehaviour.hpp)
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})

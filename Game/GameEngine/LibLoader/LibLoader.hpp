@@ -1,5 +1,6 @@
 #pragma once
 
+#ifndef WIN32
 #include <dlfcn.h>
 #include <iostream>
 #include <utility>
@@ -25,3 +26,4 @@ class LibLoader
 typedef MonsterIa *create_t();
 
 typedef void destroy_t(MonsterIa *ptr);
+#endif

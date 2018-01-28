@@ -21,7 +21,7 @@ class Core
   void Init(bool);
   const std::shared_ptr<TacosEngine::Engine> &get_engine() const;
   void set_engine(const std::shared_ptr<TacosEngine::Engine> &_engine);
-  void addEvent(std::string &msg);
+  void addEvent(const std::string&);
   const std::shared_ptr<std::queue<JSONObject>> &get_send() const;
   void set_send(const std::shared_ptr<std::queue<JSONObject>> &_send);
  private:

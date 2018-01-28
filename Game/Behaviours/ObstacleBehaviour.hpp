@@ -5,7 +5,7 @@
 #ifndef GAME_OBSTACLEBEHAVIOUR_HPP
 #define GAME_OBSTACLEBEHAVIOUR_HPP
 
-
+#include <random>
 #include "../GameEngine/Behaviour/Behaviour.h"
 
 namespace TacosEngine

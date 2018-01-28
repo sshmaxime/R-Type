@@ -9,11 +9,13 @@ void                exitSignal(int)
 
 void                signalsHandler()
 {
+#ifndef WIN32
     struct sigaction sa;
     memset( &sa, 0, sizeof(sa) );
     sa.sa_handler = exitSignal;
     sigfillset(&sa.sa_mask);
     sigaction(SIGINT, &sa, NULL);
+#endif
 }
 
 

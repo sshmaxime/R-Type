@@ -62,7 +62,11 @@ void                    CNetwork::handleReceive(const boost::system::error_code 
   _DATA[bytes] = '\0';
 
   std::string msg = std::string(_DATA.c_array());
-  this->_game.addEvent(msg);
+
+  std::string header = msg.substr(0, 3);
+  std::string packetContent = msg.substr(3);
+
+  this->_game.addEvent(header + packetContent);
   this->Receive();
 }
 

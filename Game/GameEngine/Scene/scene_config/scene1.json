@@ -1,0 +1,25 @@
+{
+  "scene" : {
+
+    "details": {
+      "level": "1",
+      "difficulty": "easy",
+      "nbEnemies": "40",
+      "name": "The begining"
+    },
+
+    "sprites": [
+        "allie1",
+        "allie2",
+        "allie3",
+        "allie4",
+        "enemie1"
+    ],
+
+    "events": [
+        "enemie_event1",
+        "allie_event1"
+    ]
+
+  }
+}

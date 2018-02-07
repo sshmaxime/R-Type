@@ -73,6 +73,9 @@ add_executable(Game
         GameEngine/Text/Text.hpp
         GameEngine/LibLoader/LibLoader.cpp
         GameEngine/LibLoader/LibLoader.hpp
+        GameEngine/LibLoader/ILibrary.hpp
+        GameEngine/LibLoader/LibLoaderWindows.hpp
+        GameEngine/LibLoader/LibLoaderWindows.cpp
         Level/Level.cpp
         Level/Level.hpp
         Core/Core.cpp

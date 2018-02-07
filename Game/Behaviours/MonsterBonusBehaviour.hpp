@@ -5,6 +5,7 @@
 #ifndef R_TYPE_MONSTERBONUSBEHAVIOUR_HPP
 #define R_TYPE_MONSTERBONUSBEHAVIOUR_HPP
 
+#include <random>
 #include "../GameEngine/Behaviour/Behaviour.h"
 #include "../GameEngine/Sprite/Sprite.hpp"
 #include "MonsterIA.h"

@@ -5,12 +5,15 @@
 #ifndef GAME_SPAWNMANAGER_H
 #define GAME_SPAWNMANAGER_H
 
-#include "Level.hpp"
-#include "../GameEngine/LibLoader/LibLoader.hpp"
 #include <utility>
 #include <functional>
+#include <random>
+#include "Level.hpp"
+#include "../GameEngine/LibLoader/LibLoader.hpp"
+#include "../GameEngine/LibLoader/LibLoaderWindows.hpp"
 
-#define LIB_EXT ".so"
+
+
 class SpawnManager : public TacosEngine::Behaviour
 {
 public:
@@ -32,8 +35,11 @@ private:
     int _tickToAdd;
     int _wayve;
     std::vector<std::vector<std::pair<std::string, std::string> > > _order;
+#ifndef WIN32
     std::shared_ptr<LibLoader> _loader;
-
+#else
+    std::shared_ptr<LibLoaderWindows> _loader;
+#endif
 };
 
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <list>
 #include "../Behaviours/MonsterIA.h"
+#include "../../Behaviours/MonsterIA.h"
 #include <vector>
 class MonsterBasic : public MonsterIa
 {
@@ -19,12 +20,12 @@ public:
 
   float getbestY(std::vector<std::pair<float, float> > playerpos, std::pair<float, float> mypos)
   {
-    std::pair<float, float> close(0, 0);
-    std::pair<float, float> best(0, 0);
+    std::pair<float, float> close = std::make_pair(0, 0);
+    std::pair<float, float> best = std::make_pair(0, 0);
     float ret;
     for (auto p = playerpos.begin(); p != playerpos.end(); p++)
       {
-	std::pair<float, float> tmp(mypos.first - p->first, mypos.second - p->second);
+	std::pair<float, float> tmp = std::make_pair(mypos.first - p->first, mypos.second - p->second);
 	if (tmp.first < 0)
 	  tmp.first = -tmp.first;
 	if (tmp.second < 0)
@@ -69,6 +70,20 @@ private:
     bool k;
 };
 
+#ifdef WIN32
+extern "C" {
+MonsterIa __declspec(dllexport) *create() {
+    {
+        return new MonsterBasic();
+    }
+}
+}
+extern "C" {
+void __declspec(dllexport)  destroy(MonsterIa* p) {
+    delete p;
+}
+}
+#else
 extern "C" MonsterIa* create() {
     {
         return new MonsterBasic();
@@ -77,3 +92,4 @@ extern "C" MonsterIa* create() {
 extern "C" void destroy(MonsterIa* p) {
     delete p;
 }
+#endif

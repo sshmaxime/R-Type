@@ -16,7 +16,11 @@ SpawnManager::SpawnManager(const std::string &name, const std::shared_ptr<TacosE
 {
     _tick = 450;
     _tickToAdd = 1000;
+#ifndef WIN32
     _loader = std::make_shared<LibLoader>();
+#else
+    _loader = std::make_shared<LibLoaderWindows>();
+#endif
     _wayve = 0;
     setOrder("./lvl1.txt");
 }
@@ -43,7 +47,7 @@ void SpawnManager::setOrder(const std::string &path)
                 {
                     vir = line.find(':', space);
                     std::string texture = line.substr(vir + 1, next - vir  -1);
-                    std::string lib = line.substr(space, vir - space) + LIB_EXT;
+                    std::string lib = LIB_PREFIX + line.substr(space, vir - space) + LIB_EXTENSION;
                     space = next + 1;
                     toAdd.emplace_back(lib, texture);
                 }
@@ -68,10 +72,14 @@ void SpawnManager::update(const TacosEngine::Input &)
         {
             auto rand = get_random();
             std::shared_ptr<Behaviour> beha;
-            std::string lib = "./libMonster" + n.first;
+            std::string lib = std::string("./") + LIB_PREFIX + "Monster" + n.first;
             std::shared_ptr<Sprite>monster;
             MonsterIa *ia = _loader->LoadLib(lib, _object->getScene());
-            if (n.first == "Boss.so")
+            if (ia)
+                std::cout << "Y une ia frere.." << std::endl;
+            else
+                std::cout << "Pas d'ia maggle" << std::endl;
+            if (n.first == std::string("Boss") + std::string(LIB_EXTENSION))
             {
                 monster = std::make_shared<Sprite>("boss" + this->getGameObjectName(), this->_object->getScene(),
                                                    Layout::SCENE);
@@ -81,7 +89,7 @@ void SpawnManager::update(const TacosEngine::Input &)
             }
             else
             {
-                if (n.first == "Bonus.so") {
+                if (n.first == std::string("Bonus") + std::string(LIB_EXTENSION)) {
                     monster = std::make_shared<Sprite>("droid" + this->getGameObjectName(),
                                                        this->_object->getScene(),
                                                        Layout::SCENE);

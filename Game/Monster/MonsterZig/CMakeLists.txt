@@ -14,7 +14,11 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config.h.in"
         "${PROJECT_BINARY_DIR}/config.h"
 )
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl -Wall")
+if (WIN32)
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+else()
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl -Wall")
+endif()
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_library(MonsterZig SHARED

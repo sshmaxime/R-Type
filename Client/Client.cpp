@@ -6,11 +6,12 @@
 #include "Client.h"
 #include "Global/CGlobal.h"
 
-int                 Client::Initialize(const std::string& ip, int port, const std::string& username)
+int                 Client::Initialize(const std::string& ip, int port, const std::string& username, bool isOnline)
 {
     if (_Network.Initialize(ip, port) == -1)
         return (-1);
     _Username = username;
+    _isOnline = isOnline;
     return 0;
 }
 

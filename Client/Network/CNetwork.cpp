@@ -107,7 +107,6 @@ int                     CNetwork::Bye()
   try {
     _Socket->send_to(boost::asio::buffer("bye"), _Endpoint);
   } catch (std::exception& exception) {
-    std::cout << exception.what() << std::endl;
   }
   return (0);
 }

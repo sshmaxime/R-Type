@@ -1,5 +1,6 @@
 #include "Client.h"
 #include "Global/CGlobal.h"
+#include <arpa/inet.h>
 
 void                exitSignal(int)
 {
@@ -18,21 +19,30 @@ void                signalsHandler()
 #endif
 }
 
+int                help()
+{
+    std::cout << "SoloPlayer Usage :" << std::endl;
+    std::cout << "./client 'username'" << std::endl;
+    std::cout << "MultiPlayer Usage :" << std::endl;
+    std::cout << "./client 'username' ['ip' 'port']" << std::endl;
+
+    return (-1);
+}
 
 int                 main(int ac, char **av)
 {
     signalsHandler();
-    if (ac < 3)
+    if ((ac > 2 && ac != 4) || ac == 1)
+        return (help());
+    Client          myClient;
+
+    std::cout << av[1] << std::endl;
+    if (ac == 2)
+        myClient.Initialize(std::string(), 0, std::string(av[1]), false);
+
+    else if (myClient.Initialize("127.0.0.1", std::atoi(av[1]), av[2], true) == -1)
         return (-1);
 
-    Client          myClient;
-    if (myClient.Initialize("127.0.0.1", std::atoi(av[1]), av[2]) == -1)
-        return (-1);
-    if (ac > 3)
-    {
-        if (std::string(av[3]) == "true")
-            myClient._isOnline =    true;
-    }
     myClient.Run();
     return (0);
 }

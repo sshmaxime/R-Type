@@ -28,7 +28,7 @@ private:
     std::string             _Username = std::string();
 
 public:
-    int                     Initialize(const std::string&, int, const std::string&);
+    int                     Initialize(const std::string&, int, const std::string&, bool);
     int                     Delete();
     int                     LaunchGame();
     void 			        sendListener();

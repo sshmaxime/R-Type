@@ -11,54 +11,64 @@
 int                     CNetwork::Receive()
 {
   try {
-      _Socket->async_receive_from(
-	      boost::asio::buffer(_DATA, max_length), _SenderEndpoint,
-	      boost::bind(&CNetwork::handleReceive, this,
-			  boost::asio::placeholders::error,
-			  boost::asio::placeholders::bytes_transferred));
-    } catch (const std::exception& ex) {
-      std::cout << ex.what() << std::endl;
-    }
+    _Socket->async_receive_from(
+            boost::asio::buffer(_DATA, max_length), _SenderEndpoint,
+            boost::bind(&CNetwork::handleReceive, this,
+                        boost::asio::placeholders::error,
+                        boost::asio::placeholders::bytes_transferred));
+  } catch (const std::exception& ex) {
+    std::cout << ex.what() << std::endl;
+  }
   return (0);
 }
 
 int                     CNetwork::Initialize(const std::string &ip, int port)
 {
   try {
-      _Service = new boost::asio::io_service();
-      CGlobal::Instance()->_Service = _Service;
+    _Service = new boost::asio::io_service();
+    CGlobal::Instance()->_Service = _Service;
 
-      _Socket = new udp::socket(*this->_Service);
-      _Socket->open(udp::v4());
-      CGlobal::Instance()->_Socket = _Socket;
+    _Socket = new udp::socket(*this->_Service);
+    _Socket->open(udp::v4());
+    CGlobal::Instance()->_Socket = _Socket;
 
-      _Endpoint = udp::endpoint(boost::asio::ip::address_v4::from_string(ip.c_str()), port);
-      this->Receive();
-    } catch (std::exception &exception) {
-      std::cout << exception.what() << std::endl;
-      return (-1);
-    }
+    _Endpoint = udp::endpoint(boost::asio::ip::address_v4::from_string(ip.c_str()), port);
+    this->Receive();
+  } catch (std::exception &exception) {
+    std::cout << exception.what() << std::endl;
+    return (-1);
+  }
   return 0;
+}
+
+int                     CNetwork::WaitStart()
+{
+  try {
+    _Socket->receive_from(boost::asio::buffer(_DATA, max_length), _SenderEndpoint);
+    return (0);
+  } catch (std::exception &exception) {
+    return (-1);
+  }
 }
 
 int                     CNetwork::Run()
 {
   try {
-      _Service->run();
-    } catch (std::exception &exception) {
-      std::cout << exception.what() << std::endl;
-      return (-1);
-    }
+    _Service->run();
+  } catch (std::exception &exception) {
+    std::cout << exception.what() << std::endl;
+    return (-1);
+  }
   return (0);
 }
 
 void                    CNetwork::handleReceive(const boost::system::error_code &error, size_t bytes)
 {
   if (CGlobal::Instance()->quit)
-    {
-      _Socket->close();
-      return;
-    }
+  {
+    _Socket->close();
+    return;
+  }
   _DATA[bytes] = '\0';
 
   std::string msg = std::string(_DATA.c_array());
@@ -78,11 +88,11 @@ int                     CNetwork::Send(JSONObject *toSend)
   if (CGlobal::Instance()->quit)
     return (-1);
   try {
-      _Socket->send_to(boost::asio::buffer(JSONtoString), _Endpoint);
-    } catch (std::exception& exception) {
-      this->ClearNetwork();
-      std::cout << exception.what() << std::endl;
-    }
+    _Socket->send_to(boost::asio::buffer(JSONtoString), _Endpoint);
+  } catch (std::exception& exception) {
+    this->ClearNetwork();
+    std::cout << exception.what() << std::endl;
+  }
   return (0);
 }
 
@@ -95,10 +105,10 @@ int                     CNetwork::ClearNetwork()
 int                     CNetwork::Bye()
 {
   try {
-      _Socket->send_to(boost::asio::buffer("bye"), _Endpoint);
-    } catch (std::exception& exception) {
-      std::cout << exception.what() << std::endl;
-    }
+    _Socket->send_to(boost::asio::buffer("bye"), _Endpoint);
+  } catch (std::exception& exception) {
+    std::cout << exception.what() << std::endl;
+  }
   return (0);
 }
 

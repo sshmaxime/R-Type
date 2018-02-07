@@ -30,10 +30,10 @@ int                 Server::Initialize(char *av[], int ac)
         Help();
         return (-1);
     }
-  _AllMessagesReceived = std::make_shared<std::list<std::string>>();
-    if (_Network.Initialize(8887, _AllMessagesReceived) == -1)
+    _AllMessagesReceived = std::make_shared<std::list<std::string>>();
+    if (_Network.Initialize(8888, _AllMessagesReceived) == -1)
         return (-1);
-  _MessageHandlerThread = std::thread(&Server::MessageHandler, this);
+    _MessageHandlerThread = std::thread(&Server::MessageHandler, this);
     return 0;
 }
 
@@ -71,8 +71,8 @@ int                 Server::TreatMessage(const std::string& header, const std::s
         this->HelloPacketHandler(packetContent, ip);
     else if (header == "0x1")
         this->MessagePacketHandler(packetContent, ip);
-	else
-	  this->_RoomManager.sendInRoom(header + packetContent);
+    else
+        this->_RoomManager.sendInRoom(header + packetContent);
     return (0);
 }
 
@@ -111,13 +111,13 @@ int                 Server::Run()
 {
     if (_Network.Run() == -1)
         return (-1);
-  _MessageHandlerThread.join();
+    _MessageHandlerThread.join();
     return 0;
 }
 
 int Server::Shutdown()
 {
-  this->_Network.Shutdown();
+    this->_Network.Shutdown();
 }
 
 Server::~Server()

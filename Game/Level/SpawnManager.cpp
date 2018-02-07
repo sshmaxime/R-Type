@@ -47,7 +47,7 @@ void SpawnManager::setOrder(const std::string &path)
                 {
                     vir = line.find(':', space);
                     std::string texture = line.substr(vir + 1, next - vir  -1);
-                    std::string lib = LIB_PREFIX + line.substr(space, vir - space) + LIB_EXTENSION;
+                    std::string lib = line.substr(space, vir - space) + LIB_EXTENSION;
                     space = next + 1;
                     toAdd.emplace_back(lib, texture);
                 }

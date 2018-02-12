@@ -1,0 +1,4 @@
+Basic:crab Basic:crab Basic:crab Basic:crab ;
+Bonus:droid Zig:crab Zig:droid Zig:crab Zig:crab ;
+Zig:crab Bonus:crab Zig:crab Basic:crab Zig:crab ;
+Boss:boss1 ;

@@ -26,10 +26,8 @@ namespace TacosEngine
             playerPos.push_back(std::make_pair<float, float>(100, 100));
         }
         std::pair<float, float> bestmove = _ia->getBestMove(playerPos, std::make_pair(pos.get_x(), pos.get_y()));
-        //      std::pair<float, float> bestmove = _ia->getBestMove(pos.get_x(), pos.get_y());
         bestmove.first = 0;
         auto dir = Vector2(bestmove.first, bestmove.second);
-        //      std::cout << "OKEK"<<std::endl;
         _object->getTransform().setDirection(dir);
         _object->getTransform().setSpeed(1);
         rb->addForce(dir * _object->getTransform().getSpeed());
@@ -39,7 +37,10 @@ namespace TacosEngine
             can_shoot = 0;
         }
         if (this->_health <= 0)
-            this->setDestroy(true);
+	  {
+	    this->_object->getScene()->set_end(false);
+	    this->setDestroy(true);
+	  }
     }
 
     void MonsterBossBehaviour::shoot()

@@ -7,6 +7,7 @@ namespace TacosEngine
 		: _name(myname), _newScene(false), _newSceneName("")
 	{
 	  this->_send = std::make_shared<std::queue<JSONObject*>>();
+	  this->_end = true;
 	}
 
 	Scene::~Scene()
@@ -173,5 +174,15 @@ namespace TacosEngine
   const std::shared_ptr<std::queue<JSONObject *>> &TacosEngine::Scene::get_send() const
   {
     return _send;
+  }
+
+  bool TacosEngine::Scene::is_end() const
+  {
+    return _end;
+  }
+
+  void TacosEngine::Scene::set_end(bool _end)
+  {
+    Scene::_end = _end;
   }
 }

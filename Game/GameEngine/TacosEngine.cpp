@@ -136,7 +136,7 @@ namespace TacosEngine
     std::chrono::high_resolution_clock::time_point t3 = std::chrono::high_resolution_clock::now();
     int curent_tick = 0;
 
-    while (inGame)
+    while (inGame && this->sceneInProcess->is_end())
       {
 	t2 = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(

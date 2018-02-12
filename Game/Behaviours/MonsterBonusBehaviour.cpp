@@ -87,7 +87,6 @@ namespace TacosEngine
                 this->_object->getScene()->addComponent(explosionAnim);
                 this->_object->getScene()->addComponent(beha);
 
-                std::cout << "ici" << std::endl;
                 auto ammo = std::make_shared<Sprite>("ammo", this->_object->getScene(),
                                                           Layout::SCENE);
                 ammo->setTexture(_object->getScene()->getTexture("ammo"));

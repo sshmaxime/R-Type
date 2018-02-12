@@ -5,15 +5,17 @@
 #include <HelloPacket.h>
 #include <CmdMovePacket.h>
 #include <CmdShotPacket.h>
+#include <CmdAddPlayerPacket.hpp>
 #include "Core.hpp"
 #include "../Behaviours/MonsterBossBehaviour.h"
 #include "../Behaviours/BackgroundBehaviour.hpp"
 #include "../Behaviours/PlayerBehaviour.hpp"
-#include "../GameEngine/Events/EventMove.hpp"
 #include "../../Client/Global/CGlobal.h"
-#include "../GameEngine/Events/EventShoot.hpp"
 #include "../Behaviours/MonsterBonusBehaviour.hpp"
 #include "../Level/SpawnManager.h"
+#include "../Events/EventMove.hpp"
+#include "../Events/EventShoot.hpp"
+#include "../Events/EventAddPlayer.hpp"
 
 using namespace TacosEngine;
 
@@ -29,43 +31,6 @@ void Core::Init(bool displayMode)
 
   auto lvl1 = std::make_shared<Level>("lvl1", _engine);
 
-    // LVL1
-
-  /*auto loader = std::make_shared<LibLoader>();
-
-  auto boss = lvl1->addEntity("boss", Layout::SCENE, "boss1", Vector2(150, 150));
-  MonsterIa *createboss = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
-  boss->get_sprite()->getTransform().setPosition(Vector2(700, 200));
-  boss->addRigidBody(std::make_shared<Rigidbody>("Rb", boss->get_sprite()));
-  boss->addBehaviour(std::make_shared<MonsterBossBehaviour>("monsterBeh", boss->get_sprite(), createboss));
-  boss->addCollider(std::make_shared<Collider>("Monster", boss->get_sprite(), boss->get_sprite()->getSize(),
-					       boss->get_sprite()->getTransform().getPosition(), true));
-
-  auto Monster = lvl1->addEntity("Monster", Layout::SCENE, "crab", Vector2(40, 40));
-  MonsterIa *create = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
-  Monster->get_sprite()->getTransform().setPosition(Vector2(700, 340));
-  Monster->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster->get_sprite()));
-  Monster->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster->get_sprite(), create));
-  Monster->addCollider(std::make_shared<Collider>("Monster", Monster->get_sprite(), Monster->get_sprite()->getSize(),
-						  Monster->get_sprite()->getTransform().getPosition(), true));
-
-  auto Monster2 = lvl1->addEntity("Monster2", Layout::SCENE, "crab", Vector2(40, 40));
-  MonsterIa *create2 = loader->LoadLib("./libMonsterZig.so", lvl1->get_scene());
-  Monster2->get_sprite()->getTransform().setPosition(Vector2(700, 100));
-  Monster2->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster2->get_sprite()));
-  Monster2->addBehaviour(std::make_shared<MonsterBehaviour>("monsterBeh", Monster2->get_sprite(), create2));
-  Monster2->addCollider(std::make_shared<Collider>("Monster", Monster2->get_sprite(), Monster2->get_sprite()->getSize(),
-						   Monster2->get_sprite()->getTransform().getPosition(), true));
-
-    auto Monster3 = lvl1->addEntity("Monster", Layout::SCENE, "droid", Vector2(30, 30));
-    MonsterIa *create3 = loader->LoadLib("./libMonsterBasic.so", lvl1->get_scene());
-    Monster3->get_sprite()->getTransform().setPosition(Vector2(700, 200));
-    Monster3->addRigidBody(std::make_shared<Rigidbody>("Rb", Monster3->get_sprite()));
-    Monster3->addBehaviour(std::make_shared<MonsterBonusBehaviour>("monsterBeh", Monster3->get_sprite(), create3));
-    Monster3->addCollider(std::make_shared<Collider>("Monster", Monster3->get_sprite(), Monster3->get_sprite()->getSize(),
-                                                     Monster3->get_sprite()->getTransform().getPosition(), true));*/
-
-
   auto spawn = lvl1->addEntity("Spawner", Layout::SCENE, "droid", Vector2(1, 1));
   spawn->addBehaviour(std::make_shared<SpawnManager>("Spawner", spawn->get_sprite()));
 
@@ -74,20 +39,20 @@ void Core::Init(bool displayMode)
     back->addBehaviour(std::make_shared<BackgroundBehaviour>("backgroundbeh", back->get_sprite()));
 
 
-  auto player = lvl1->addEntity("Player1", Layout::SCENE, "player1", Vector2(29, 13));
-  auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), false);
-  player->addBehaviour(playerBeha);
-  player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
-						 player->get_sprite()->getTransform().getPosition(), true));
-  player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
+  /* auto player = lvl1->addEntity("Player1", Layout::SCENE, "player1", Vector2(29, 13));
+   auto playerBeha = std::make_shared<PlayerBehaviour>("playerBeh", player->get_sprite(), false);
+   player->addBehaviour(playerBeha);
+   player->addCollider(std::make_shared<Collider>("ok", player->get_sprite(), player->get_sprite()->getSize(),
+						  player->get_sprite()->getTransform().getPosition(), true));
+   player->addRigidBody(std::make_shared<Rigidbody>("Rb", player->get_sprite()));
 
-  auto player2 = lvl1->addEntity("Player2", Layout::SCENE, "player2", Vector2(29, 13));
-  auto playerBeha2 = std::make_shared<PlayerBehaviour>("playerBeh2", player2->get_sprite(), true);
-  player2->addBehaviour(playerBeha2);
-  player2->addCollider(std::make_shared<Collider>("ok", player2->get_sprite(), player2->get_sprite()->getSize(),
-						  player2->get_sprite()->getTransform().getPosition(), true));
-  player2->addRigidBody(std::make_shared<Rigidbody>("Rb", player2->get_sprite()));
-
+   auto player2 = lvl1->addEntity("Player2", Layout::SCENE, "player2", Vector2(29, 13));
+   auto playerBeha2 = std::make_shared<PlayerBehaviour>("playerBeh2", player2->get_sprite(), true);
+   player2->addBehaviour(playerBeha2);
+   player2->addCollider(std::make_shared<Collider>("ok", player2->get_sprite(), player2->get_sprite()->getSize(),
+						   player2->get_sprite()->getTransform().getPosition(), true));
+   player2->addRigidBody(std::make_shared<Rigidbody>("Rb", player2->get_sprite()));
+ */
 
   auto obs = lvl1->addEntity("Obs", Layout::SCENE, "asteroid1", Vector2(40, 40));
   obs->get_sprite()->getTransform().setPosition(Vector2(400, 200));
@@ -177,6 +142,17 @@ void Core::addEvent(const std::string& JSONString)
       a.buildObjectFromJSON(packetContent);
       auto event = std::make_shared<EventShoot>(this->get_engine()->getSceneInProcess()->findByName(a.getUsername()));
       auto name = "EventMove" + a.getUsername();
+      while (!CGlobal::Instance()->_mutexSend.try_lock());
+      this->_engine->getEventManager()->addEvent(event, name);
+      CGlobal::Instance()->_mutexSend.unlock();
+    }
+  if (header == "1x3")
+    {
+      CmdAddPlayerPacket a;
+      a.buildObjectFromJSON(packetContent);
+      auto event = std::make_shared<EventAddPlayer>(this->get_engine()->getSceneInProcess(), a.get_Username(),
+						    a.get_Number(), a.get_Active());
+      auto name = "EventAddPlayer" + a.get_Username();
       while (!CGlobal::Instance()->_mutexSend.try_lock());
       this->_engine->getEventManager()->addEvent(event, name);
       CGlobal::Instance()->_mutexSend.unlock();

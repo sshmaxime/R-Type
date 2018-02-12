@@ -22,7 +22,7 @@ namespace TacosEngine
           can_shoot = 0;
           tick_per_shoot = 200;
           _ia = ia;
-          _health = 200;
+	  _health = 400;
         }
 
         ~MonsterBossBehaviour() override = default;

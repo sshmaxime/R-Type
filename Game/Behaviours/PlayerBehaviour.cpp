@@ -5,7 +5,6 @@
 #include "CmdMovePacket.h"
 #include "CmdShotPacket.h"
 #include "PlayerBehaviour.hpp"
-#include "BulletBehaviour.hpp"
 #include "../GameEngine/Rigidbody/Rigidbody.hpp"
 #include "../GameEngine/Collider/Collider.hpp"
 #include "../../Client/Global/CGlobal.h"
@@ -19,7 +18,7 @@ namespace TacosEngine
 
     CheckWindowCollide(dir);
     _object->getTransform().setDirection(dir);
-    _object->getTransform().setSpeed(2.5);
+    _object->getTransform().setSpeed(3);
     rb->addForce(dir * _object->getTransform().getSpeed());
 
     if (input.getAxis("Horizontal")  != 0 || input.getAxis("Vertical") != 0)
@@ -29,11 +28,9 @@ namespace TacosEngine
 	a->setUsername(_object->getInstanceName());
 	std::ostringstream ss;
 	ss << dir.get_x();
-	std::cout << "X send " + ss.str() << std::endl;
 	a->set_x(ss.str());
 	std::ostringstream s2;
 	s2 << dir.get_y();
-	std::cout << "Y send " + s2.str() << std::endl;
 	a->set_y(s2.str());
 	//while (!CGlobal::Instance()->_mutexSend.try_lock());
 	CGlobal::Instance()->_mutexSend.lock();
@@ -52,6 +49,7 @@ namespace TacosEngine
     isShooting = input.getKey(Key::KEY_SPACE);
     if (_health <= 0) {
 	//animation de mort
+	this->_object->getScene()->set_end(false);
 	this->setDestroy(true);
       }
   }

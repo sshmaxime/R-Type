@@ -20,7 +20,7 @@ file(GLOB_RECURSE GAME_FILES_CORE Game/Core/*.cpp)
 file(GLOB_RECURSE GAME_FILES_ENTITY Game/Entity/*.cpp)
 file(GLOB_RECURSE GAME_FILES_GAMEENGINE Game/GameEngine/*.cpp)
 file(GLOB_RECURSE GAME_FILES_LEVEL Game/Level/*.cpp)
-file(GLOB_RECURSE GAME_FILES_EVENTS Game/GameEngine/Events/*.cpp)
+file(GLOB_RECURSE GAME_FILES_EVENTS Game/Events/*.cpp)
 
 
 add_executable(server
@@ -43,7 +43,7 @@ add_executable(client
         ${GAME_FILES_GAMEENGINE}
         ${GAME_FILES_LEVEL}
         ${GAME_FILES_EVENTS}
-        ${CLIENT_FILES})
+        ${CLIENT_FILES} Game/Events/EventAddPlayer.cpp Game/Events/EventAddPlayer.hpp Common/Network/Request/CmdAddPlayerPacket.cpp Common/Network/Request/CmdAddPlayerPacket.hpp)
 
 target_link_libraries(server ${Boost_LIBRARIES})
 target_link_libraries(client ${Boost_LIBRARIES})

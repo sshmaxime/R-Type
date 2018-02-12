@@ -94,6 +94,7 @@ namespace TacosEngine
         std::string _newSceneName;
         Vector2                     _windowSize;
       	std::shared_ptr<std::queue<JSONObject*>> _send;
+      bool _end;
 
     public:
         explicit Scene(const std::string &myname);
@@ -123,6 +124,10 @@ namespace TacosEngine
 
         template <typename T>
         std::shared_ptr<T> getComponent(unsigned int id);
+
+      bool is_end() const;
+
+      void set_end(bool _end);
 
       const std::shared_ptr<std::queue<JSONObject *>> &get_send() const;
     };

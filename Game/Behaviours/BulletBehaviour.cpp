@@ -4,8 +4,6 @@
 
 
 #include "BulletBehaviour.hpp"
-#include "../GameEngine/Scene/Scene.hpp"
-#include "../GameEngine/Behaviour/Behaviour.h"
 #include "../GameEngine/Rigidbody/Rigidbody.hpp"
 
 TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
@@ -17,6 +15,7 @@ TacosEngine::BulletBehaviour::BulletBehaviour(const std::string &name,
 
 void TacosEngine::BulletBehaviour::Start()
 {
+  this->_object->getTransform().setSpeed(4.5);
 }
 
 void TacosEngine::BulletBehaviour::onCollide(GameObject &other)

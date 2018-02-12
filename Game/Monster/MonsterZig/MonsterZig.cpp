@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include "../Behaviours/MonsterIA.h"
+#include "../../Behaviours/MonsterIA.h"
 
 class MonsterZig : public MonsterIa
 {
@@ -75,9 +76,27 @@ private:
     //    test() : aLib("testt"){};
 };
 
+#ifdef WIN32
+extern "C" {
+MonsterIa __declspec(dllexport) *create() {
+    {
+        return new MonsterZig();
+    }
+}
+}
+extern "C" {
+void __declspec(dllexport)  destroy(MonsterIa* p) {
+    delete p;
+}
+}
+
+#else
 extern "C" MonsterIa* create() {
-    return new MonsterZig();
+    {
+        return new MonsterZig();
+    }
 }
 extern "C" void destroy(MonsterIa* p) {
     delete p;
 }
+#endif

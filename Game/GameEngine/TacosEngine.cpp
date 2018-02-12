@@ -145,8 +145,8 @@ namespace TacosEngine
 	if (displayMode)
 	  {
 	    windowEvents();
+	    processInput();
 	  }
-	processInput();
 	if (time_span.count() > _TICK)
 	  {
 	    if (curent_tick >= _TICK * 100)
@@ -196,10 +196,28 @@ namespace TacosEngine
     return ressources;
   }
 
-  void Engine::processInput()
-  {
-    inputManager->setProcessInput(inputs);
-  }
+    void Engine::processInput()
+    {
+        sf::RenderWindow *window = std::dynamic_pointer_cast<SfmlWindow>(this->window)->get_window();
+        sf::Event event;
+
+        while (window->pollEvent(event))
+        {
+            if (event.type == sf::Event::EventType::KeyPressed || event.type == sf::Event::EventType::KeyReleased)
+            {
+                inputManager->setProcessInput(inputs);
+            }
+            else if (event.type == sf::Event::EventType::Closed)
+            {
+                this->inGame = false;
+            }
+            else if (event.type == sf::Event::EventType::Resized)
+            {
+                sceneInProcess->setWindowSize(
+                        Vector2(static_cast<float>(window->getPosition().x), static_cast<float>(window->getPosition().y)));
+            }
+        }
+    }
 
   void Engine::behaviourUpdate()
   {

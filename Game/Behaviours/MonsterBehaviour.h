@@ -8,8 +8,7 @@
 
 #include "../GameEngine/Behaviour/Behaviour.h"
 #include "../GameEngine/Sprite/Sprite.hpp"
-
-class MonsterIa;
+#include "MonsterIA.h"
 
 namespace TacosEngine {
     class MonsterBehaviour : public Behaviour

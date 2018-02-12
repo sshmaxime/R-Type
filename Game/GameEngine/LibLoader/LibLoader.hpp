@@ -2,21 +2,16 @@
 
 #ifndef WIN32
 #include <dlfcn.h>
-#include <iostream>
-#include <utility>
-#include <list>
-#include "../Behaviour/Behaviour.h"
-//#include "../Behaviour/Behaviour.h"
-#include "../../Behaviours/MonsterIA.h"
+#include "ILibrary.hpp"
 
-class LibLoader
+class LibLoader : public ILibrary
 {
  public:
   LibLoader();
 
   ~LibLoader();
 
-  MonsterIa *LoadLib(const std::string &pathlib, std::shared_ptr<TacosEngine::Scene> scene);
+  virtual MonsterIa *LoadLib(const std::string &pathlib, std::shared_ptr<TacosEngine::Scene> scene);
 
  private:
   std::list<MonsterIa *> _libHistoric;

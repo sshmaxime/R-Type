@@ -24,7 +24,7 @@ Core::Core() = default;
 Core::~Core()
 = default;
 
-void Core::Init(bool displayMode)
+void Core::Init(bool displayMode, int numberPlayer) // if numberPlayer == -1 it is the server
 {
   this->_engine = std::make_shared<Engine>(displayMode);
     _engine->initRessources("ressources.txt");

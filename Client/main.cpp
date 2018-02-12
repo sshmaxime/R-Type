@@ -1,5 +1,6 @@
 #include "Client.h"
 #include "Global/CGlobal.h"
+#include <arpa/inet.h>
 
 void                exitSignal(int)
 {
@@ -10,7 +11,7 @@ void                exitSignal(int)
 void                signalsHandler()
 {
 #ifndef WIN32
-    struct sigaction sa;
+    struct sigaction sa{};
     memset( &sa, 0, sizeof(sa) );
     sa.sa_handler = exitSignal;
     sigfillset(&sa.sa_mask);
@@ -18,16 +19,30 @@ void                signalsHandler()
 #endif
 }
 
-
-int                 main()
+int                help()
 {
+    std::cout << "SoloPlayer Usage :" << std::endl;
+    std::cout << "./client 'username'" << std::endl;
+    std::cout << "MultiPlayer Usage :" << std::endl;
+    std::cout << "./client 'username' ['ip' 'port']" << std::endl;
+
+    return (-1);
+}
+
+int                 main(int ac, char **av)
+{
+    signalsHandler();
+    if ((ac > 2 && ac != 4) || ac == 1)
+        return (help());
     Client          myClient;
 
-    signalsHandler();
+    std::cout << av[1] << std::endl;
+    if (ac == 2)
+        myClient.Initialize(std::string(), 0, std::string(av[1]), false);
 
-  if (myClient.Initialize("127.0.0.1", 8887) == -1)
+    else if (myClient.Initialize("127.0.0.1", std::atoi(av[1]), av[2], true) == -1)
         return (-1);
-    myClient.Run();
 
+    myClient.Run();
     return (0);
 }

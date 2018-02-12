@@ -10,22 +10,33 @@
 #include <thread>
 
 class Client {
- public:
-  Client()                = default;
-  ~Client()               = default;
+public:
+    Client()                = default;
+    ~Client()               = default;
 
- private:
-  Core                    _Game;
-  CNetwork                _Network;
-  std::thread             _GameThread;
-  std::thread		_sendThread;
+private:
+    Core                    _Game;
+    CNetwork                _Network;
+    std::thread             _GameThread;
+    std::thread		      _sendThread;
+    int                     _numberPlayer;
 
- public:
-  int                     Initialize(const std::string&, int);
-  int                     Run();
-  int                     Delete();
-  int                     LaunchGame();
-  void 			sendListener();
+public:
+    bool                    _isOnline = false;
+
+private:
+    std::string             _Username = std::string();
+
+public:
+    int                     Initialize(const std::string&, int, const std::string&, bool);
+    int                     Delete();
+    int                     LaunchGame();
+    void 			        sendListener();
+
+public:
+    int                     Run();
+    int                     RunSolo();
+    int                     RunMultiplayer();
 };
 
 

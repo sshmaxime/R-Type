@@ -12,7 +12,7 @@
 #include "../Behaviours/PlayerBehaviour.hpp"
 
 
-TacosEngine::EventAddPlayer::EventAddPlayer(std::shared_ptr<Scene> &scene, const std::string &name, int number,
+TacosEngine::EventAddPlayer::EventAddPlayer(std::shared_ptr<Scene> scene, const std::string &name, int number,
 					    bool active)
 {
   _scene = scene;

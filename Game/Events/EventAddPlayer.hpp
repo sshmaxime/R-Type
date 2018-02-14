@@ -13,9 +13,9 @@ namespace TacosEngine
   class EventAddPlayer : public IEvent
   {
    public:
-    EventAddPlayer(std::shared_ptr<Scene> &scene, const std::string &name, int number, bool active);
+    EventAddPlayer(std::shared_ptr<Scene> scene, const std::string &name, int number, bool active);
 
-    ~EventMove() override = default;
+    ~EventAddPlayer() override = default;
 
     void onEvent() override;
 

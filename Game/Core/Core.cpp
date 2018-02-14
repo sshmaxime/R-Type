@@ -150,8 +150,11 @@ void Core::addEvent(const std::string& JSONString)
     {
       CmdAddPlayerPacket a;
       a.buildObjectFromJSON(packetContent);
+      int i = std::stoi(a.get_Number());
+      bool b;
+      std::istringstream(a.get_Active()) >> std::boolalpha >> b;
       auto event = std::make_shared<EventAddPlayer>(this->get_engine()->getSceneInProcess(), a.get_Username(),
-						    a.get_Number(), a.get_Active());
+						    i, b);
       auto name = "EventAddPlayer" + a.get_Username();
       while (!CGlobal::Instance()->_mutexSend.try_lock());
       this->_engine->getEventManager()->addEvent(event, name);

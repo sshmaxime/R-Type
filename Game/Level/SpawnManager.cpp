@@ -47,7 +47,11 @@ void SpawnManager::setOrder(const std::string &path)
                 {
                     vir = line.find(':', space);
                     std::string texture = line.substr(vir + 1, next - vir  -1);
+#ifdef WIN32
                     std::string lib = LIB_PREFIX + line.substr(space, vir - space) + LIB_EXTENSION;
+#else
+                    std::string lib = line.substr(space, vir - space) + LIB_EXTENSION;
+#endif
                     space = next + 1;
                     toAdd.emplace_back(lib, texture);
                 }
@@ -72,7 +76,12 @@ void SpawnManager::update(const TacosEngine::Input &)
         {
             auto rand = get_random();
             std::shared_ptr<Behaviour> beha;
+#ifdef WIN32
             std::string lib = std::string("./") + LIB_PREFIX + "Monster" + n.first;
+#else
+            std::string lib = "./libMonster" + n.first;
+
+#endif
             std::shared_ptr<Sprite>monster;
             MonsterIa *ia = _loader->LoadLib(lib, _object->getScene());
             if (ia)

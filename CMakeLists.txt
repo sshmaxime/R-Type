@@ -20,7 +20,7 @@ file(GLOB_RECURSE GAME_FILES_CORE Game/Core/*.cpp)
 file(GLOB_RECURSE GAME_FILES_ENTITY Game/Entity/*.cpp)
 file(GLOB_RECURSE GAME_FILES_GAMEENGINE Game/GameEngine/*.cpp)
 file(GLOB_RECURSE GAME_FILES_LEVEL Game/Level/*.cpp)
-file(GLOB_RECURSE GAME_FILES_EVENTS Game/GameEngine/Events/*.cpp)
+file(GLOB_RECURSE GAME_FILES _EVENTS Game/GameEngine/Events/*.cpp)
 
 
 add_executable(server

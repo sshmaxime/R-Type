@@ -3,12 +3,13 @@
 //
 
 #include <HelloPacket.h>
+#include <CmdAddPlayerPacket.hpp>
 #include "Client.h"
 #include "Global/CGlobal.h"
 
 int                 Client::Initialize(const std::string& ip, int port, const std::string& username, bool isOnline)
 {
-    if (_Network.Initialize(ip, port) == -1)
+    if (isOnline && _Network.Initialize(ip, port) == -1)
         return (-1);
     _Username = username;
     _isOnline = isOnline;
@@ -18,6 +19,13 @@ int                 Client::Initialize(const std::string& ip, int port, const st
 int                 Client::RunSolo()
 {
     _GameThread = std::thread(&Client::LaunchGame, this);
+    CmdAddPlayerPacket  packet;
+
+    packet.set_Active("true");
+    packet.set_Number("1");
+    packet.set_Username(this->_Username);
+    this->_Game.addEvent(packet.getHEADER() + packet.getJSON());
+
     this->_GameThread.join();
     return (0);
 }
@@ -43,7 +51,7 @@ int                 Client::RunMultiplayer()
 
 int                 Client::Run()
 {
-    if (_isOnline == true)
+    if (_isOnline)
         RunMultiplayer();
     else
         RunSolo();

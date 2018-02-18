@@ -37,8 +37,10 @@ int                 main(int ac, char **av)
     Client          myClient;
 
     std::cout << av[1] << std::endl;
-    if (ac == 2)
+    if (ac == 2) {
+        std::cout << "SOLO mode" << std::endl;
         myClient.Initialize(std::string(), 0, std::string(av[1]), false);
+    }
 
     else if (myClient.Initialize("127.0.0.1", std::atoi(av[1]), av[2], true) == -1)
         return (-1);

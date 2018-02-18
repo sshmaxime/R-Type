@@ -12,6 +12,16 @@ std::string                 User::getUsername() const
     return (this->_Username);
 }
 
+int                         User::getID() const
+{
+    return (this->_ID);
+}
+
+void                        User::setID(int id)
+{
+    this->_ID = id;
+}
+
 std::string                 User::getFullIp() const
 {
     return (this->_FullIP);

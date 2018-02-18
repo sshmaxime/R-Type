@@ -22,12 +22,15 @@ private:
     std::string             _Port;
     std::string             _IP;
     udp::endpoint           _Endpoint;
+    int                     _ID;
 
 public:
     std::string             getFullIp() const;
     std::string             getUsername() const;
     std::string             getPort() const;
     std::string             getIp() const;
+    int                     getID() const;
+    void                    setID(int);
 
 public:
     void                    send(const JSONObject&) const;

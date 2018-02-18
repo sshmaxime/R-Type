@@ -29,6 +29,23 @@ bool                    Room::isDuplicate(const std::shared_ptr<User> newUser) c
     return (false);
 }
 
+int                     Room::SendUser(CmdAddPlayerPacket& packet, int id)
+{
+    for (const auto &user : _Users)
+    {
+        if (user->getID() == id)
+        {
+            packet.set_Active("true");
+            user->send(packet);
+        }
+        else
+        {
+            user->send(packet);
+        }
+    }
+    return (0);
+}
+
 int                     Room::addUser(const std::shared_ptr<User> newUser)
 {
     if (_Users.size() >= 4)
@@ -38,6 +55,19 @@ int                     Room::addUser(const std::shared_ptr<User> newUser)
 
     _Users.emplace_back(newUser);
     std::cout << "User " +  newUser->getUsername() + " added" << std::endl;
+
+    CmdAddPlayerPacket  packet;
+
+    packet.set_Username(newUser->getUsername());
+    packet.set_Number(std::to_string(_Users.size()));
+    packet.set_Active("false");
+
+    newUser->setID(_Users.size());
+    this->SendUser(packet, newUser->getID());
+
+    this->_Game.addEvent(packet.getHEADER() + packet.getJSON());
+
+    newUser->send(packet);
     this->checkStart();
     return 0;
 }

@@ -22,7 +22,7 @@ int                 Client::RunSolo()
     CmdAddPlayerPacket  packet;
 
     packet.set_Active("true");
-    packet.set_Number("1");
+    packet.set_Number("0");
     packet.set_Username(this->_Username);
     this->_Game.addEvent(packet.getHEADER() + packet.getJSON());
 

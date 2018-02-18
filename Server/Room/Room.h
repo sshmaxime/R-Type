@@ -12,6 +12,7 @@
 #include <iostream>
 #include <boost/asio/detail/shared_ptr.hpp>
 #include <thread>
+#include <CmdAddPlayerPacket.hpp>
 
 class Room {
 public:
@@ -30,6 +31,8 @@ public:
     bool                    isUserIn(const std::string&) const;
     bool                    deleteUser(const std::string&);
     bool                    isEmpty() const;
+
+    int                     SendUser(CmdAddPlayerPacket&, int);
 
     int checkStart();
 

@@ -15,11 +15,6 @@ The purpose of this project is to create a one-to-four player game, using a clie
 - Boost or Qt on clientside
 - No external libraries on the server
 
-### How to play ?
-
-- Launch the script `./install.sh`
-- Launch the executable `./gonetlet`
-
 ## Authors
 
 * [Maxime Aubanel](https://github.com/MaximeAubanel)
